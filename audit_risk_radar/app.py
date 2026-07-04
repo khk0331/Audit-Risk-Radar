@@ -707,8 +707,13 @@ company_options = company_lookup["label"].tolist()
 selected_label = st.selectbox(
     "Company 검색/선택",
     company_options,
+    index=None,
+    placeholder="회사명 또는 종목코드를 입력해 선택하세요",
     help="회사명 또는 종목코드를 입력하면 현재 수집된 전체 패널 안에서 자동완성 검색이 가능합니다.",
 )
+if selected_label is None:
+    st.info("분석할 회사를 검색해 선택하면 회사별 리스크 분석이 표시됩니다.")
+    st.stop()
 selected_stock_code = company_lookup.loc[
     company_lookup["label"] == selected_label, "stock_code"
 ].iloc[0]
