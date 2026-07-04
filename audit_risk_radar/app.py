@@ -26,7 +26,7 @@ from src.risk_scoring import score_financials
 
 st.set_page_config(page_title="Audit Risk Radar", layout="wide")
 
-COLORWAY = ["#38BDF8", "#F59E0B", "#34D399", "#F87171", "#A78BFA", "#2DD4BF"]
+COLORWAY = ["#D8FF64", "#78C6A3", "#E6B86A", "#F2EFE4", "#A7B86B", "#BFA6FF"]
 LAYER_LABELS = {
     "accounting_risk_score": "Accounting Risk",
     "peer_risk_score": "Peer Risk",
@@ -96,53 +96,165 @@ px.defaults.template = "plotly_dark"
 st.markdown(
     """
     <style>
+    :root {
+        --moss-bg: #070907;
+        --moss-panel: #10140F;
+        --moss-panel-2: #171D15;
+        --moss-forest: #1F3B2C;
+        --moss-forest-soft: #223429;
+        --moss-lime: #D8FF64;
+        --moss-cream: #F2EFE4;
+        --moss-paper: #ECE7D8;
+        --moss-muted: #B8BAAB;
+        --moss-subtle: #858B7D;
+        --moss-border: #2D352B;
+        --moss-border-2: #3A4536;
+        --moss-rust: #E6B86A;
+    }
     html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
-        background: #060A12;
-        color: #E5E7EB;
+        background:
+            radial-gradient(circle at 78% 0%, rgba(216, 255, 100, 0.08), transparent 28rem),
+            linear-gradient(180deg, #080A08 0%, #070907 62%, #050705 100%);
+        color: var(--moss-cream);
     }
     [data-testid="stSidebar"], [data-testid="stToolbar"] {
-        background: #060A12;
+        background: var(--moss-bg);
     }
     .main .block-container { padding-top: 2rem; max-width: 1280px; }
     h1, h2, h3, h4, h5, h6, p, li, label, span {
-        color: #E5E7EB;
+        color: var(--moss-cream);
+    }
+    h1 {
+        font-weight: 760;
+        letter-spacing: 0;
     }
     div[data-testid="stMetric"] {
-        background: #111827;
-        border: 1px solid #243244;
+        background: linear-gradient(180deg, rgba(23, 29, 21, 0.98), rgba(13, 17, 12, 0.98));
+        border: 1px solid var(--moss-border);
         border-radius: 8px;
         padding: 14px 16px;
+        box-shadow: inset 0 1px 0 rgba(242, 239, 228, 0.04);
     }
     div[data-testid="stMetric"] label, div[data-testid="stMetric"] [data-testid="stMetricValue"] {
-        color: #F8FAFC;
+        color: var(--moss-cream);
     }
     .small-note {
-        color: #A7B0C0;
+        color: var(--moss-muted);
         font-size: 0.86rem;
         line-height: 1.55;
         margin-top: -0.35rem;
     }
     .score-guide {
-        border-left: 4px solid #38BDF8;
-        background: #111827;
-        border: 1px solid #243244;
+        border-left: 4px solid var(--moss-lime);
+        background: var(--moss-panel);
+        border: 1px solid var(--moss-border);
         padding: 0.85rem 1rem;
         border-radius: 6px;
         margin-bottom: 0.6rem;
         min-height: 124px;
     }
     .intro-band {
-        background: #0F172A;
-        border: 1px solid #243244;
+        background:
+            linear-gradient(135deg, rgba(23, 29, 21, 0.98) 0%, rgba(15, 20, 14, 0.98) 54%, rgba(31, 59, 44, 0.92) 100%);
+        border: 1px solid var(--moss-border-2);
         border-radius: 8px;
-        padding: 1.05rem 1.2rem;
+        padding: 1.2rem;
         margin: 0.7rem 0 1.0rem 0;
+        box-shadow: 0 22px 60px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(242, 239, 228, 0.04);
+    }
+    .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+        gap: 1.2rem;
+        align-items: stretch;
     }
     .intro-title {
-        color: #F8FAFC;
+        color: var(--moss-cream);
         font-size: 1.04rem;
         font-weight: 700;
         margin-bottom: 0.35rem;
+    }
+    .system-kicker {
+        color: var(--moss-lime);
+        font-size: 0.78rem;
+        font-weight: 760;
+        letter-spacing: 0;
+        margin-bottom: 0.45rem;
+        text-transform: uppercase;
+    }
+    .hero-title {
+        color: var(--moss-cream);
+        font-size: 2.15rem;
+        line-height: 1.08;
+        font-weight: 780;
+        margin-bottom: 0.65rem;
+    }
+    .reference-chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin-top: 0.85rem;
+    }
+    .reference-chip {
+        border: 1px solid rgba(242, 239, 228, 0.18);
+        border-radius: 999px;
+        color: var(--moss-cream);
+        background: rgba(7, 9, 7, 0.42);
+        padding: 0.33rem 0.62rem;
+        font-size: 0.78rem;
+        line-height: 1;
+    }
+    .preview-panel {
+        background: var(--moss-paper);
+        border: 1px solid rgba(242, 239, 228, 0.32);
+        border-radius: 8px;
+        color: #182116;
+        padding: 1rem;
+        min-height: 186px;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        box-shadow: inset 0 0 0 1px rgba(24, 33, 22, 0.08);
+    }
+    .preview-panel * {
+        color: #182116;
+    }
+    .preview-topline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.72rem;
+        font-weight: 760;
+        text-transform: uppercase;
+        border-bottom: 1px solid rgba(24, 33, 22, 0.12);
+        padding-bottom: 0.55rem;
+    }
+    .preview-number {
+        font-size: 2.05rem;
+        font-weight: 800;
+        margin: 0.75rem 0 0.25rem 0;
+        color: #203A2B;
+    }
+    .preview-bars {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        align-items: end;
+        gap: 0.32rem;
+        height: 58px;
+        margin-top: 0.45rem;
+    }
+    .preview-bars span {
+        display: block;
+        background: #203A2B;
+        border-radius: 3px 3px 0 0;
+    }
+    .preview-bars span:nth-child(2n) { background: var(--moss-lime); }
+    .preview-foot {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-top: 0.8rem;
+        font-size: 0.75rem;
+        color: #56624C;
     }
     .workflow-grid {
         display: grid;
@@ -157,108 +269,122 @@ st.markdown(
         margin: 0.65rem 0 0.95rem 0;
     }
     .briefing-card {
-        background: #111827;
-        border: 1px solid #243244;
+        background: var(--moss-panel);
+        border: 1px solid var(--moss-border);
         border-radius: 8px;
         padding: 0.9rem 1rem;
         min-height: 128px;
     }
     .briefing-kicker {
-        color: #38BDF8;
+        color: var(--moss-lime);
         font-size: 0.76rem;
         font-weight: 700;
         margin-bottom: 0.35rem;
     }
     .briefing-value {
-        color: #F8FAFC;
+        color: var(--moss-cream);
         font-size: 1.02rem;
         font-weight: 700;
         margin-bottom: 0.35rem;
     }
     .workflow-step {
-        background: #111827;
-        border: 1px solid #243244;
-        border-top: 3px solid #38BDF8;
+        background: var(--moss-panel);
+        border: 1px solid var(--moss-border);
+        border-top: 3px solid var(--moss-lime);
         border-radius: 8px;
         padding: 0.85rem 0.9rem;
         min-height: 112px;
     }
     .step-label {
-        color: #38BDF8;
+        color: var(--moss-lime);
         font-size: 0.78rem;
         font-weight: 700;
         text-transform: uppercase;
         margin-bottom: 0.35rem;
     }
     .step-title {
-        color: #F8FAFC;
+        color: var(--moss-cream);
         font-size: 0.98rem;
         font-weight: 700;
         margin-bottom: 0.28rem;
     }
     .section-note {
-        color: #A7B0C0;
+        color: var(--moss-muted);
         font-size: 0.9rem;
         line-height: 1.6;
         margin: -0.35rem 0 0.65rem 0;
     }
     .audit-callout {
-        border-left: 4px solid #F59E0B;
-        background: #1F2937;
-        border: 1px solid #374151;
+        border-left: 4px solid var(--moss-rust);
+        background: var(--moss-panel-2);
+        border: 1px solid var(--moss-border-2);
         border-radius: 6px;
         padding: 0.8rem 1rem;
-        color: #E5E7EB;
+        color: var(--moss-cream);
         line-height: 1.55;
         margin: 0.4rem 0 0.9rem 0;
     }
     .risk-analysis {
-        background: #0F172A;
-        border: 1px solid #334155;
-        border-left: 4px solid #F59E0B;
+        background: linear-gradient(180deg, rgba(23, 29, 21, 0.98), rgba(12, 16, 11, 0.98));
+        border: 1px solid var(--moss-border-2);
+        border-left: 4px solid var(--moss-rust);
         border-radius: 8px;
         padding: 1rem 1.1rem;
         line-height: 1.65;
-        color: #E5E7EB;
+        color: var(--moss-cream);
         margin: 0.4rem 0 1rem 0;
     }
     .risk-analysis strong {
-        color: #F8FAFC;
+        color: var(--moss-cream);
     }
     [data-testid="stDataFrame"], [data-testid="stTable"] {
-        border: 1px solid #243244;
+        border: 1px solid var(--moss-border);
         border-radius: 8px;
     }
     div[data-baseweb="select"] > div, div[data-baseweb="tag"], div[data-baseweb="slider"] {
-        background: #111827;
-        color: #E5E7EB;
+        background: var(--moss-panel);
+        border-color: var(--moss-border) !important;
+        color: var(--moss-cream);
     }
     div[data-baseweb="select"] input,
     div[data-baseweb="select"] span,
     div[data-baseweb="select"] div {
-        color: #F8FAFC !important;
+        color: var(--moss-cream) !important;
     }
     div[data-baseweb="popover"] div,
     div[role="listbox"] div,
     div[role="option"] {
-        background: #111827 !important;
-        color: #F8FAFC !important;
+        background: var(--moss-panel) !important;
+        color: var(--moss-cream) !important;
     }
     div[role="option"]:hover {
-        background: #1F2937 !important;
+        background: var(--moss-forest-soft) !important;
     }
     input, textarea {
-        color: #F8FAFC !important;
-        background: #111827 !important;
+        color: var(--moss-cream) !important;
+        background: var(--moss-panel) !important;
     }
     input::placeholder, textarea::placeholder {
-        color: #94A3B8 !important;
+        color: var(--moss-subtle) !important;
     }
     .stAlert {
-        background: #111827;
-        color: #E5E7EB;
+        background: var(--moss-panel);
+        color: var(--moss-cream);
+    }
+    .stButton > button, .stDownloadButton > button {
+        background: var(--moss-paper);
+        color: #11180F;
+        border: 1px solid rgba(216, 255, 100, 0.34);
+        border-radius: 8px;
+        font-weight: 700;
+    }
+    .stButton > button:hover, .stDownloadButton > button:hover {
+        background: var(--moss-lime);
+        color: #11180F;
+        border-color: var(--moss-lime);
     }
     @media (max-width: 900px) {
+        .hero-grid { grid-template-columns: 1fr; }
         .workflow-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .briefing-grid { grid-template-columns: 1fr; }
     }
@@ -301,12 +427,12 @@ def classify_risk_level(score: float) -> str:
 
 def style_chart(fig: go.Figure) -> go.Figure:
     fig.update_layout(
-        paper_bgcolor="#060A12",
-        plot_bgcolor="#060A12",
-        font=dict(color="#E5E7EB"),
-        legend=dict(font=dict(color="#E5E7EB")),
-        xaxis=dict(gridcolor="#1F2937", zerolinecolor="#243244"),
-        yaxis=dict(gridcolor="#1F2937", zerolinecolor="#243244"),
+        paper_bgcolor="#070907",
+        plot_bgcolor="#070907",
+        font=dict(color="#F2EFE4"),
+        legend=dict(font=dict(color="#F2EFE4")),
+        xaxis=dict(gridcolor="#20271E", zerolinecolor="#3A4536"),
+        yaxis=dict(gridcolor="#20271E", zerolinecolor="#3A4536"),
     )
     return fig
 
@@ -457,12 +583,48 @@ st.title("Audit Risk Radar")
 st.caption("공시 재무제표 기반 감사 리스크 스크리닝 | Beneish-style indicators, Peer comparison, ML anomaly detection")
 st.caption(f"Data Source: {data_source_label} · {data_source_detail}")
 st.markdown(
-    """
+    f"""
     <div class='intro-band'>
-        <div class='intro-title'>무엇을 하는 도구인가요?</div>
-        <div class='small-note'>
-        Audit Risk Radar는 DART 공시 재무제표를 이용해 기업별 이상징후를 빠르게 선별하는 감사계획 보조 도구입니다.
-        감사 결론을 내리는 시스템이 아니라, 감사인이 먼저 볼 회사와 계정 영역을 정하고 후속 질문을 설계하도록 돕는 risk prioritization dashboard입니다.
+        <div class='hero-grid'>
+            <div>
+                <div class='system-kicker'>DART FINANCIAL RISK SYSTEM</div>
+                <div class='hero-title'>공시 재무제표를 감사계획 신호로 변환합니다.</div>
+                <div class='small-note'>
+                Audit Risk Radar는 DART 공시 재무제표를 이용해 기업별 이상징후를 빠르게 선별하는 감사계획 보조 도구입니다.
+                감사 결론을 내리는 시스템이 아니라, 감사인이 먼저 볼 회사와 계정 영역을 정하고 후속 질문을 설계하도록 돕는 risk prioritization dashboard입니다.
+                </div>
+                <div class='reference-chip-row'>
+                    <span class='reference-chip'>Company Search</span>
+                    <span class='reference-chip'>Beneish-style</span>
+                    <span class='reference-chip'>Peer Benchmark</span>
+                    <span class='reference-chip'>ML Anomaly</span>
+                    <span class='reference-chip'>Audit Questions</span>
+                </div>
+            </div>
+            <div class='preview-panel'>
+                <div class='preview-topline'>
+                    <span>Risk Signal Preview</span>
+                    <span>2020-2024</span>
+                </div>
+                <div>
+                    <div class='preview-number'>{df['company_name'].nunique():,}</div>
+                    <div style='font-size:0.86rem; color:#4D5C45;'>scored companies in local panel</div>
+                    <div class='preview-bars'>
+                        <span style='height:32%;'></span>
+                        <span style='height:58%;'></span>
+                        <span style='height:42%;'></span>
+                        <span style='height:76%;'></span>
+                        <span style='height:64%;'></span>
+                        <span style='height:88%;'></span>
+                        <span style='height:48%;'></span>
+                    </div>
+                </div>
+                <div class='preview-foot'>
+                    <span>Accounting</span>
+                    <span>Peer</span>
+                    <span>ML</span>
+                </div>
+            </div>
         </div>
     </div>
     <div class='workflow-grid'>
