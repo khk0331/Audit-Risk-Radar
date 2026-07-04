@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import html
 import re
 from pathlib import Path
 
@@ -256,6 +257,167 @@ st.markdown(
         font-size: 0.75rem;
         color: #56624C;
     }
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.72rem;
+        margin: 0.65rem 0 0.9rem 0;
+    }
+    .kpi-card {
+        background: var(--moss-paper);
+        color: #152114;
+        border: 1px solid rgba(242, 239, 228, 0.28);
+        border-radius: 8px;
+        padding: 0.9rem 0.95rem;
+        min-height: 104px;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        box-shadow: inset 0 0 0 1px rgba(24, 33, 22, 0.08);
+    }
+    .kpi-card * {
+        color: #152114;
+    }
+    .kpi-label {
+        font-size: 0.72rem;
+        font-weight: 780;
+        text-transform: uppercase;
+        color: #59624F;
+    }
+    .kpi-value {
+        font-size: 1.64rem;
+        line-height: 1.05;
+        font-weight: 820;
+        margin-top: 0.55rem;
+    }
+    .kpi-note {
+        color: #5F6B55;
+        font-size: 0.78rem;
+        line-height: 1.35;
+        margin-top: 0.4rem;
+    }
+    .signal-board {
+        background: var(--moss-panel);
+        border: 1px solid var(--moss-border);
+        border-radius: 8px;
+        padding: 0.95rem;
+        margin: 0.7rem 0 1rem 0;
+    }
+    .signal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        border-bottom: 1px solid var(--moss-border);
+        padding-bottom: 0.65rem;
+        margin-bottom: 0.75rem;
+    }
+    .window-dots {
+        display: inline-flex;
+        gap: 0.35rem;
+    }
+    .window-dots span {
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 999px;
+        display: block;
+    }
+    .window-dots span:nth-child(1) { background: #E85D4F; }
+    .window-dots span:nth-child(2) { background: #E6B86A; }
+    .window-dots span:nth-child(3) { background: #78C6A3; }
+    .signal-title {
+        color: var(--moss-cream);
+        font-weight: 760;
+        font-size: 0.92rem;
+    }
+    .signal-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.72rem;
+    }
+    .signal-item {
+        background: rgba(31, 59, 44, 0.32);
+        border: 1px solid var(--moss-border);
+        border-radius: 8px;
+        padding: 0.85rem;
+        min-height: 104px;
+    }
+    .signal-kicker {
+        color: var(--moss-lime);
+        font-size: 0.72rem;
+        font-weight: 760;
+        text-transform: uppercase;
+        margin-bottom: 0.35rem;
+    }
+    .signal-main {
+        color: var(--moss-cream);
+        font-size: 1.05rem;
+        font-weight: 760;
+        margin-bottom: 0.32rem;
+    }
+    .moss-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        border: 1px solid rgba(216, 255, 100, 0.32);
+        border-radius: 999px;
+        background: rgba(216, 255, 100, 0.08);
+        color: var(--moss-lime);
+        font-size: 0.74rem;
+        font-weight: 700;
+        padding: 0.32rem 0.55rem;
+        line-height: 1;
+    }
+    .micro-bars {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 0.25rem;
+        align-items: end;
+        height: 44px;
+        margin-top: 0.6rem;
+    }
+    .micro-bars span {
+        display: block;
+        background: #27382B;
+        border-radius: 3px 3px 0 0;
+    }
+    .micro-bars span:nth-child(3n) { background: var(--moss-lime); }
+    .micro-bars span:nth-child(2n) { background: #78C6A3; }
+    .layer-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.75rem;
+        margin: 0.75rem 0 0.9rem 0;
+    }
+    .layer-tile {
+        background: linear-gradient(180deg, rgba(23, 29, 21, 0.98), rgba(10, 13, 9, 0.98));
+        border: 1px solid var(--moss-border);
+        border-radius: 8px;
+        padding: 0.95rem;
+        min-height: 150px;
+    }
+    .layer-score {
+        color: var(--moss-lime);
+        font-size: 2rem;
+        font-weight: 820;
+        line-height: 1;
+        margin: 0.5rem 0 0.45rem 0;
+    }
+    .layer-caption {
+        color: var(--moss-muted);
+        font-size: 0.82rem;
+        line-height: 1.45;
+    }
+    div[data-testid="stTabs"] button {
+        border-radius: 999px;
+        border: 1px solid var(--moss-border);
+        background: rgba(16, 20, 15, 0.68);
+        color: var(--moss-cream);
+        margin-right: 0.35rem;
+    }
+    div[data-testid="stTabs"] button[aria-selected="true"] {
+        background: var(--moss-paper);
+        color: #11180F;
+    }
     .workflow-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -385,11 +547,15 @@ st.markdown(
     }
     @media (max-width: 900px) {
         .hero-grid { grid-template-columns: 1fr; }
+        .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .signal-grid { grid-template-columns: 1fr; }
+        .layer-grid { grid-template-columns: 1fr; }
         .workflow-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .briefing-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
         .workflow-grid { grid-template-columns: 1fr; }
+        .kpi-grid { grid-template-columns: 1fr; }
     }
     </style>
     """,
@@ -480,6 +646,36 @@ def first_audit_question(row: pd.Series) -> str:
         return "재무비율 변동 원인을 전년 및 peer와 비교해 설명합니다."
     first = re.sub(r"^\d+\.\s*", "", steps[0]).strip()
     return first[:210] + ("..." if len(first) > 210 else "")
+
+
+def fmt_score(value: object) -> str:
+    return f"{float(value):.1f}" if pd.notna(value) else "N/A"
+
+
+def micro_bars_html(values: list[float]) -> str:
+    clean_values = [max(0.0, min(100.0, float(value))) for value in values if pd.notna(value)]
+    if not clean_values:
+        clean_values = [18, 34, 52, 41, 66, 58, 82, 49]
+    while len(clean_values) < 8:
+        clean_values.extend(clean_values)
+    bars = "".join(
+        f"<span style='height:{max(12, min(92, value)):.0f}%;'></span>"
+        for value in clean_values[:8]
+    )
+    return f"<div class='micro-bars'>{bars}</div>"
+
+
+def layer_tile_html(title: str, score: object, note: str) -> str:
+    return f"""
+    <div class='layer-tile'>
+        <div class='signal-head'>
+            <span class='signal-title'>{html.escape(title)}</span>
+            <span class='moss-badge'>Score</span>
+        </div>
+        <div class='layer-score'>{fmt_score(score)}</div>
+        <div class='layer-caption'>{html.escape(note)}</div>
+    </div>
+    """
 
 
 def build_audit_workplan(row: pd.Series) -> pd.DataFrame:
@@ -765,33 +961,78 @@ st.markdown(
 )
 
 st.markdown("#### 선택 회사 요약")
-company_metric_cols = st.columns(4)
-company_metric_cols[0].metric("검토 등급", analysis_row["risk_level"])
-company_metric_cols[1].metric("Final Risk", f"{analysis_row['final_risk_score']:.1f}")
-company_metric_cols[2].metric("M-Score", f"{analysis_row['m_score']:.2f}")
-company_metric_cols[3].metric("분석 Year", int(analysis_row["year"]))
+summary_html = f"""
+<div class='kpi-grid'>
+    <div class='kpi-card'>
+        <div class='kpi-label'>Review Grade</div>
+        <div class='kpi-value'>{html.escape(str(analysis_row['risk_level']))}</div>
+        <div class='kpi-note'>감사계획 우선순위</div>
+    </div>
+    <div class='kpi-card'>
+        <div class='kpi-label'>Final Risk</div>
+        <div class='kpi-value'>{fmt_score(analysis_row['final_risk_score'])}</div>
+        <div class='kpi-note'>Accounting, Peer, ML 종합</div>
+    </div>
+    <div class='kpi-card'>
+        <div class='kpi-label'>M-Score</div>
+        <div class='kpi-value'>{float(analysis_row['m_score']):.2f}</div>
+        <div class='kpi-note'>Beneish-style baseline</div>
+    </div>
+    <div class='kpi-card'>
+        <div class='kpi-label'>Analysis Year</div>
+        <div class='kpi-value'>{int(analysis_row['year'])}</div>
+        <div class='kpi-note'>{html.escape(str(analysis_row['industry']))}</div>
+    </div>
+</div>
+"""
+st.markdown(summary_html, unsafe_allow_html=True)
 st.markdown(
     f"<p class='small-note'><strong>{analysis_row['company_name']} · {analysis_row['industry']}</strong><br>{RISK_LEVEL_HELP.get(analysis_row['risk_level'], '')}</p>",
     unsafe_allow_html=True,
 )
 
 st.markdown("#### 감사 브리핑")
+briefing_bars = micro_bars_html(
+    [
+        analysis_row.get("final_risk_score", 0),
+        analysis_row.get("accounting_risk_score", 0),
+        analysis_row.get("peer_risk_score", 0),
+        analysis_row.get("ml_risk_score", 0),
+        abs(float(analysis_row.get("dsri", 1) or 1) - 1) * 100,
+        abs(float(analysis_row.get("gmi", 1) or 1) - 1) * 100,
+        abs(float(analysis_row.get("sgi", 1) or 1) - 1) * 100,
+        abs(float(analysis_row.get("tata", 0) or 0)) * 600,
+    ]
+)
 briefing_html = f"""
-<div class='briefing-grid'>
-    <div class='briefing-card'>
-        <div class='briefing-kicker'>Priority</div>
-        <div class='briefing-value'>{analysis_row['risk_level']} · Final Risk {analysis_row['final_risk_score']:.1f}</div>
-        <div class='small-note'>이 점수는 감사 결론이 아니라, 선택 Year/Industry 표본 안에서 우선 검토 순서를 정하기 위한 신호입니다.</div>
+<div class='signal-board'>
+    <div class='signal-head'>
+        <div class='window-dots'><span></span><span></span><span></span></div>
+        <div class='signal-title'>Audit signal briefing</div>
+        <div class='moss-badge'>{html.escape(str(analysis_row['risk_level']))}</div>
     </div>
-    <div class='briefing-card'>
-        <div class='briefing-kicker'>Main Drivers</div>
-        <div class='briefing-value'>{top_indicator_summary(analysis_row)}</div>
-        <div class='small-note'>전년 대비 변화율과 발생액 성격 지표 중 눈에 띄는 항목입니다. 아래 점수 해부에서 원인을 더 확인합니다.</div>
-    </div>
-    <div class='briefing-card'>
-        <div class='briefing-kicker'>First Audit Question</div>
-        <div class='briefing-value'>후속 질문 후보</div>
-        <div class='small-note'>{first_audit_question(analysis_row)}</div>
+    <div class='signal-grid'>
+        <div class='signal-item'>
+            <div class='signal-kicker'>Priority</div>
+            <div class='signal-main'>{html.escape(str(analysis_row['risk_level']))} · Final Risk {fmt_score(analysis_row['final_risk_score'])}</div>
+            <div class='small-note'>감사 결론이 아니라, 선택 Year/Industry 표본 안에서 우선 검토 순서를 정하기 위한 신호입니다.</div>
+            {briefing_bars}
+        </div>
+        <div class='signal-item'>
+            <div class='signal-kicker'>Main Drivers</div>
+            <div class='signal-main'>{html.escape(top_indicator_summary(analysis_row))}</div>
+            <div class='small-note'>전년 대비 변화율과 발생액 성격 지표 중 눈에 띄는 항목입니다. 아래 점수 해부에서 원인을 더 확인합니다.</div>
+        </div>
+        <div class='signal-item'>
+            <div class='signal-kicker'>First Audit Question</div>
+            <div class='signal-main'>후속 질문 후보</div>
+            <div class='small-note'>{html.escape(first_audit_question(analysis_row))}</div>
+        </div>
+        <div class='signal-item'>
+            <div class='signal-kicker'>Data Status</div>
+            <div class='signal-main'>Public disclosure only</div>
+            <div class='small-note'>내부 원장/전표가 아닌 DART 공시 재무제표 기반입니다. 결과는 감사계획 단계의 review ticket으로 해석합니다.</div>
+        </div>
     </div>
 </div>
 """
@@ -812,6 +1053,14 @@ st.markdown(
     "<p class='small-note'>Final Risk를 구성하는 세 점수는 서로 다른 질문에 답합니다. Accounting Risk는 회계비율 자체의 red flag, Peer Risk는 유사 회사 대비 이례성, ML Risk는 여러 지표가 동시에 만드는 복합 이상 패턴을 봅니다.</p>",
     unsafe_allow_html=True,
 )
+layer_cards_html = f"""
+<div class='layer-grid'>
+    {layer_tile_html('Accounting Risk', analysis_row.get('accounting_risk_score'), 'Beneish-style 지표와 회계적 red flag가 만든 기본 위험 신호입니다.')}
+    {layer_tile_html('Peer Risk', analysis_row.get('peer_risk_score'), '동일 Year/Industry 및 matched peer 대비 얼마나 이례적인지를 봅니다.')}
+    {layer_tile_html('ML Risk', analysis_row.get('ml_risk_score'), '여러 지표가 동시에 만드는 비지도 이상 패턴을 탐지합니다.')}
+</div>
+"""
+st.markdown(layer_cards_html, unsafe_allow_html=True)
 layer_tabs = st.tabs(["Accounting Risk", "Peer Risk", "ML Risk"])
 with layer_tabs[0]:
     st.markdown(
