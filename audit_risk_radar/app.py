@@ -497,12 +497,21 @@ st.markdown(
         border-radius: 999px;
         border: 1px solid var(--moss-border);
         background: rgba(16, 20, 15, 0.68);
-        color: var(--moss-cream);
+        color: var(--moss-cream) !important;
         margin-right: 0.35rem;
     }
+    div[data-testid="stTabs"] button p {
+        color: var(--moss-cream) !important;
+        font-weight: 760;
+    }
     div[data-testid="stTabs"] button[aria-selected="true"] {
-        background: var(--moss-paper);
-        color: #11180F;
+        background: linear-gradient(180deg, rgba(31, 59, 44, 0.98), rgba(11, 17, 12, 0.98)) !important;
+        border-color: rgba(216, 255, 100, 0.48) !important;
+        color: var(--moss-lime) !important;
+        box-shadow: inset 0 0 0 1px rgba(216, 255, 100, 0.14);
+    }
+    div[data-testid="stTabs"] button[aria-selected="true"] p {
+        color: var(--moss-lime) !important;
     }
     .workflow-grid {
         display: grid;
@@ -714,9 +723,9 @@ def m_score_bullet_chart(m_score: object) -> go.Figure:
     axis_max = max(0.6, float(value) + 0.55)
     fig = go.Figure()
     zones = [
-        (axis_min, -2.22, "#1F3B2C", "상대적 안전"),
-        (-2.22, -1.78, "#E6B86A", "관찰 구간"),
-        (-1.78, axis_max, "#D86464", "주의 구간"),
+        (axis_min, -2.22, "#2E6B49", "상대적 안전"),
+        (-2.22, -1.78, "#D99A2B", "관찰 구간"),
+        (-1.78, axis_max, "#C83F3F", "주의 구간"),
     ]
     for start, end, color, label in zones:
         fig.add_shape(
@@ -726,8 +735,8 @@ def m_score_bullet_chart(m_score: object) -> go.Figure:
             y0=-0.34,
             y1=0.34,
             fillcolor=color,
-            opacity=0.42,
-            line_width=0,
+            opacity=0.82,
+            line=dict(color="rgba(242,239,228,0.20)", width=1),
             layer="below",
         )
         midpoint = (start + end) / 2
@@ -737,7 +746,7 @@ def m_score_bullet_chart(m_score: object) -> go.Figure:
                 y=-0.52,
                 text=label,
                 showarrow=False,
-                font=dict(size=12, color="#B8BAAB"),
+                font=dict(size=12, color="#F2EFE4"),
             )
 
     fig.add_vline(
