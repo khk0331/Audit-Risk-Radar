@@ -8,6 +8,7 @@ from src.event_labels import attach_event_labels, load_event_labels
 from src.dart_pipeline import _extract_amount_with_match
 from src.metrics import add_beneish_style_features
 from src.risk_scoring import prepare_model_features, score_financials
+from src.regulatory_focus import load_regulatory_focus_issues, match_regulatory_focus_issues
 from src.sample_data import generate_sample_financials
 
 
@@ -110,6 +111,25 @@ class MetricsTest(unittest.TestCase):
 
         self.assertEqual(amount, 1000.0)
         self.assertEqual(match["account_name"], "영업수익")
+
+    def test_regulatory_focus_issues_match_company_signals(self):
+        issues = load_regulatory_focus_issues()
+        row = pd.Series(
+            {
+                "dsri": 1.42,
+                "sgi": 1.30,
+                "gmi": 0.95,
+                "aqi": 1.00,
+                "lvgi": 0.90,
+                "tata": 0.01,
+            }
+        )
+
+        matches = match_regulatory_focus_issues(row, issues)
+
+        self.assertFalse(matches.empty)
+        self.assertIn("수익인식", matches.iloc[0]["issue_name"])
+        self.assertGreaterEqual(matches.iloc[0]["match_strength"], 50)
 
 
 if __name__ == "__main__":

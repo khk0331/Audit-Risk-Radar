@@ -23,6 +23,11 @@ from src.explanations import (
 )
 from src.metrics import add_beneish_style_features
 from src.peer_selection import peer_methodology_note, select_representative_peers
+from src.regulatory_focus import (
+    load_regulatory_focus_issues,
+    match_regulatory_focus_issues,
+    summarize_focus_matches,
+)
 from src.risk_scoring import score_financials
 
 
@@ -694,6 +699,11 @@ def load_labels(label_mtime: float = 0.0):
     return load_event_labels()
 
 
+@st.cache_data
+def load_focus_issues(focus_mtime: float = 0.0):
+    return load_regulatory_focus_issues()
+
+
 def classify_risk_level(score: float) -> str:
     if score >= 70:
         return "High"
@@ -1210,13 +1220,16 @@ processed_data_path = Path("data/processed/financials_panel_2020_2024_full.csv")
 if not processed_data_path.exists():
     processed_data_path = Path("data/processed/financials_panel.csv")
 event_label_path = Path("data/labels/external_events_template.csv")
+focus_issue_path = Path("data/reference/regulatory_focus_issues.csv")
 data_mtime = processed_data_path.stat().st_mtime if processed_data_path.exists() else 0.0
 label_mtime = event_label_path.stat().st_mtime if event_label_path.exists() else 0.0
+focus_mtime = focus_issue_path.stat().st_mtime if focus_issue_path.exists() else 0.0
 raw_financials = load_financials()
 df = load_scored_data(model_version=14, data_mtime=data_mtime)
 raw_financials["stock_code"] = raw_financials["stock_code"].astype(str).str.zfill(6)
 df["stock_code"] = df["stock_code"].astype(str).str.zfill(6)
 event_labels = load_labels(label_mtime=label_mtime)
+focus_issues = load_focus_issues(focus_mtime=focus_mtime)
 df = attach_event_labels(df, event_labels)
 df["risk_level"] = df["final_risk_score"].apply(classify_risk_level)
 if "detailed_risk_analysis" not in df.columns:
@@ -1491,6 +1504,39 @@ st.markdown(
     "이 앱에서는 이 기준선을 단독 판단이 아니라 Accounting, Peer, ML Risk를 함께 읽기 위한 기준점으로 사용합니다.</p>",
     unsafe_allow_html=True,
 )
+
+st.markdown("##### 감리 테마 연결")
+focus_matches = match_regulatory_focus_issues(analysis_row, focus_issues)
+st.markdown(
+    f"<div class='driver-note'><strong>감리 테마 참고:</strong> {html.escape(summarize_focus_matches(focus_matches))}</div>",
+    unsafe_allow_html=True,
+)
+if focus_matches.empty:
+    st.info(
+        "현재 등록된 감리 테마 DB 기준으로 강한 연결 신호는 없습니다. "
+        "다만 감리 테마 DB는 매년 발표자료에 맞춰 업데이트해야 하며, 실제 감사계획에서는 회사의 주석과 업종 특성을 함께 고려해야 합니다."
+    )
+else:
+    display_focus_matches = focus_matches.rename(
+        columns={
+            "issue_name": "감리 테마",
+            "source_year": "연도",
+            "source_agency": "출처",
+            "match_strength": "연결 강도",
+            "matched_signal": "연결 근거",
+            "related_accounts": "관련 계정",
+            "description": "테마 설명",
+            "audit_implication": "감사계획 시사점",
+            "reference_note": "비고",
+        }
+    )
+    st.dataframe(display_focus_matches, width="stretch", hide_index=True)
+    st.markdown(
+        "<p class='small-note'>이 표는 선택 회사의 공시 재무비율 신호를 등록된 감리 테마와 연결한 참고 정보입니다. "
+        "감리 대상 여부나 위반 여부를 판단하는 기능이 아니라, 감사계획 단계에서 놓치지 말아야 할 회계 이슈를 알려주는 용도입니다.</p>",
+        unsafe_allow_html=True,
+    )
+
 drivers_df = driver_table(analysis_row)
 if not drivers_df.empty:
     st.markdown(

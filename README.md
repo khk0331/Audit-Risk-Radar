@@ -29,6 +29,7 @@ The answer is yes, with important limits. Public data cannot replace audit evide
 ## Main Features
 
 - Company-centered search and analysis dashboard
+- Regulatory focus issue mapping for planning-stage audit attention points
 - KRX current listed-company universe fetch
 - DART/OpenDART financial statement collection
 - Account-name normalization from heterogeneous Korean/IFRS account names
