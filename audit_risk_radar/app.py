@@ -585,6 +585,19 @@ st.markdown(
     .risk-analysis strong {
         color: var(--moss-cream);
     }
+    .inline-token {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 999px;
+        border: 1px solid rgba(216, 255, 100, 0.25);
+        background: rgba(216, 255, 100, 0.08);
+        color: var(--moss-lime);
+        font-size: 0.82em;
+        font-weight: 760;
+        padding: 0.08rem 0.38rem;
+        line-height: 1.2;
+        vertical-align: 0.04rem;
+    }
     [data-testid="stDataFrame"], [data-testid="stTable"] {
         border: 1px solid var(--moss-border);
         border-radius: 8px;
@@ -696,7 +709,9 @@ def analysis_to_html(text: str) -> str:
     lines = []
     in_list = False
     for raw_line in text.splitlines():
-        line = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", raw_line)
+        line = html.escape(str(raw_line))
+        line = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", line)
+        line = re.sub(r"`([^`]+)`", r"<span class='inline-token'>\1</span>", line)
         if line.startswith("- "):
             if not in_list:
                 lines.append("<ul>")
