@@ -13,6 +13,7 @@ from src.data_loader import load_financials
 from src.event_labels import EVENT_LABEL_COLUMNS, attach_event_labels, load_event_labels
 from src.explanations import (
     AUDIT_FOCUS,
+    FEATURE_DETAIL,
     add_explanations,
     detailed_risk_analysis,
     explain_accounting_layer,
@@ -450,6 +451,48 @@ st.markdown(
         font-weight: 760;
         line-height: 1;
     }
+    .readout-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr 1fr;
+        gap: 0.75rem;
+        margin: 0.75rem 0 1rem 0;
+    }
+    .readout-card {
+        background: linear-gradient(180deg, rgba(23, 29, 21, 0.98), rgba(10, 13, 9, 0.98));
+        border: 1px solid var(--moss-border-2);
+        border-radius: 8px;
+        padding: 0.95rem 1rem;
+        min-height: 154px;
+    }
+    .readout-label {
+        color: var(--moss-lime);
+        font-size: 0.74rem;
+        font-weight: 780;
+        text-transform: uppercase;
+        margin-bottom: 0.45rem;
+    }
+    .readout-title {
+        color: var(--moss-cream);
+        font-size: 1.12rem;
+        line-height: 1.25;
+        font-weight: 800;
+        margin-bottom: 0.45rem;
+    }
+    .readout-body {
+        color: var(--moss-muted);
+        font-size: 0.86rem;
+        line-height: 1.55;
+    }
+    .driver-note {
+        border: 1px solid var(--moss-border);
+        border-left: 4px solid var(--moss-lime);
+        background: rgba(31, 59, 44, 0.28);
+        border-radius: 8px;
+        padding: 0.8rem 0.95rem;
+        margin: 0.45rem 0 0.85rem 0;
+        color: var(--moss-muted);
+        line-height: 1.55;
+    }
     div[data-testid="stTabs"] button {
         border-radius: 999px;
         border: 1px solid var(--moss-border);
@@ -594,6 +637,7 @@ st.markdown(
         .signal-grid { grid-template-columns: 1fr; }
         .layer-grid { grid-template-columns: 1fr; }
         .quality-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .readout-grid { grid-template-columns: 1fr; }
         .workflow-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .briefing-grid { grid-template-columns: 1fr; }
     }
@@ -721,6 +765,128 @@ def layer_tile_html(title: str, score: object, note: str) -> str:
         <div class='layer-caption'>{html.escape(note)}</div>
     </div>
     """
+
+
+def score_band_label(score: object) -> str:
+    if pd.isna(score):
+        return "산출 불가"
+    value = float(score)
+    if value >= 70:
+        return "높은 우선순위"
+    if value >= 40:
+        return "관찰 필요"
+    return "상대적으로 낮음"
+
+
+def dominant_layer_name(row: pd.Series) -> str:
+    layers = {
+        "Accounting Risk": row.get("accounting_risk_score"),
+        "Peer Risk": row.get("peer_risk_score"),
+        "ML Risk": row.get("ml_risk_score"),
+    }
+    valid_layers = {key: value for key, value in layers.items() if pd.notna(value)}
+    return max(valid_layers, key=valid_layers.get) if valid_layers else "복합 리스크"
+
+
+def feature_severity(feature: str, row: pd.Series) -> float:
+    value = row.get(feature)
+    if pd.isna(value):
+        return -1.0
+    value = float(value)
+    if feature == "tata":
+        return abs(value) / 0.08
+    return abs(value - 1.0)
+
+
+def top_driver_features(row: pd.Series, limit: int = 3) -> list[str]:
+    triggered = get_triggered_features(row)
+    if triggered:
+        return triggered[:limit]
+    candidates = [
+        (feature_severity(feature, row), feature)
+        for feature in FEATURE_LABELS
+        if pd.notna(row.get(feature))
+    ]
+    return [feature for _, feature in sorted(candidates, reverse=True)[:limit]]
+
+
+def feature_signal_label(feature: str, row: pd.Series) -> str:
+    value = row.get(feature)
+    if pd.isna(value):
+        return "산출 불가"
+    value = float(value)
+    if feature == "tata":
+        if value >= 0.08:
+            return "강한 발생액 신호"
+        if value >= 0.05:
+            return "주의 발생액 신호"
+        return "발생액 신호 낮음"
+    if value >= 1.25:
+        return "뚜렷한 상승"
+    if value >= 1.10:
+        return "상승 관찰"
+    if value <= 0.90:
+        return "하락 변동"
+    return "중립권"
+
+
+def audit_focus_summary(features: list[str]) -> tuple[str, str]:
+    for feature in features:
+        focus = AUDIT_FOCUS.get(feature)
+        if focus:
+            return focus["area"], focus["question"]
+    return "재무비율 조합", "복수 지표가 함께 움직인 경제적 원인이 무엇인가?"
+
+
+def risk_readout_html(row: pd.Series) -> str:
+    drivers = top_driver_features(row)
+    driver_labels = [FEATURE_LABELS.get(feature, feature.upper()) for feature in drivers]
+    audit_area, audit_question = audit_focus_summary(drivers)
+    dominant_layer = dominant_layer_name(row)
+    score = row.get("final_risk_score")
+    return f"""
+    <div class='readout-grid'>
+        <div class='readout-card'>
+            <div class='readout-label'>Executive Summary</div>
+            <div class='readout-title'>{html.escape(str(row['company_name']))} · {score_band_label(score)}</div>
+            <div class='readout-body'>Final Risk {fmt_score(score)}점입니다. 이 결과는 부정 판단이 아니라, 감사계획 단계에서 먼저 설명을 요구할 계정과 질문을 좁히기 위한 우선순위 신호입니다.</div>
+        </div>
+        <div class='readout-card'>
+            <div class='readout-label'>Why It Matters</div>
+            <div class='readout-title'>{html.escape(dominant_layer)} 중심의 신호</div>
+            <div class='readout-body'>핵심 지표는 {html.escape(', '.join(driver_labels) if driver_labels else '복합 지표')}입니다. 점수가 높은 축과 지표가 같은 방향이면 공시 설명의 설득력을 더 엄격하게 읽어야 합니다.</div>
+        </div>
+        <div class='readout-card'>
+            <div class='readout-label'>Audit Focus</div>
+            <div class='readout-title'>{html.escape(audit_area)}</div>
+            <div class='readout-body'>{html.escape(audit_question)} 내부자료 접근 전에는 공시 주석, 전년 대비 변동 설명, peer 대비 차이를 먼저 확인합니다.</div>
+        </div>
+    </div>
+    """
+
+
+def driver_table(row: pd.Series) -> pd.DataFrame:
+    rows = []
+    for feature in top_driver_features(row, limit=5):
+        detail = FEATURE_DETAIL.get(feature, {})
+        focus = AUDIT_FOCUS.get(feature, {})
+        rows.append(
+            {
+                "핵심 지표": FEATURE_LABELS.get(feature, feature.upper()),
+                "값": _format_display_number(row.get(feature)),
+                "신호": feature_signal_label(feature, row),
+                "Peer z": _format_display_number(row.get(f"{feature}_peer_z")),
+                "의미": detail.get("meaning", ""),
+                "감사 초점": focus.get("area", "재무비율 조합"),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _format_display_number(value: object) -> str:
+    if pd.isna(value):
+        return "N/A"
+    return f"{float(value):.2f}"
 
 
 def build_audit_workplan(row: pd.Series) -> pd.DataFrame:
@@ -884,7 +1050,7 @@ event_label_path = Path("data/labels/external_events_template.csv")
 data_mtime = processed_data_path.stat().st_mtime if processed_data_path.exists() else 0.0
 label_mtime = event_label_path.stat().st_mtime if event_label_path.exists() else 0.0
 raw_financials = load_financials()
-df = load_scored_data(model_version=11, data_mtime=data_mtime)
+df = load_scored_data(model_version=12, data_mtime=data_mtime)
 raw_financials["stock_code"] = raw_financials["stock_code"].astype(str).str.zfill(6)
 df["stock_code"] = df["stock_code"].astype(str).str.zfill(6)
 event_labels = load_labels(label_mtime=label_mtime)
@@ -1152,6 +1318,17 @@ st.markdown(
     f"<p class='small-note'><strong>{analysis_row['company_name']} · {analysis_row['industry']}</strong><br>{RISK_LEVEL_HELP.get(analysis_row['risk_level'], '')}</p>",
     unsafe_allow_html=True,
 )
+
+st.markdown("#### 리스크 결론 요약")
+st.markdown(risk_readout_html(analysis_row), unsafe_allow_html=True)
+drivers_df = driver_table(analysis_row)
+if not drivers_df.empty:
+    st.markdown(
+        "<div class='driver-note'><strong>읽는 법:</strong> 아래 표는 점수에 영향을 준 핵심 지표를 감사 언어로 번역한 것입니다. "
+        "값은 전년 대비 변화 또는 발생액 비율이며, Peer z는 같은 Year/Industry 내 상대적 이례성을 뜻합니다.</div>",
+        unsafe_allow_html=True,
+    )
+    st.dataframe(drivers_df, width="stretch", hide_index=True)
 
 st.markdown("#### 감사 브리핑")
 briefing_bars = micro_bars_html(

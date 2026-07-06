@@ -150,6 +150,32 @@ def _risk_band(score: object) -> str:
     return "상대적으로 낮음"
 
 
+def _dominant_focus_area(features: list[str]) -> str:
+    if not features:
+        return "재무비율 조합과 peer 대비 이례성"
+    areas = [AUDIT_FOCUS[feature]["area"] for feature in features if feature in AUDIT_FOCUS]
+    return ", ".join(dict.fromkeys(areas[:3])) if areas else "재무비율 조합과 peer 대비 이례성"
+
+
+def _feature_direction(feature: str, value: object) -> str:
+    if pd.isna(value):
+        return "산출 불가"
+    value = float(value)
+    if feature == "tata":
+        if value >= 0.08:
+            return "강한 발생액 신호"
+        if value >= 0.05:
+            return "주의가 필요한 발생액 신호"
+        return "낮은 발생액 신호"
+    if value >= 1.25:
+        return "뚜렷한 상승 신호"
+    if value >= 1.10:
+        return "관찰 필요한 상승 신호"
+    if value <= 0.90:
+        return "하락 방향의 변동"
+    return "중립권"
+
+
 def _feature_value(feature: str, row: pd.Series) -> str:
     value = row.get(feature)
     if pd.isna(value):
@@ -188,24 +214,24 @@ def explain_accounting_layer(row: pd.Series) -> str:
     score = row.get("accounting_risk_score")
     features = _top_accounting_features(row)
     lines = [
-        f"**점수 의미:** Accounting Risk는 {_format_number(score)}점으로 `{_risk_band(score)}` 수준입니다. Beneish-style 지표와 M-Score를 이용해 전통적인 재무제표 이상징후와 유사한 패턴이 있는지 봅니다.",
-        f"**핵심 원인:** M-Score는 {_format_number(row.get('m_score'))}입니다. 전통적으로 -2.22보다 높으면 조작 가능성 신호로 참고하지만, 이 프로젝트에서는 단독 결론이 아니라 다른 지표와 함께 우선순위를 정하는 입력값으로 사용합니다.",
+        f"**요약:** Accounting Risk는 {_format_number(score)}점으로 `{_risk_band(score)}` 수준입니다. 이 점수는 회계비율 자체가 전통적인 재무제표 red flag와 얼마나 닮았는지를 보여줍니다.",
+        f"**M-Score 관점:** M-Score는 {_format_number(row.get('m_score'))}입니다. 전통적으로 `-2.22`보다 높으면 주의 신호로 보지만, 여기서는 단독 판단이 아니라 매출채권, 수익성, 발생액, 레버리지 신호를 함께 읽기 위한 기준점입니다.",
     ]
 
     if features:
-        lines.append("**주요 기여 지표:**")
+        lines.append("**핵심 기여 지표:**")
         for feature in features:
             detail = FEATURE_DETAIL[feature]
             lines.append(
-                f"- **{detail['label']} {_feature_value(feature, row)}**: {detail['meaning']} {detail['risk']}"
+                f"- **{detail['label']} {_feature_value(feature, row)} · {_feature_direction(feature, row.get(feature))}**: {detail['meaning']} {detail['risk']}"
             )
     else:
         lines.append(
-            "**주요 기여 지표:** 뚜렷하게 튀는 단일 지표는 없지만, 여러 비율의 조합이 종합 점수에 반영됐습니다."
+            "**핵심 기여 지표:** 뚜렷하게 튀는 단일 지표는 없지만, 여러 비율의 조합이 종합 점수에 반영됐습니다."
         )
 
     lines.append(
-        "**감사적 의미:** 이 점수가 높으면 매출 인식, 매출채권 회수가능성, 자산화/손상, 발생액 품질처럼 경영진 판단이 개입되는 계정 영역을 우선 검토 대상으로 둡니다."
+        "**감사적 의미:** 이 점수가 높으면 매출 인식, 매출채권 회수가능성, 자산화/손상, 발생액 품질처럼 경영진 판단이 개입되는 계정 영역을 우선 검토 대상으로 둡니다. 공시자료 단계에서는 결론보다 `어느 계정에 질문을 던질지`를 정하는 신호로 사용하는 것이 적절합니다."
     )
     return "\n".join(lines)
 
@@ -215,8 +241,8 @@ def explain_peer_layer(row: pd.Series) -> str:
     matched_size = int(row.get("matched_peer_group_size", 0) or 0)
     top_z = _top_peer_z_features(row)
     lines = [
-        f"**점수 의미:** Peer Risk는 {_format_number(score)}점으로 `{_risk_band(score)}` 수준입니다. 같은 Year/Industry 비교와 규모·수익성·성장성이 유사한 matched peer 비교에서 얼마나 이례적인지를 봅니다.",
-        f"**계산 관점:** Industry 기준 이례성 raw score는 {_format_number(row.get('industry_peer_risk_raw'))}, matched peer 기준 raw score는 {_format_number(row.get('matched_peer_risk_raw'))}입니다. 현재 matched peer group size는 {matched_size}개입니다.",
+        f"**요약:** Peer Risk는 {_format_number(score)}점으로 `{_risk_band(score)}` 수준입니다. 같은 Year/Industry뿐 아니라 규모, 수익성, 성장성이 비슷한 matched peer와 비교해 회사가 얼마나 다른 방향으로 움직였는지 봅니다.",
+        f"**비교 근거:** Industry 기준 이례성 raw score는 {_format_number(row.get('industry_peer_risk_raw'))}, matched peer 기준 raw score는 {_format_number(row.get('matched_peer_risk_raw'))}입니다. 현재 matched peer group size는 {matched_size}개입니다.",
     ]
 
     if top_z:
@@ -238,7 +264,7 @@ def explain_peer_layer(row: pd.Series) -> str:
         )
 
     lines.append(
-        "**감사적 의미:** Peer Risk가 높으면 회사 자체의 변화뿐 아니라 동종·유사 규모 회사와 다른 회계 추정, 수익구조, 운전자본 정책이 있는지 설명이 필요합니다."
+        "**감사적 의미:** Peer Risk가 높으면 회사 자체의 전년 대비 변화만으로 설명을 끝내기 어렵습니다. 동종·유사 규모 회사와 다른 회계 추정, 수익구조, 운전자본 정책이 있는지 공시 설명과 함께 확인해야 합니다."
     )
     return "\n".join(lines)
 
@@ -248,8 +274,8 @@ def explain_ml_layer(row: pd.Series) -> str:
     imputed_count = int(row.get("feature_imputed_count", 0) or 0)
     imputed_features = row.get("imputed_features", "")
     lines = [
-        f"**점수 의미:** ML Risk는 {_format_number(score)}점으로 `{_risk_band(score)}` 수준입니다. Isolation Forest와 PCA reconstruction error를 함께 사용해 여러 재무비율이 동시에 움직이는 비지도 이상 패턴을 포착합니다.",
-        f"**핵심 원인:** Isolation Forest raw signal은 {_format_number(row.get('isolation_risk_raw'))}, PCA reconstruction error는 {_format_number(row.get('pca_reconstruction_error'))}입니다. 두 값이 높을수록 학습된 일반 패턴에서 벗어난 조합이라는 의미입니다.",
+        f"**요약:** ML Risk는 {_format_number(score)}점으로 `{_risk_band(score)}` 수준입니다. 사람이 미리 정한 단일 임계값이 아니라, 여러 재무비율이 동시에 만드는 조합이 표본 내 일반 패턴에서 얼마나 벗어났는지를 봅니다.",
+        f"**모델 신호:** Isolation Forest raw signal은 {_format_number(row.get('isolation_risk_raw'))}, PCA reconstruction error는 {_format_number(row.get('pca_reconstruction_error'))}입니다. 두 값이 높을수록 학습된 일반 패턴으로 설명하기 어려운 조합이라는 뜻입니다.",
     ]
 
     if imputed_count:
@@ -262,13 +288,14 @@ def explain_ml_layer(row: pd.Series) -> str:
         )
 
     lines.append(
-        "**감사적 의미:** ML Risk는 원인을 직접 단정하지 않습니다. 대신 사람이 놓치기 쉬운 복합 패턴을 알려주므로, Accounting/Peer 설명과 겹치는 계정 영역을 우선 질문 후보로 삼는 것이 적절합니다."
+        "**감사적 의미:** ML Risk는 원인을 직접 단정하지 않습니다. 대신 사람이 놓치기 쉬운 복합 패턴을 알려주므로, Accounting/Peer 설명과 겹치는 계정 영역을 우선 질문 후보로 삼는 것이 적절합니다. 모델 점수가 높지만 회계적 설명이 약하면, 먼저 데이터 품질과 peer 구성의 적정성을 확인해야 합니다."
     )
     return "\n".join(lines)
 
 
 def detailed_risk_analysis(row: pd.Series) -> str:
     triggered = get_triggered_features(row)
+    top_features = _top_accounting_features(row, limit=3)
     dominant_layer = _dominant_risk_layer(row)
     if pd.notna(row.get("risk_level")):
         risk_level = row.get("risk_level")
@@ -279,33 +306,34 @@ def detailed_risk_analysis(row: pd.Series) -> str:
     else:
         risk_level = "Normal"
 
+    focus_area = _dominant_focus_area(top_features)
     summary = [
-        f"**종합 판단:** {row['company_name']}의 Final Risk는 {_format_number(row.get('final_risk_score'))}점이며, 현재 선택 표본에서 `{risk_level}` 수준의 우선 검토 대상으로 분류됩니다.",
-        f"가장 크게 기여한 리스크 축은 **{dominant_layer}**입니다. 이 점수는 부정 판단이 아니라, 감사계획 단계에서 어느 회사와 계정 영역을 먼저 볼지 정하기 위한 신호입니다.",
+        f"**한 줄 결론:** {row['company_name']}의 Final Risk는 {_format_number(row.get('final_risk_score'))}점이며, 현재 표본에서 `{risk_level}` 수준의 감사계획 우선 검토 대상으로 분류됩니다.",
+        f"**가장 중요한 해석:** 가장 크게 기여한 리스크 축은 **{dominant_layer}**이고, 우선 읽어야 할 계정 영역은 **{focus_area}**입니다. 이 결과는 부정 판단이 아니라 `어디에 감사 질문을 집중할지`를 정하는 planning signal입니다.",
     ]
 
-    if triggered:
-        summary.append("**주요 원인 지표:**")
-        for feature in triggered[:5]:
+    if top_features:
+        summary.append("**핵심 원인 3가지:**")
+        for feature in top_features:
             detail = FEATURE_DETAIL[feature]
             value = _format_number(row.get(feature))
             peer_z = _format_number(row.get(f"{feature}_peer_z"))
             summary.append(
-                f"- **{detail['label']} {value}**: {detail['meaning']} "
+                f"- **{detail['label']} {value} · {_feature_direction(feature, row.get(feature))}**: {detail['meaning']} "
                 f"동일 Year/Industry 기준 peer z-score는 {peer_z}입니다. {detail['risk']}"
             )
     else:
         summary.append(
-            "**주요 원인 지표:** 단일 Beneish-style 지표가 크게 튀었다기보다는 여러 지표가 함께 움직인 복합 패턴이 ML/Peer 점수에 반영된 것으로 보입니다."
+            "**핵심 원인:** 단일 Beneish-style 지표가 크게 튀었다기보다는 여러 지표가 함께 움직인 복합 패턴이 ML/Peer 점수에 반영된 것으로 보입니다."
         )
 
     summary.extend(
         [
-            "**감사인이 읽어야 하는 방향:**",
-            "- 매출 성장, 매출채권, 영업현금흐름이 같은 방향으로 설명되는지 먼저 확인합니다.",
-            "- 발생액 품질이 낮거나 현금흐름이 약하면 순이익의 지속가능성과 회수가능성을 함께 봅니다.",
-            "- Industry 전반 현상인지 회사 고유 이슈인지 구분하기 위해 peer 비교 결과를 함께 해석합니다.",
-            "- 내부자료 접근 전 단계에서는 공시 주석, 사업보고서 MD&A, 감사보고서 강조사항/핵심감사사항을 우선 확인하는 것이 적절합니다.",
+            "**읽는 순서:**",
+            "- 먼저 Final Risk가 높은 이유를 Accounting, Peer, ML 중 어느 축이 끌어올렸는지 확인합니다.",
+            "- 다음으로 핵심 지표가 전년 대비 변화인지, peer 대비 이례성인지, 또는 두 가지가 동시에 나타나는지 구분합니다.",
+            "- 마지막으로 공시 주석과 사업보고서 설명이 해당 변화의 경제적 원인을 충분히 설명하는지 확인합니다.",
+            "**감사계획 시사점:** 공시자료만으로 원장·전표 수준의 결론을 낼 수는 없습니다. 대신 이 분석은 매출채권, 수익 인식, 발생액, 자산 건전성, 레버리지 중 어느 영역을 먼저 질문할지 정리해주는 사전 검토 도구입니다.",
         ]
     )
     return "\n".join(summary)
