@@ -407,6 +407,49 @@ st.markdown(
         font-size: 0.82rem;
         line-height: 1.45;
     }
+    .quality-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.72rem;
+        margin: 0.75rem 0 0.95rem 0;
+    }
+    .quality-card {
+        background: linear-gradient(180deg, rgba(23, 29, 21, 0.98), rgba(12, 16, 11, 0.98));
+        border: 1px solid var(--moss-border);
+        border-radius: 8px;
+        padding: 0.85rem 0.9rem;
+        min-height: 112px;
+    }
+    .quality-label {
+        color: var(--moss-muted);
+        font-size: 0.72rem;
+        font-weight: 760;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+    }
+    .quality-value {
+        color: var(--moss-cream);
+        font-size: 1.38rem;
+        font-weight: 820;
+        line-height: 1.08;
+        margin-bottom: 0.35rem;
+    }
+    .quality-note {
+        color: var(--moss-muted);
+        font-size: 0.78rem;
+        line-height: 1.4;
+    }
+    .quality-status {
+        display: inline-flex;
+        border-radius: 999px;
+        padding: 0.3rem 0.55rem;
+        border: 1px solid rgba(216, 255, 100, 0.32);
+        background: rgba(216, 255, 100, 0.08);
+        color: var(--moss-lime);
+        font-size: 0.74rem;
+        font-weight: 760;
+        line-height: 1;
+    }
     div[data-testid="stTabs"] button {
         border-radius: 999px;
         border: 1px solid var(--moss-border);
@@ -550,12 +593,14 @@ st.markdown(
         .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .signal-grid { grid-template-columns: 1fr; }
         .layer-grid { grid-template-columns: 1fr; }
+        .quality-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .workflow-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .briefing-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
         .workflow-grid { grid-template-columns: 1fr; }
         .kpi-grid { grid-template-columns: 1fr; }
+        .quality-grid { grid-template-columns: 1fr; }
     }
     </style>
     """,
@@ -742,6 +787,96 @@ def build_evidence_memo(row: pd.Series, workplan: pd.DataFrame) -> str:
     )
 
 
+def company_data_quality_summary(
+    raw_company_df: pd.DataFrame,
+    scored_company_df: pd.DataFrame,
+    selected_year: int,
+) -> dict[str, object]:
+    raw_years = sorted(raw_company_df["year"].dropna().astype(int).unique().tolist())
+    scored_years = sorted(scored_company_df["year"].dropna().astype(int).unique().tolist())
+    target_raw = raw_company_df[raw_company_df["year"] == selected_year]
+    if target_raw.empty and not raw_company_df.empty:
+        target_raw = raw_company_df.sort_values("year").tail(1)
+
+    available_quality_columns = [column for column in RAW_QUALITY_COLUMNS if column in raw_company_df.columns]
+    if target_raw.empty or not available_quality_columns:
+        missing_items = RAW_QUALITY_COLUMNS
+        completeness_rate = 0.0
+    else:
+        target_row = target_raw.iloc[-1]
+        missing_items = [
+            RAW_QUALITY_LABELS.get(column, column)
+            for column in available_quality_columns
+            if pd.isna(target_row.get(column))
+        ]
+        completeness_rate = 1 - (len(missing_items) / len(available_quality_columns))
+
+    if scored_years:
+        status = "분석 가능"
+        note = "선택 회사는 risk score와 peer/ML 분석까지 표시됩니다."
+    elif raw_years:
+        status = "원천 수집만 완료"
+        note = "DART 원천 재무제표는 있으나 M-Score 또는 ML 입력 지표가 부족해 점수 산출이 제한됩니다."
+    else:
+        status = "데이터 없음"
+        note = "현재 로컬 패널에서 해당 회사 재무제표를 찾지 못했습니다."
+
+    return {
+        "raw_years": raw_years,
+        "scored_years": scored_years,
+        "raw_year_count": len(raw_years),
+        "scored_year_count": len(scored_years),
+        "latest_raw_year": max(raw_years) if raw_years else None,
+        "latest_scored_year": max(scored_years) if scored_years else None,
+        "completeness_rate": completeness_rate,
+        "missing_items": missing_items,
+        "status": status,
+        "note": note,
+    }
+
+
+def format_years(years: list[int]) -> str:
+    if not years:
+        return "없음"
+    if len(years) == 1:
+        return str(years[0])
+    return f"{years[0]}-{years[-1]} ({len(years)}개년)"
+
+
+def data_quality_html(summary: dict[str, object]) -> str:
+    missing_items = list(summary["missing_items"])
+    missing_note = ", ".join(missing_items[:4]) if missing_items else "주요 필수 항목 결측 없음"
+    if len(missing_items) > 4:
+        missing_note += f" 외 {len(missing_items) - 4}개"
+    completeness = float(summary["completeness_rate"]) * 100
+    latest_raw_year = summary["latest_raw_year"] or "N/A"
+    latest_scored_year = summary["latest_scored_year"] or "N/A"
+    return f"""
+    <div class='quality-grid'>
+        <div class='quality-card'>
+            <div class='quality-label'>Data Status</div>
+            <div class='quality-value'><span class='quality-status'>{html.escape(str(summary['status']))}</span></div>
+            <div class='quality-note'>{html.escape(str(summary['note']))}</div>
+        </div>
+        <div class='quality-card'>
+            <div class='quality-label'>Raw Coverage</div>
+            <div class='quality-value'>{html.escape(format_years(summary['raw_years']))}</div>
+            <div class='quality-note'>DART에서 원천 재무제표가 수집된 연도입니다. 최신 원천 Year: {latest_raw_year}</div>
+        </div>
+        <div class='quality-card'>
+            <div class='quality-label'>Scoring Coverage</div>
+            <div class='quality-value'>{html.escape(format_years(summary['scored_years']))}</div>
+            <div class='quality-note'>Beneish-style 및 ML score 산출까지 완료된 연도입니다. 최신 분석 Year: {latest_scored_year}</div>
+        </div>
+        <div class='quality-card'>
+            <div class='quality-label'>Selected Year Completeness</div>
+            <div class='quality-value'>{completeness:.0f}%</div>
+            <div class='quality-note'>{html.escape(missing_note)}</div>
+        </div>
+    </div>
+    """
+
+
 processed_data_path = Path("data/processed/financials_panel_2020_2024_full.csv")
 if not processed_data_path.exists():
     processed_data_path = Path("data/processed/financials_panel.csv")
@@ -750,6 +885,8 @@ data_mtime = processed_data_path.stat().st_mtime if processed_data_path.exists()
 label_mtime = event_label_path.stat().st_mtime if event_label_path.exists() else 0.0
 raw_financials = load_financials()
 df = load_scored_data(model_version=11, data_mtime=data_mtime)
+raw_financials["stock_code"] = raw_financials["stock_code"].astype(str).str.zfill(6)
+df["stock_code"] = df["stock_code"].astype(str).str.zfill(6)
 event_labels = load_labels(label_mtime=label_mtime)
 df = attach_event_labels(df, event_labels)
 df["risk_level"] = df["final_risk_score"].apply(classify_risk_level)
@@ -874,10 +1011,15 @@ st.markdown(
     unsafe_allow_html=True,
 )
 company_lookup = (
-    df[["stock_code", "company_name", "industry"]]
+    raw_financials[["stock_code", "company_name", "industry"]]
     .drop_duplicates()
     .sort_values(["company_name", "stock_code"])
     .copy()
+)
+scored_codes = set(df["stock_code"].astype(str).str.zfill(6))
+company_lookup["stock_code"] = company_lookup["stock_code"].astype(str).str.zfill(6)
+company_lookup["analysis_status"] = company_lookup["stock_code"].map(
+    lambda code: "분석 가능" if code in scored_codes else "원천 수집만 완료"
 )
 company_lookup["search_text"] = (
     company_lookup["company_name"].astype(str)
@@ -892,6 +1034,8 @@ company_lookup["label"] = (
     + company_lookup["stock_code"].astype(str)
     + ") · "
     + company_lookup["industry"].astype(str)
+    + " · "
+    + company_lookup["analysis_status"].astype(str)
 )
 
 st.markdown("#### 회사 검색")
@@ -914,7 +1058,25 @@ selected_stock_code = company_lookup.loc[
     company_lookup["label"] == selected_label, "stock_code"
 ].iloc[0]
 
+raw_company_df = raw_financials[
+    raw_financials["stock_code"].astype(str).str.zfill(6) == selected_stock_code
+].sort_values("year")
 company_df = df[df["stock_code"] == selected_stock_code].sort_values("year")
+quality_summary = company_data_quality_summary(raw_company_df, company_df, selected_year)
+st.markdown("#### 데이터 수집/분석 가능성")
+st.markdown(data_quality_html(quality_summary), unsafe_allow_html=True)
+st.markdown(
+    "<p class='small-note'>Raw Coverage는 DART 원천 재무제표 수집 여부, Scoring Coverage는 M-Score·Peer·ML 분석까지 가능한 연도를 뜻합니다. "
+    "최근 상장사나 KONEX 일부 회사는 원천 데이터가 있어도 전년 대비 지표 산출에 필요한 연속연도가 부족할 수 있습니다.</p>",
+    unsafe_allow_html=True,
+)
+if company_df.empty:
+    st.warning(
+        "이 회사는 현재 원천 재무제표는 수집됐지만 risk score 산출에 필요한 연속연도 또는 핵심 계정 매칭이 부족합니다. "
+        "데이터/모델 품질 보기에서 실패·부분수집 로그를 확인하거나, 향후 계정 매핑 보강 후 다시 점수화할 수 있습니다."
+    )
+    st.stop()
+
 analysis_df = company_df[company_df["year"] == selected_year]
 analysis_row = analysis_df.iloc[-1] if not analysis_df.empty else company_df.iloc[-1]
 if analysis_df.empty:
