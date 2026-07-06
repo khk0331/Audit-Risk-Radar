@@ -274,8 +274,8 @@ def explain_ml_layer(row: pd.Series) -> str:
     imputed_count = int(row.get("feature_imputed_count", 0) or 0)
     imputed_features = row.get("imputed_features", "")
     lines = [
-        f"**요약:** ML Risk는 {_format_number(score)}점으로 `{_risk_band(score)}` 수준입니다. 사람이 미리 정한 단일 임계값이 아니라, 여러 재무비율이 동시에 만드는 조합이 표본 내 일반 패턴에서 얼마나 벗어났는지를 봅니다.",
-        f"**모델 신호:** Isolation Forest raw signal은 {_format_number(row.get('isolation_risk_raw'))}, PCA reconstruction error는 {_format_number(row.get('pca_reconstruction_error'))}입니다. 두 값이 높을수록 학습된 일반 패턴으로 설명하기 어려운 조합이라는 뜻입니다.",
+        f"**요약:** ML Risk는 {_format_number(score)}점으로 `{_risk_band(score)}` 수준입니다. 여러 재무비율을 한꺼번에 봤을 때, 이 회사가 과거/동종 기업의 일반적인 패턴과 얼마나 다르게 움직이는지를 보는 점수입니다.",
+        f"**모델 신호:** Isolation Forest signal은 {_format_number(row.get('isolation_risk_raw'))}, PCA error는 {_format_number(row.get('pca_reconstruction_error'))}입니다. 쉽게 말해, 전자는 `주변 회사들과 다른 정도`, 후자는 `일반적인 재무비율 조합으로 설명하기 어려운 정도`를 나타냅니다.",
     ]
 
     if imputed_count:
@@ -288,7 +288,7 @@ def explain_ml_layer(row: pd.Series) -> str:
         )
 
     lines.append(
-        "**감사적 의미:** ML Risk는 원인을 직접 단정하지 않습니다. 대신 사람이 놓치기 쉬운 복합 패턴을 알려주므로, Accounting/Peer 설명과 겹치는 계정 영역을 우선 질문 후보로 삼는 것이 적절합니다. 모델 점수가 높지만 회계적 설명이 약하면, 먼저 데이터 품질과 peer 구성의 적정성을 확인해야 합니다."
+        "**감사적 의미:** ML Risk는 원인을 직접 단정하지 않습니다. 대신 재무비율 여러 개를 함께 볼 때 어색한 조합을 알려줍니다. 따라서 Accounting/Peer 설명과 겹치는 계정 영역을 우선 질문 후보로 삼는 것이 적절합니다. 모델 점수가 높지만 회계적 설명이 약하면, 먼저 데이터 품질과 peer 구성의 적정성을 확인해야 합니다."
     )
     return "\n".join(lines)
 

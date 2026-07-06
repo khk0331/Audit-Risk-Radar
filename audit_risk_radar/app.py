@@ -38,7 +38,7 @@ LAYER_HELP = {
     "Final Risk": "Accounting, Peer, ML 점수를 가중 평균한 최종 우선순위 점수입니다. 감사인이 먼저 볼 회사를 정렬하기 위한 지표입니다.",
     "Accounting Risk": "Beneish-style 재무비율을 기반으로 산출한 회계적 Red Flag 점수입니다. 높을수록 전통적 재무제표 조작 징후와 유사한 패턴입니다.",
     "Peer Risk": "동일 Year/Industry 비교와 규모·수익성·성장성이 유사한 matched peer 비교를 함께 반영한 이례성 점수입니다.",
-    "ML Risk": "Isolation Forest와 PCA reconstruction error로 계산한 비지도 이상탐지 점수입니다. 여러 지표가 함께 움직이는 복합 패턴을 포착합니다.",
+    "ML Risk": "여러 재무비율을 함께 봤을 때, 이 회사가 과거/동종 기업의 일반적인 패턴과 얼마나 다르게 움직이는지 보는 점수입니다.",
 }
 DISPLAY_COLUMNS = {
     "stock_code": "종목코드",
@@ -925,7 +925,7 @@ def layer_cards_html(row: pd.Series) -> str:
     <div class='layer-grid'>
         {layer_tile_html('Accounting Risk', row.get('accounting_risk_score'), 'Beneish-style 지표와 회계적 red flag가 만든 기본 위험 신호입니다.')}
         {layer_tile_html('Peer Risk', row.get('peer_risk_score'), '동일 Year/Industry 및 matched peer 대비 얼마나 이례적인지를 봅니다.')}
-        {layer_tile_html('ML Risk', row.get('ml_risk_score'), '여러 지표가 동시에 만드는 비지도 이상 패턴을 탐지합니다.')}
+        {layer_tile_html('ML Risk', row.get('ml_risk_score'), '여러 재무비율을 함께 봤을 때 일반적인 회사 패턴과 얼마나 다른지 봅니다.')}
     </div>
     """
 
@@ -1213,7 +1213,7 @@ event_label_path = Path("data/labels/external_events_template.csv")
 data_mtime = processed_data_path.stat().st_mtime if processed_data_path.exists() else 0.0
 label_mtime = event_label_path.stat().st_mtime if event_label_path.exists() else 0.0
 raw_financials = load_financials()
-df = load_scored_data(model_version=12, data_mtime=data_mtime)
+df = load_scored_data(model_version=13, data_mtime=data_mtime)
 raw_financials["stock_code"] = raw_financials["stock_code"].astype(str).str.zfill(6)
 df["stock_code"] = df["stock_code"].astype(str).str.zfill(6)
 event_labels = load_labels(label_mtime=label_mtime)
@@ -1559,7 +1559,7 @@ st.markdown(
 
 st.markdown("#### Risk 점수 해부")
 st.markdown(
-    "<p class='small-note'>Final Risk를 구성하는 세 점수는 서로 다른 질문에 답합니다. Accounting Risk는 회계비율 자체의 red flag, Peer Risk는 유사 회사 대비 이례성, ML Risk는 여러 지표가 동시에 만드는 복합 이상 패턴을 봅니다.</p>",
+    "<p class='small-note'>Final Risk를 구성하는 세 점수는 서로 다른 질문에 답합니다. Accounting Risk는 회계비율 자체의 red flag, Peer Risk는 유사 회사 대비 이례성, ML Risk는 여러 재무비율을 함께 봤을 때 일반적인 회사 패턴과 얼마나 다른지를 봅니다.</p>",
     unsafe_allow_html=True,
 )
 st.html(layer_cards_html(analysis_row))
@@ -2389,6 +2389,6 @@ with st.expander("데이터/모델 품질 및 검증 보기", expanded=False):
             - **결측치 처리**: 지표 결측은 Industry-Year median을 우선 사용하고, 표본이 부족하면 Year median과 Global median으로 보완합니다.
             - **극단값 통제**: ML 입력값은 winsorization과 RobustScaler를 거쳐 회사 규모나 단일 극단값의 영향을 줄입니다.
             - **검증 방식**: 현재 검증 탭은 과거 연도를 기준 분포로 두고 최신 연도를 hold-out으로 보는 시간 기준 검증입니다. 외부 제재, 정정공시, 감사의견 등 라벨을 붙이면 사후 이벤트 기반 검증으로 확장할 수 있습니다.
-            - **모델 해석**: Accounting Risk는 설명 가능한 회계 지표, Peer Risk는 업종 내 이례성, ML Risk는 여러 지표가 동시에 움직이는 복합 패턴을 봅니다.
+            - **모델 해석**: Accounting Risk는 설명 가능한 회계 지표, Peer Risk는 업종 내 이례성, ML Risk는 여러 재무비율을 함께 봤을 때 일반적인 회사 패턴과 얼마나 다른지를 봅니다.
             """
         )
