@@ -705,6 +705,77 @@ def style_chart(fig: go.Figure) -> go.Figure:
     return fig
 
 
+def m_score_bullet_chart(m_score: object) -> go.Figure:
+    value = pd.to_numeric(pd.Series([m_score]), errors="coerce").iloc[0]
+    if pd.isna(value):
+        value = -2.22
+
+    axis_min = min(-4.5, float(value) - 0.55)
+    axis_max = max(0.6, float(value) + 0.55)
+    fig = go.Figure()
+    zones = [
+        (axis_min, -2.22, "#1F3B2C", "상대적 안전"),
+        (-2.22, -1.78, "#E6B86A", "관찰 구간"),
+        (-1.78, axis_max, "#D86464", "주의 구간"),
+    ]
+    for start, end, color, label in zones:
+        fig.add_shape(
+            type="rect",
+            x0=start,
+            x1=end,
+            y0=-0.34,
+            y1=0.34,
+            fillcolor=color,
+            opacity=0.42,
+            line_width=0,
+            layer="below",
+        )
+        midpoint = (start + end) / 2
+        if axis_min <= midpoint <= axis_max:
+            fig.add_annotation(
+                x=midpoint,
+                y=-0.52,
+                text=label,
+                showarrow=False,
+                font=dict(size=12, color="#B8BAAB"),
+            )
+
+    fig.add_vline(
+        x=-2.22,
+        line_color="#F2EFE4",
+        line_dash="dash",
+        line_width=2,
+        annotation_text="Beneish 기준 -2.22",
+        annotation_position="top",
+        annotation_font_color="#F2EFE4",
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=[value],
+            y=[0],
+            mode="markers+text",
+            marker=dict(size=18, color="#D8FF64", line=dict(color="#070907", width=2)),
+            text=[f"{value:.2f}"],
+            textposition="top center",
+            textfont=dict(color="#D8FF64", size=14),
+            hovertemplate="M-Score %{x:.2f}<extra></extra>",
+            name="선택 회사",
+        )
+    )
+    fig.update_layout(
+        height=210,
+        margin=dict(l=20, r=20, t=46, b=48),
+        showlegend=False,
+        xaxis=dict(
+            title="M-Score: 오른쪽으로 갈수록 주의 신호가 강함",
+            range=[axis_min, axis_max],
+            zeroline=False,
+        ),
+        yaxis=dict(visible=False, range=[-0.75, 0.75]),
+    )
+    return style_chart(fig)
+
+
 def analysis_to_html(text: str) -> str:
     lines = []
     in_list = False
@@ -1404,6 +1475,13 @@ st.markdown(
 
 st.markdown("#### 리스크 결론 요약")
 st.markdown(risk_readout_html(analysis_row), unsafe_allow_html=True)
+st.markdown("##### M-Score 기준선")
+st.plotly_chart(m_score_bullet_chart(analysis_row.get("m_score")), width="stretch")
+st.markdown(
+    "<p class='small-note'>Beneish M-Score는 전통적으로 <span class='inline-token'>-2.22</span>보다 높을수록 재무제표 조작 가능성에 대한 주의 신호로 해석합니다. "
+    "이 앱에서는 이 기준선을 단독 판단이 아니라 Accounting, Peer, ML Risk를 함께 읽기 위한 기준점으로 사용합니다.</p>",
+    unsafe_allow_html=True,
+)
 drivers_df = driver_table(analysis_row)
 if not drivers_df.empty:
     st.markdown(
