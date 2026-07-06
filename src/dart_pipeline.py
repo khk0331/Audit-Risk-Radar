@@ -694,9 +694,28 @@ def fetch_financial_statement(
         "reprt_code": REPORT_CODE_ANNUAL,
         "fs_div": fs_div,
     }
-    response = requests.get(f"{DART_BASE_URL}/fnlttSinglAcntAll.json", params=params, timeout=30)
-    response.raise_for_status()
-    payload = response.json()
+    last_error: Exception | None = None
+    for attempt in range(2):
+        try:
+            response = requests.get(
+                f"{DART_BASE_URL}/fnlttSinglAcntAll.json",
+                params=params,
+                timeout=(5, 45),
+            )
+            response.raise_for_status()
+            payload = response.json()
+            break
+        except (requests.RequestException, ValueError) as exc:
+            last_error = exc
+            if attempt == 0:
+                time.sleep(1.0)
+    else:
+        print(
+            f"Financial statement fetch failed for {company.company_name} "
+            f"({company.stock_code}) {year} {fs_div}: {last_error}",
+            flush=True,
+        )
+        return None
     if payload.get("status") != "000":
         return None
     rows = payload.get("list", [])
