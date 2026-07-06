@@ -782,6 +782,74 @@ def layer_tile_html(title: str, score: object, note: str) -> str:
     """
 
 
+def layer_cards_html(row: pd.Series) -> str:
+    return f"""
+    <style>
+    .layer-grid {{
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.75rem;
+        margin: 0.25rem 0 0.9rem 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }}
+    .layer-tile {{
+        background: linear-gradient(180deg, rgba(23, 29, 21, 0.98), rgba(10, 13, 9, 0.98));
+        border: 1px solid #2D352B;
+        border-radius: 8px;
+        padding: 0.95rem;
+        min-height: 150px;
+        box-sizing: border-box;
+    }}
+    .signal-head {{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        border-bottom: 1px solid #2D352B;
+        padding-bottom: 0.65rem;
+        margin-bottom: 0.75rem;
+    }}
+    .signal-title {{
+        color: #F2EFE4;
+        font-weight: 760;
+        font-size: 0.92rem;
+    }}
+    .moss-badge {{
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid rgba(216, 255, 100, 0.32);
+        border-radius: 999px;
+        background: rgba(216, 255, 100, 0.08);
+        color: #D8FF64;
+        font-size: 0.74rem;
+        font-weight: 700;
+        padding: 0.32rem 0.55rem;
+        line-height: 1;
+    }}
+    .layer-score {{
+        color: #D8FF64;
+        font-size: 2rem;
+        font-weight: 820;
+        line-height: 1;
+        margin: 0.5rem 0 0.45rem 0;
+    }}
+    .layer-caption {{
+        color: #B8BAAB;
+        font-size: 0.82rem;
+        line-height: 1.45;
+    }}
+    @media (max-width: 900px) {{
+        .layer-grid {{ grid-template-columns: 1fr; }}
+    }}
+    </style>
+    <div class='layer-grid'>
+        {layer_tile_html('Accounting Risk', row.get('accounting_risk_score'), 'Beneish-style 지표와 회계적 red flag가 만든 기본 위험 신호입니다.')}
+        {layer_tile_html('Peer Risk', row.get('peer_risk_score'), '동일 Year/Industry 및 matched peer 대비 얼마나 이례적인지를 봅니다.')}
+        {layer_tile_html('ML Risk', row.get('ml_risk_score'), '여러 지표가 동시에 만드는 비지도 이상 패턴을 탐지합니다.')}
+    </div>
+    """
+
+
 def score_band_label(score: object) -> str:
     if pd.isna(score):
         return "산출 불가"
@@ -1407,14 +1475,7 @@ st.markdown(
     "<p class='small-note'>Final Risk를 구성하는 세 점수는 서로 다른 질문에 답합니다. Accounting Risk는 회계비율 자체의 red flag, Peer Risk는 유사 회사 대비 이례성, ML Risk는 여러 지표가 동시에 만드는 복합 이상 패턴을 봅니다.</p>",
     unsafe_allow_html=True,
 )
-layer_cards_html = f"""
-<div class='layer-grid'>
-    {layer_tile_html('Accounting Risk', analysis_row.get('accounting_risk_score'), 'Beneish-style 지표와 회계적 red flag가 만든 기본 위험 신호입니다.')}
-    {layer_tile_html('Peer Risk', analysis_row.get('peer_risk_score'), '동일 Year/Industry 및 matched peer 대비 얼마나 이례적인지를 봅니다.')}
-    {layer_tile_html('ML Risk', analysis_row.get('ml_risk_score'), '여러 지표가 동시에 만드는 비지도 이상 패턴을 탐지합니다.')}
-</div>
-"""
-st.markdown(layer_cards_html, unsafe_allow_html=True)
+st.html(layer_cards_html(analysis_row))
 layer_tabs = st.tabs(["Accounting Risk", "Peer Risk", "ML Risk"])
 with layer_tabs[0]:
     st.markdown(
