@@ -50,7 +50,7 @@ The DART-derived panel can contain missing values because public filings do not 
 - Winsorize model inputs at the 1st and 99th percentiles to reduce single-outlier distortion.
 - Use `RobustScaler` for ML features so median and interquartile range drive scaling instead of mean and standard deviation.
 
-This keeps the score suitable for risk prioritization while making data quality limitations visible.
+This keeps the score suitable for company-level audit planning analysis while making data quality limitations visible.
 
 ### Accounting Risk
 
@@ -86,7 +86,7 @@ final_risk_score =
   + ml_weight * ml_risk
 ```
 
-The score is used for prioritization, not final judgment.
+The score is used to structure planning-stage company analysis, not final judgment.
 
 ## Validation Strategy
 
@@ -98,7 +98,7 @@ Because confirmed fraud labels are scarce, the first validation layer is a time-
 - Apply the historical 90th percentile threshold to the validation year.
 - Review companies whose risk score increases sharply year over year.
 
-This is not a supervised fraud validation. It tests whether the model creates a stable and explainable prioritization list when applied to a later reporting period. A later extension can add weak labels such as restatement filings, modified audit opinions, going-concern uncertainty, exchange warnings, or enforcement events.
+This is not a supervised fraud validation. It tests whether the model creates stable and explainable company-level risk signals when applied to a later reporting period. A later extension can add weak labels such as restatement filings, modified audit opinions, going-concern uncertainty, exchange warnings, or enforcement events.
 
 The repository also includes an external event label template. When event labels are added, the dashboard compares event-labeled company-years against the high-risk group:
 

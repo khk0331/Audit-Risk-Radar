@@ -6,7 +6,7 @@ Audit Risk Radar
 
 ## 2. 한 줄 설명
 
-Audit Risk Radar는 DART 공시 재무제표를 기반으로 회사별 회계 위험 신호를 진단하고, Accounting Risk, Peer Risk, ML Risk를 설명 가능한 방식으로 시각화하는 디지털 감사 리스크 스크리닝 대시보드입니다.
+Audit Risk Radar는 DART 공시 재무제표를 기반으로 감사 대상 회사의 회계 위험 신호, 동종기업 대비 위치, 주요 계정 변동을 진단하고, Accounting Risk, Peer Risk, ML Risk를 설명 가능한 방식으로 시각화하는 디지털 감사계획 분석 대시보드입니다.
 
 ## 3. 해결하려는 문제
 

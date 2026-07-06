@@ -1,6 +1,6 @@
 # Audit Risk Radar
 
-Audit Risk Radar is a Streamlit dashboard and Python pipeline for screening audit risk signals from Korean public disclosure data. The project uses OpenDART financial statements, KRX listed-company universe data, Beneish-style accounting indicators, peer benchmarking, and unsupervised anomaly detection to help an auditor decide which companies deserve deeper planning-stage attention.
+Audit Risk Radar is a Streamlit dashboard and Python pipeline for company-level audit planning analysis using Korean public disclosure data. The project uses OpenDART financial statements, KRX listed-company universe data, Beneish-style accounting indicators, peer benchmarking, and ML-based pattern checks to help an auditor understand the company they are assigned to audit.
 
 The project does not claim to prove fraud or identify specific journal entries. It is designed as a digital audit planning tool: it turns public financial statements into explainable risk signals, peer context, and follow-up audit questions.
 
@@ -18,11 +18,11 @@ Large generated datasets are intentionally ignored by git. They can be regenerat
 
 ## Why This Project Exists
 
-Digital audit work increasingly depends on full-population analytics, automated data processing, explainable scoring, and risk-based prioritization. Public disclosure data is weaker than internal ERP, journal-entry, and contract-level evidence, but it is still useful for planning-stage screening.
+Digital audit work increasingly depends on full-population analytics, automated data processing, explainable scoring, and structured company understanding. Public disclosure data is weaker than internal ERP, journal-entry, and contract-level evidence, but it is still useful for planning-stage company analysis.
 
 This project asks:
 
-> If an auditor only has public financial statements, can we still identify companies whose accounting patterns deserve closer review?
+> If an auditor only has public financial statements, can we still understand the assigned company's accounting risk profile before detailed audit evidence is available?
 
 The answer is yes, with important limits. Public data cannot replace audit evidence, but it can support a disciplined first-pass risk assessment.
 

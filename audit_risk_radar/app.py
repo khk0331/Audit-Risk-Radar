@@ -35,7 +35,7 @@ LAYER_LABELS = {
     "ml_risk_score": "ML Risk",
 }
 LAYER_HELP = {
-    "Final Risk": "Accounting, Peer, ML 점수를 가중 평균한 최종 우선순위 점수입니다. 감사인이 먼저 볼 회사를 정렬하기 위한 지표입니다.",
+    "Final Risk": "Accounting, Peer, ML 점수를 종합해 선택 회사의 감사계획상 주의 깊게 볼 정도를 보여주는 점수입니다.",
     "Accounting Risk": "Beneish-style 재무비율을 기반으로 산출한 회계적 Red Flag 점수입니다. 높을수록 전통적 재무제표 조작 징후와 유사한 패턴입니다.",
     "Peer Risk": "동일 Year/Industry 비교와 규모·수익성·성장성이 유사한 matched peer 비교를 함께 반영한 이례성 점수입니다.",
     "ML Risk": "여러 재무비율을 함께 봤을 때, 이 회사가 과거/동종 기업의 일반적인 패턴과 얼마나 다르게 움직이는지 보는 점수입니다.",
@@ -87,9 +87,9 @@ RAW_QUALITY_LABELS = {
     "operating_cash_flow": "영업현금흐름",
 }
 RISK_LEVEL_HELP = {
-    "High": "감사계획 단계에서 우선 검토가 필요한 상위 위험 신호입니다.",
+    "High": "감사계획 단계에서 회사 이해와 주요 계정 분석을 더 깊게 수행할 필요가 있는 신호입니다.",
     "Watch": "단일 결론은 어렵지만 추세와 주요 계정 변동을 함께 확인할 필요가 있습니다.",
-    "Normal": "현재 표본 내에서는 상대적으로 낮은 우선순위입니다.",
+    "Normal": "현재 공시 재무제표 기준으로는 상대적으로 안정적인 분석 신호입니다.",
 }
 
 px.defaults.color_discrete_sequence = COLORWAY
@@ -935,10 +935,10 @@ def score_band_label(score: object) -> str:
         return "산출 불가"
     value = float(score)
     if value >= 70:
-        return "높은 우선순위"
+        return "심층 분석 필요"
     if value >= 40:
         return "관찰 필요"
-    return "상대적으로 낮음"
+    return "상대적으로 안정"
 
 
 def dominant_layer_name(row: pd.Series) -> str:
@@ -1012,7 +1012,7 @@ def risk_readout_html(row: pd.Series) -> str:
         <div class='readout-card'>
             <div class='readout-label'>Executive Summary</div>
             <div class='readout-title'>{html.escape(str(row['company_name']))} · {score_band_label(score)}</div>
-            <div class='readout-body'>Final Risk {fmt_score(score)}점입니다. 이 결과는 부정 판단이 아니라, 감사계획 단계에서 먼저 설명을 요구할 계정과 질문을 좁히기 위한 우선순위 신호입니다.</div>
+            <div class='readout-body'>Final Risk {fmt_score(score)}점입니다. 이 결과는 부정 판단이 아니라, 감사계획 단계에서 회사의 어떤 계정과 변동을 더 깊게 이해해야 하는지 정리하는 종합 분석 신호입니다.</div>
         </div>
         <div class='readout-card'>
             <div class='readout-label'>Why It Matters</div>
@@ -1064,10 +1064,10 @@ def build_audit_workplan(row: pd.Series) -> pd.DataFrame:
             continue
         value = row.get(feature)
         peer_z = row.get(f"{feature}_peer_z")
-        priority = "High" if idx <= 2 and row.get("final_risk_score", 0) >= 70 else "Watch"
+        attention = "High" if idx <= 2 and row.get("final_risk_score", 0) >= 70 else "Watch"
         rows.append(
             {
-                "Priority": priority,
+                "Attention": attention,
                 "Audit Area": focus["area"],
                 "Risk Signal": f"{FEATURE_LABELS.get(feature, feature.upper())} {value:.2f}"
                 if pd.notna(value)
@@ -1086,7 +1086,7 @@ def build_evidence_memo(row: pd.Series, workplan: pd.DataFrame) -> str:
     workplan_lines = []
     for idx, plan_row in workplan.iterrows():
         workplan_lines.append(
-            f"{idx + 1}. [{plan_row['Priority']}] {plan_row['Audit Area']} - "
+            f"{idx + 1}. [{plan_row['Attention']}] {plan_row['Audit Area']} - "
             f"{plan_row['Key Question']} ({plan_row['Basis']})"
         )
 
@@ -1111,7 +1111,7 @@ def build_evidence_memo(row: pd.Series, workplan: pd.DataFrame) -> str:
             "\n".join(workplan_lines) if workplan_lines else "No workplan rows generated.",
             "",
             "## Important Limitation",
-            "This memo is based only on public DART financial statement data. It supports audit planning and risk prioritization, not an audit conclusion.",
+            "This memo is based only on public DART financial statement data. It supports company-level audit planning analysis, not an audit conclusion.",
         ]
     )
 
@@ -1213,7 +1213,7 @@ event_label_path = Path("data/labels/external_events_template.csv")
 data_mtime = processed_data_path.stat().st_mtime if processed_data_path.exists() else 0.0
 label_mtime = event_label_path.stat().st_mtime if event_label_path.exists() else 0.0
 raw_financials = load_financials()
-df = load_scored_data(model_version=13, data_mtime=data_mtime)
+df = load_scored_data(model_version=14, data_mtime=data_mtime)
 raw_financials["stock_code"] = raw_financials["stock_code"].astype(str).str.zfill(6)
 df["stock_code"] = df["stock_code"].astype(str).str.zfill(6)
 event_labels = load_labels(label_mtime=label_mtime)
@@ -1242,7 +1242,7 @@ data_source_detail = (
 )
 
 st.title("Audit Risk Radar")
-st.caption("공시 재무제표 기반 감사 리스크 스크리닝 | Beneish-style indicators, Peer comparison, ML anomaly detection")
+st.caption("공시 재무제표 기반 감사계획 분석 | Beneish-style indicators, Peer comparison, ML pattern check")
 st.caption(f"Data Source: {data_source_label} · {data_source_detail}")
 st.markdown(
     f"""
@@ -1252,8 +1252,8 @@ st.markdown(
                 <div class='system-kicker'>DART FINANCIAL RISK SYSTEM</div>
                 <div class='hero-title'>공시 재무제표를 감사계획 신호로 변환합니다.</div>
                 <div class='small-note'>
-                Audit Risk Radar는 DART 공시 재무제표를 이용해 기업별 이상징후를 빠르게 선별하는 감사계획 보조 도구입니다.
-                감사 결론을 내리는 시스템이 아니라, 감사인이 먼저 볼 회사와 계정 영역을 정하고 후속 질문을 설계하도록 돕는 risk prioritization dashboard입니다.
+                Audit Risk Radar는 DART 공시 재무제표를 이용해 감사 대상 회사의 재무 흐름, 동종기업 대비 위치, 주요 계정 변동을 이해하는 감사계획 보조 도구입니다.
+                감사 결론을 내리는 시스템이 아니라, 감사인이 해당 회사의 사업·재무 리스크를 구조화하고 후속 질문을 설계하도록 돕는 planning analytics dashboard입니다.
                 </div>
                 <div class='reference-chip-row'>
                     <span class='reference-chip'>Company Search</span>
@@ -1319,7 +1319,7 @@ industries = sorted(df["industry"].unique())
 
 st.markdown("### 분석 범위 설정")
 st.markdown(
-    "<p class='section-note'>먼저 감사인이 검토하려는 보고연도와 Industry를 선택한 뒤, 회사명 또는 종목코드로 분석 대상 회사를 검색합니다.</p>",
+    "<p class='section-note'>감사 대상 회사와 분석 Year를 선택하면, 공시 재무제표 기준으로 회사의 재무 흐름과 주요 리스크 신호를 감사계획 관점에서 정리합니다.</p>",
     unsafe_allow_html=True,
 )
 
@@ -1457,7 +1457,7 @@ summary_html = f"""
     <div class='kpi-card'>
         <div class='kpi-label'>Review Grade</div>
         <div class='kpi-value'>{html.escape(str(analysis_row['risk_level']))}</div>
-        <div class='kpi-note'>감사계획 우선순위</div>
+        <div class='kpi-note'>감사계획상 분석 강도</div>
     </div>
     <div class='kpi-card'>
         <div class='kpi-label'>Final Risk</div>
@@ -1522,9 +1522,9 @@ briefing_html = f"""
     </div>
     <div class='signal-grid'>
         <div class='signal-item'>
-            <div class='signal-kicker'>Priority</div>
+            <div class='signal-kicker'>Planning Signal</div>
             <div class='signal-main'>{html.escape(str(analysis_row['risk_level']))} · Final Risk {fmt_score(analysis_row['final_risk_score'])}</div>
-            <div class='small-note'>감사 결론이 아니라, 선택 Year/Industry 표본 안에서 우선 검토 순서를 정하기 위한 신호입니다.</div>
+            <div class='small-note'>감사 결론이 아니라, 선택 회사의 재무제표를 어느 관점에서 더 깊게 이해할지 정리하는 신호입니다.</div>
             {briefing_bars}
         </div>
         <div class='signal-item'>
@@ -1540,7 +1540,7 @@ briefing_html = f"""
         <div class='signal-item'>
             <div class='signal-kicker'>Data Status</div>
             <div class='signal-main'>Public disclosure only</div>
-            <div class='small-note'>내부 원장/전표가 아닌 DART 공시 재무제표 기반입니다. 결과는 감사계획 단계의 review ticket으로 해석합니다.</div>
+            <div class='small-note'>내부 원장/전표가 아닌 DART 공시 재무제표 기반입니다. 결과는 감사계획 단계의 회사 이해 메모로 해석합니다.</div>
         </div>
     </div>
 </div>
@@ -1553,7 +1553,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 st.markdown(
-    "<p class='small-note'>위 해석은 공시 재무제표 기반의 우선 검토 논리입니다. 실제 감사 단계에서는 중요성, 내부통제, 내부자료 접근 가능성에 따라 절차가 달라집니다.</p>",
+    "<p class='small-note'>위 해석은 공시 재무제표 기반의 회사 이해 및 감사계획 논리입니다. 실제 감사 단계에서는 중요성, 내부통제, 내부자료 접근 가능성에 따라 절차가 달라집니다.</p>",
     unsafe_allow_html=True,
 )
 
@@ -1735,7 +1735,7 @@ with st.expander("회계 지표 설명"):
         """
         | 지표 | 산식 | 참고 기준과 해석 |
         | --- | --- | --- |
-        | M-Score | Beneish-style 지표 종합 | `-2.22`보다 높으면 전통적으로 주의 신호로 봅니다. 이 앱에서는 단독 결론이 아니라 우선 검토 기준입니다. |
+        | M-Score | Beneish-style 지표 종합 | `-2.22`보다 높으면 전통적으로 주의 신호로 봅니다. 이 앱에서는 단독 결론이 아니라 회사의 회계적 위험 신호를 이해하는 기준점입니다. |
         | DSRI | 당기 `(매출채권 / 매출)` ÷ 전기 `(매출채권 / 매출)` | `1.0` 초과면 매출채권이 매출보다 빠르게 증가, `1.2` 이상이면 수익 인식과 회수가능성을 주의합니다. |
         | GMI | 전기 `매출총이익률` ÷ 당기 `매출총이익률` | `1.0` 초과면 수익성 악화로, 이익 조정 압력이 커질 수 있습니다. |
         | AQI | 당기 `자산품질` ÷ 전기 `자산품질` | `1.0` 초과면 비유동/기타 자산성 항목 비중 증가를 의미합니다. |
@@ -1762,7 +1762,7 @@ with st.expander("Audit Tech 벤치마크 관점"):
         """
         | Big4 audit tech에서 관찰되는 방향 | 이 앱에서 구현한 방식 |
         | --- | --- |
-        | 대량 데이터 기반 risk screening | DART 5개년 패널에서 회사별 Final Risk를 산출합니다. |
+        | 대량 데이터 기반 planning analytics | DART 5개년 패널에서 선택 회사의 Final Risk와 세부 risk layer를 산출합니다. |
         | 회계 지표와 anomaly analytics 결합 | Beneish-style, peer risk, ML anomaly score를 분리해 보여줍니다. |
         | 결과 설명 가능성 | 각 점수별 원인, 주요 지표, peer z-score를 해석합니다. |
         | 감사 절차로 연결 | Risk signal을 Audit Area, Key Question, Suggested Procedure, ISA/IFRS 근거로 변환합니다. |
@@ -1785,7 +1785,7 @@ else:
     st.dataframe(
         workplan_df.rename(
             columns={
-                "Priority": "우선순위",
+                "Attention": "분석 강도",
                 "Audit Area": "감사 영역",
                 "Risk Signal": "Risk Signal",
                 "Peer Context": "Peer Context",
@@ -1807,15 +1807,15 @@ else:
         help="선택 회사의 주요 점수, 해석, 추천 감사 질문을 Markdown 메모로 저장합니다.",
     )
 
-with st.expander("시장/Industry 스크리닝 보조 보기"):
+with st.expander("시장/Industry 비교 배경 보기"):
     st.markdown("#### 선택 범위 요약")
     metric_cols = st.columns(4)
-    metric_cols[0].metric("검토 대상 회사", f"{len(filtered):,}")
+    metric_cols[0].metric("비교 가능 회사", f"{len(filtered):,}")
     metric_cols[1].metric("최고 Final Risk", f"{filtered['final_risk_score'].max():.1f}")
     metric_cols[2].metric("평균 Final Risk", f"{filtered['final_risk_score'].mean():.1f}")
     metric_cols[3].metric("High 등급", f"{int((filtered['risk_level'] == 'High').sum()):,}")
     st.markdown(
-        "<p class='small-note'>이 영역은 개별 회사 분석이 아니라, 선택 Year/Industry 안에서 어느 회사가 상대적으로 눈에 띄는지 보는 보조 스크리닝입니다.</p>",
+        "<p class='small-note'>이 영역은 선택 회사의 점수를 해석하기 위한 비교 배경입니다. 동종/동일 Year 표본의 분포를 함께 보면 회사 고유 신호인지 산업 전반 흐름인지 구분하는 데 도움이 됩니다.</p>",
         unsafe_allow_html=True,
     )
 
@@ -1827,7 +1827,7 @@ with st.expander("시장/Industry 스크리닝 보조 보기"):
             unsafe_allow_html=True,
         )
 
-    st.markdown("#### 위험 순위")
+    st.markdown("#### 동일 범위 회사 참고표")
     st.dataframe(
         top.sort_values("final_risk_score", ascending=False)[
             [
@@ -1847,7 +1847,7 @@ with st.expander("시장/Industry 스크리닝 보조 보기"):
         hide_index=True,
     )
     st.markdown(
-        "<p class='small-note'><strong>등급 기준:</strong> High 70점 이상, Watch 40점 이상, Normal 40점 미만. 등급은 절대적 판단이 아니라 감사계획상 우선순위 표시입니다.</p>",
+        "<p class='small-note'><strong>등급 기준:</strong> High 70점 이상, Watch 40점 이상, Normal 40점 미만. 등급은 절대적 판단이 아니라 선택 회사의 신호를 동종/동일 Year 분포 안에서 읽기 위한 참고 기준입니다.</p>",
         unsafe_allow_html=True,
     )
 
@@ -2297,7 +2297,7 @@ with st.expander("데이터/모델 품질 및 검증 보기", expanded=False):
         )
 
         st.markdown(
-            "<p class='small-note'>왼쪽 표는 과거 기준 상위 10% 임계값을 Validation Year에 적용했을 때 우선 검토 대상이 되는 회사입니다. 오른쪽 표는 전년 대비 Final Risk가 가장 크게 상승한 회사로, 당기 감사계획에서 변화 원인을 먼저 설명해야 할 후보입니다.</p>",
+            "<p class='small-note'>왼쪽 표는 과거 기준 상위 10% 임계값을 Validation Year에 적용했을 때 높은 분석 신호를 보이는 회사입니다. 오른쪽 표는 전년 대비 Final Risk가 가장 크게 상승한 회사로, 선택 회사의 변화 폭을 해석할 때 참고할 수 있는 비교 사례입니다.</p>",
             unsafe_allow_html=True,
         )
 
@@ -2384,7 +2384,7 @@ with st.expander("데이터/모델 품질 및 검증 보기", expanded=False):
     with diag_tabs[3]:
         st.markdown(
             """
-            - **결론이 아니라 우선순위**: Final Risk는 감사 결론이나 부정 판정이 아니라, 감사인이 먼저 검토할 회사를 정렬하기 위한 risk prioritization 점수입니다.
+            - **결론이 아니라 회사 분석 신호**: Final Risk는 감사 결론이나 부정 판정이 아니라, 선택 회사의 감사계획 단계에서 어떤 계정과 변동을 더 깊게 이해할지 돕는 종합 점수입니다.
             - **공시 데이터 한계**: 내부 원장, 전표, 계약서, 수금내역이 없기 때문에 특정 전표를 지목하지 않고 계정 영역과 질문 후보만 제시합니다.
             - **결측치 처리**: 지표 결측은 Industry-Year median을 우선 사용하고, 표본이 부족하면 Year median과 Global median으로 보완합니다.
             - **극단값 통제**: ML 입력값은 winsorization과 RobustScaler를 거쳐 회사 규모나 단일 극단값의 영향을 줄입니다.

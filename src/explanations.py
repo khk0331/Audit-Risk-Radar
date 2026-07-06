@@ -231,7 +231,7 @@ def explain_accounting_layer(row: pd.Series) -> str:
         )
 
     lines.append(
-        "**감사적 의미:** 이 점수가 높으면 매출 인식, 매출채권 회수가능성, 자산화/손상, 발생액 품질처럼 경영진 판단이 개입되는 계정 영역을 우선 검토 대상으로 둡니다. 공시자료 단계에서는 결론보다 `어느 계정에 질문을 던질지`를 정하는 신호로 사용하는 것이 적절합니다."
+        "**감사적 의미:** 이 점수가 높으면 매출 인식, 매출채권 회수가능성, 자산화/손상, 발생액 품질처럼 경영진 판단이 개입되는 계정 영역을 더 깊게 이해해야 합니다. 공시자료 단계에서는 결론보다 `어느 계정에 질문을 던질지`를 정하는 신호로 사용하는 것이 적절합니다."
     )
     return "\n".join(lines)
 
@@ -308,8 +308,8 @@ def detailed_risk_analysis(row: pd.Series) -> str:
 
     focus_area = _dominant_focus_area(top_features)
     summary = [
-        f"**한 줄 결론:** {row['company_name']}의 Final Risk는 {_format_number(row.get('final_risk_score'))}점이며, 현재 표본에서 `{risk_level}` 수준의 감사계획 우선 검토 대상으로 분류됩니다.",
-        f"**가장 중요한 해석:** 가장 크게 기여한 리스크 축은 **{dominant_layer}**이고, 우선 읽어야 할 계정 영역은 **{focus_area}**입니다. 이 결과는 부정 판단이 아니라 `어디에 감사 질문을 집중할지`를 정하는 planning signal입니다.",
+        f"**한 줄 결론:** {row['company_name']}의 Final Risk는 {_format_number(row.get('final_risk_score'))}점이며, 현재 공시 재무제표 기준으로 `{risk_level}` 수준의 감사계획 분석 신호를 보입니다.",
+        f"**가장 중요한 해석:** 가장 크게 기여한 리스크 축은 **{dominant_layer}**이고, 특히 이해해야 할 계정 영역은 **{focus_area}**입니다. 이 결과는 부정 판단이 아니라 `어디에 감사 질문을 집중할지`를 정하는 planning signal입니다.",
     ]
 
     if top_features:
@@ -345,7 +345,7 @@ def recommend_audit_steps(row: pd.Series) -> list[str]:
         return [
             "복수 지표가 함께 움직인 원인을 파악하기 위해 전년 대비 주요 재무비율 변동 원인을 경영진 설명과 대조합니다.",
             "동일 Industry 내 유사 기업과 비교하여 해당 변동이 산업 전반의 현상인지 개별 회사 고유 리스크인지 구분합니다.",
-            "Final Risk가 높은 경우 주석 공시와 사업보고서 내 경영진 설명을 우선 확인하고, 내부자료 접근이 가능한 감사 단계에서는 관련 계정 영역을 후속 확인 후보로 둡니다.",
+            "Final Risk가 높은 경우 주석 공시와 사업보고서 내 경영진 설명을 더 자세히 확인하고, 내부자료 접근이 가능한 감사 단계에서는 관련 계정 영역을 후속 확인 후보로 둡니다.",
         ]
 
     steps = []

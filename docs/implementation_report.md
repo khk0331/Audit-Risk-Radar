@@ -6,7 +6,7 @@ Audit Risk Radar
 
 ## 2. One-Line Summary
 
-Audit Risk Radar is a DART-based financial statement risk screening dashboard that helps auditors identify companies with unusual accounting, peer, and machine-learning anomaly signals.
+Audit Risk Radar is a DART-based financial statement audit-planning dashboard that helps auditors analyze an assigned company's accounting, peer, and machine-learning pattern signals before detailed internal audit evidence is available.
 
 ## 3. Problem The Project Solves
 
@@ -16,7 +16,7 @@ This project explores how much useful risk insight can be extracted from public 
 
 The key practical question is:
 
-> Given only public financial statement data, can an auditor prioritize companies that deserve closer attention?
+> Given only public financial statement data, can an auditor understand the assigned company's accounting risk profile before detailed internal evidence is available?
 
 ## 4. Data Scope
 
@@ -170,7 +170,7 @@ The pipeline applies:
 - Isolation Forest style anomaly scoring
 - PCA-style reconstruction error
 
-The model is not an auditor. It is a prioritization tool.
+The model is not an auditor. It is a planning-stage company analysis tool.
 
 ## 11. Dashboard Design
 
