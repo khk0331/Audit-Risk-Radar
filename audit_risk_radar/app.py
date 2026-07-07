@@ -1328,23 +1328,18 @@ st.markdown(
 )
 
 years = sorted(df["year"].unique(), reverse=True)
-industries = sorted(df["industry"].unique())
 
-st.markdown("### 분석 범위 설정")
+st.markdown("### 분석 Year 설정")
 st.markdown(
     "<p class='section-note'>감사 대상 회사와 분석 Year를 선택하면, 공시 재무제표 기준으로 회사의 재무 흐름과 주요 리스크 신호를 감사계획 관점에서 정리합니다.</p>",
     unsafe_allow_html=True,
 )
 
 selected_year = st.selectbox("Year", years)
-selected_industries = st.multiselect("Industry", industries, default=industries)
-
-filtered = df[(df["year"] == selected_year) & (df["industry"].isin(selected_industries))]
-top_n = 10
-top = filtered.head(top_n)
+filtered = df[df["year"] == selected_year]
 
 if filtered.empty:
-    st.warning("선택한 조건에 해당하는 회사가 없습니다. Industry 필터를 하나 이상 선택해 주세요.")
+    st.warning("선택한 Year에 해당하는 회사가 없습니다. 다른 Year를 선택해 주세요.")
     st.stop()
 
 st.markdown("### 개별 회사 공시 Risk 분석")
@@ -1426,6 +1421,14 @@ if analysis_df.empty:
         f"선택한 Year({selected_year})에는 해당 회사 데이터가 없어, "
         f"가장 최근 Year({int(analysis_row['year'])}) 기준으로 상세 분석을 표시합니다."
     )
+comparison_df = df[
+    (df["year"] == analysis_row["year"])
+    & (df["industry"] == analysis_row["industry"])
+].copy()
+if comparison_df.empty:
+    comparison_df = df[df["year"] == analysis_row["year"]].copy()
+top_n = 10
+top = comparison_df.sort_values("final_risk_score", ascending=False).head(top_n)
 trend_metrics = ["Final Risk", "Accounting Risk", "Peer Risk", "ML Risk"]
 
 trend_df = company_df.rename(
@@ -1522,11 +1525,15 @@ else:
             "issue_name": "감리 테마",
             "source_year": "연도",
             "source_agency": "출처",
+            "source_title": "근거 자료",
+            "source_date": "자료일",
             "match_strength": "연결 강도",
             "matched_signal": "연결 근거",
             "related_accounts": "관련 계정",
             "description": "테마 설명",
+            "target_selection": "심사대상 선정 기준",
             "audit_implication": "감사계획 시사점",
+            "basis_standards": "관련 K-IFRS",
             "reference_note": "비고",
         }
     )
@@ -1854,12 +1861,12 @@ else:
     )
 
 with st.expander("시장/Industry 비교 배경 보기"):
-    st.markdown("#### 선택 범위 요약")
+    st.markdown("#### 비교 배경 요약")
     metric_cols = st.columns(4)
-    metric_cols[0].metric("비교 가능 회사", f"{len(filtered):,}")
-    metric_cols[1].metric("최고 Final Risk", f"{filtered['final_risk_score'].max():.1f}")
-    metric_cols[2].metric("평균 Final Risk", f"{filtered['final_risk_score'].mean():.1f}")
-    metric_cols[3].metric("High 등급", f"{int((filtered['risk_level'] == 'High').sum()):,}")
+    metric_cols[0].metric("비교 기준", f"{analysis_row['industry']} · {int(analysis_row['year'])}")
+    metric_cols[1].metric("비교 가능 회사", f"{len(comparison_df):,}")
+    metric_cols[2].metric("평균 Final Risk", f"{comparison_df['final_risk_score'].mean():.1f}")
+    metric_cols[3].metric("High 등급", f"{int((comparison_df['risk_level'] == 'High').sum()):,}")
     st.markdown(
         "<p class='small-note'>이 영역은 선택 회사의 점수를 해석하기 위한 비교 배경입니다. 동종/동일 Year 표본의 분포를 함께 보면 회사 고유 신호인지 산업 전반 흐름인지 구분하는 데 도움이 됩니다.</p>",
         unsafe_allow_html=True,
@@ -1873,7 +1880,7 @@ with st.expander("시장/Industry 비교 배경 보기"):
             unsafe_allow_html=True,
         )
 
-    st.markdown("#### 동일 범위 회사 참고표")
+    st.markdown("#### 동일 Industry/Year 참고표")
     st.dataframe(
         top.sort_values("final_risk_score", ascending=False)[
             [
@@ -1911,12 +1918,12 @@ with st.expander("시장/Industry 비교 배경 보기"):
         color="risk_layer",
         barmode="group",
         labels={"score": "Score", "company_name": "Company", "risk_layer": "Risk Layer"},
-        title="Top 그룹 리스크 구성",
+        title="동일 Industry/Year 참고 그룹 리스크 구성",
     )
     fig.update_layout(legend_title_text="", margin=dict(l=10, r=10, t=50, b=10))
     st.plotly_chart(style_chart(fig), width="stretch")
 
-    layer_means = top[["accounting_risk_score", "peer_risk_score", "ml_risk_score"]].mean()
+    layer_means = comparison_df[["accounting_risk_score", "peer_risk_score", "ml_risk_score"]].mean()
     pie = go.Figure(
         data=[
             go.Pie(
@@ -1929,7 +1936,7 @@ with st.expander("시장/Industry 비교 배경 보기"):
         ]
     )
     pie.update_layout(
-        title="Top 그룹 평균 리스크 비중",
+        title="동일 Industry/Year 평균 리스크 비중",
         showlegend=False,
         margin=dict(l=10, r=10, t=50, b=10),
     )

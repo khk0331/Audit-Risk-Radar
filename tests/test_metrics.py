@@ -116,19 +116,22 @@ class MetricsTest(unittest.TestCase):
         issues = load_regulatory_focus_issues()
         row = pd.Series(
             {
-                "dsri": 1.42,
-                "sgi": 1.30,
-                "gmi": 0.95,
-                "aqi": 1.00,
-                "lvgi": 0.90,
-                "tata": 0.01,
+                "dsri": 1.00,
+                "sgi": 1.05,
+                "gmi": 1.32,
+                "aqi": 1.28,
+                "lvgi": 0.95,
+                "tata": 0.09,
             }
         )
 
         matches = match_regulatory_focus_issues(row, issues)
 
         self.assertFalse(matches.empty)
-        self.assertIn("수익인식", matches.iloc[0]["issue_name"])
+        self.assertIn("손상", matches.iloc[0]["issue_name"])
+        self.assertEqual(matches.iloc[0]["source_agency"], "금융감독원")
+        self.assertIn("2025년 재무제표", matches.iloc[0]["source_title"])
+        self.assertIn("K-IFRS", matches.iloc[0]["basis_standards"])
         self.assertGreaterEqual(matches.iloc[0]["match_strength"], 50)
 
 
