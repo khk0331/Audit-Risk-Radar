@@ -104,6 +104,15 @@ The pipeline therefore combines:
 
 The current code also handles cases where service or game companies do not present gross profit in the same way as manufacturers. When an index would become `0 / 0`, the metrics layer treats it as a neutral index value rather than dropping the company-year.
 
+After collection, the project runs a second-pass account mapping quality audit. This flags cases where the matched account name and the resulting ratio do not make accounting sense, for example:
+
+- gross profit matched to revenue-like accounts such as `영업수익`
+- receivables matched to broad asset accounts such as `자산총계`
+- operating cash flow matched to cash balance accounts
+- sudden DSRI/GMI/LVGI/AQI jumps that happen in the same year as an account-name change
+
+The quality audit does not automatically delete companies. It creates a review queue so the analyst can decide whether to use a proxy, adjust the account dictionary, recollect the company, or exclude the company-year from scoring.
+
 ## How To Run
 
 Install dependencies:
@@ -143,6 +152,14 @@ python3 scripts/backfill_missing_listed_companies.py \
   --failure-log data/processed/dart_backfill_failures.csv
 ```
 
+Audit account mapping quality after collection:
+
+```bash
+python3 scripts/audit_mapping_quality.py \
+  --input data/processed/financials_panel_2020_2024_full.csv \
+  --output data/processed/account_mapping_quality_issues.csv
+```
+
 Run tests:
 
 ```bash
@@ -166,7 +183,6 @@ scripts/
   fetch_krx_universe.py          # Current KRX universe fetch
   backfill_missing_listed_companies.py
   collect_dart_panel.py
-  collect_dart_report_risks.py
 docs/
   implementation_report.md       # Detailed project explanation
   methodology.md

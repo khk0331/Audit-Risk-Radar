@@ -23,19 +23,47 @@ def select_representative_peers(
     target_row: pd.Series,
     max_peers: int = 8,
 ) -> pd.DataFrame:
+    candidates = rank_peer_candidates(scored, target_row)
+    if candidates.empty:
+        return pd.DataFrame(columns=PEER_DISPLAY_COLUMNS + ["peer_reason"])
+
+    peers = candidates.sort_values(["peer_distance", "final_risk_score"], ascending=[True, False]).head(max_peers)
+    for column in PEER_DISPLAY_COLUMNS:
+        if column not in peers.columns:
+            peers[column] = np.nan
+    return peers[PEER_DISPLAY_COLUMNS + ["peer_reason"]].copy()
+
+
+def matched_peer_indices(scored: pd.DataFrame, target_row: pd.Series, max_peers: int = 12) -> list:
+    candidates = rank_peer_candidates(scored, target_row, include_reasons=False)
+    if candidates.empty:
+        return []
+    return candidates.sort_values("peer_distance").head(max_peers).index.tolist()
+
+
+def rank_peer_candidates(
+    scored: pd.DataFrame,
+    target_row: pd.Series,
+    include_reasons: bool = True,
+) -> pd.DataFrame:
     year = int(target_row["year"])
     candidates = scored[
         (scored["year"].astype(int) == year)
         & (scored["stock_code"].astype(str) != str(target_row["stock_code"]))
     ].copy()
     if candidates.empty:
-        return pd.DataFrame(columns=PEER_DISPLAY_COLUMNS + ["peer_reason"])
+        return candidates
 
     target = target_row.copy()
-    for frame in [candidates]:
-        if "operating_margin" not in frame.columns:
-            frame["operating_margin"] = _safe_divide(frame["operating_income"], frame["revenue"])
+    candidates["operating_margin"] = _safe_divide(
+        pd.to_numeric(candidates.get("operating_income"), errors="coerce"),
+        pd.to_numeric(candidates.get("revenue"), errors="coerce"),
+    )
     target_operating_margin = _safe_scalar_divide(target.get("operating_income"), target.get("revenue"))
+    gross_margin = _numeric_column(candidates, "gross_margin", default=0.0)
+    target_gross_margin = _safe_numeric(target.get("gross_margin"), default=0.0)
+    sgi = _numeric_column(candidates, "sgi", default=1.0)
+    target_sgi = _safe_numeric(target.get("sgi"), default=1.0)
 
     candidates["industry_match"] = (candidates["industry"] == target["industry"]).astype(float)
     candidates["industry_code_match"] = _industry_prefix_match(candidates, target)
@@ -44,12 +72,10 @@ def select_representative_peers(
         + _log_distance(candidates["total_assets"], target.get("total_assets"))
     )
     candidates["profit_distance"] = _ranked_distance(
-        (candidates.get("gross_margin", 0) - target.get("gross_margin", 0)).abs()
+        (gross_margin - target_gross_margin).abs()
         + (candidates["operating_margin"] - target_operating_margin).abs()
     )
-    candidates["growth_distance"] = _ranked_distance(
-        (candidates.get("sgi", 1.0) - target.get("sgi", 1.0)).abs()
-    )
+    candidates["growth_distance"] = _ranked_distance((sgi - target_sgi).abs())
 
     candidates["peer_distance"] = (
         0.36 * (1 - candidates["industry_match"])
@@ -59,13 +85,9 @@ def select_representative_peers(
         + 0.08 * candidates["growth_distance"]
     )
     candidates["peer_similarity"] = ((1 - candidates["peer_distance"]).clip(0, 1) * 100).round(1)
-    candidates["peer_reason"] = candidates.apply(_peer_reason, axis=1)
-
-    peers = candidates.sort_values(["peer_distance", "final_risk_score"], ascending=[True, False]).head(max_peers)
-    for column in PEER_DISPLAY_COLUMNS:
-        if column not in peers.columns:
-            peers[column] = np.nan
-    return peers[PEER_DISPLAY_COLUMNS + ["peer_reason"]].copy()
+    if include_reasons:
+        candidates["peer_reason"] = candidates.apply(_peer_reason, axis=1)
+    return candidates
 
 
 def peer_methodology_note(target_row: pd.Series, peers: pd.DataFrame) -> str:
@@ -102,7 +124,11 @@ def _log_distance(series: pd.Series, target_value: object) -> pd.Series:
 
 
 def _ranked_distance(series: pd.Series) -> pd.Series:
-    values = pd.to_numeric(series, errors="coerce").fillna(series.median())
+    values = pd.to_numeric(series, errors="coerce")
+    fill_value = values.median()
+    if pd.isna(fill_value):
+        fill_value = 0.0
+    values = values.fillna(fill_value)
     if values.nunique(dropna=True) <= 1:
         return pd.Series(0.0, index=series.index)
     return values.rank(pct=True).clip(0, 1)
@@ -119,6 +145,19 @@ def _safe_scalar_divide(numerator: object, denominator: object) -> float:
     if pd.isna(numerator_value) or pd.isna(denominator_value) or denominator_value == 0:
         return 0.0
     return float(numerator_value / denominator_value)
+
+
+def _numeric_column(df: pd.DataFrame, column: str, default: float = 0.0) -> pd.Series:
+    if column not in df.columns:
+        return pd.Series(default, index=df.index)
+    return pd.to_numeric(df[column], errors="coerce").fillna(default)
+
+
+def _safe_numeric(value: object, default: float = 0.0) -> float:
+    numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(numeric):
+        return default
+    return float(numeric)
 
 
 def _peer_reason(row: pd.Series) -> str:

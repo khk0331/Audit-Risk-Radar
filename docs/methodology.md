@@ -60,6 +60,20 @@ Uses Beneish-style score and rule-based red flags.
 
 Uses industry-year robust z-scores and percentile ranks.
 
+The peer layer is designed to answer a simple planning question:
+
+> Is this company moving differently from similar companies in the same year?
+
+During review, one important calibration issue was found. If peer companies are tightly clustered around a ratio, a company can receive an extremely large robust z-score even when the absolute ratio is not unreasonable. For example, a GMI of 1.37 may be a meaningful deterioration versus peers, but it should not automatically behave like a maximum-risk signal just because the peer distribution is narrow.
+
+To reduce over-warning, the model caps each peer z-score before aggregating Peer Risk. This keeps the direction of the signal - "different from peers" - while preventing one narrow-distribution feature from dominating the entire score.
+
+Interview framing:
+
+- Before improvement: Peer Risk correctly detected relative difference, but could overstate intensity.
+- Improvement: Apply z-score cap and explain Peer Risk as relative difference, not a fraud conclusion.
+- Audit implication: High Peer Risk means "ask why this company differs from comparable companies," not "the company is misstated."
+
 ### ML Risk
 
 Uses unsupervised anomaly detection because confirmed financial statement fraud labels are scarce.

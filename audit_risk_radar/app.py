@@ -724,6 +724,20 @@ def style_chart(fig: go.Figure) -> go.Figure:
     return fig
 
 
+def score_axis_range(frame: pd.DataFrame, columns: list[str], min_span: float = 12) -> list[float]:
+    values = frame[columns].apply(pd.to_numeric, errors="coerce")
+    score_min = float(values.min().min())
+    score_max = float(values.max().max())
+    padding = max((score_max - score_min) * 0.18, 5)
+    axis_min = max(0, score_min - padding)
+    axis_max = min(100, score_max + padding)
+    if axis_max - axis_min < min_span:
+        midpoint = (axis_max + axis_min) / 2
+        axis_min = max(0, midpoint - min_span / 2)
+        axis_max = min(100, midpoint + min_span / 2)
+    return [axis_min, axis_max]
+
+
 def m_score_bullet_chart(m_score: object) -> go.Figure:
     value = pd.to_numeric(pd.Series([m_score]), errors="coerce").iloc[0]
     if pd.isna(value):
@@ -1225,7 +1239,7 @@ data_mtime = processed_data_path.stat().st_mtime if processed_data_path.exists()
 label_mtime = event_label_path.stat().st_mtime if event_label_path.exists() else 0.0
 focus_mtime = focus_issue_path.stat().st_mtime if focus_issue_path.exists() else 0.0
 raw_financials = load_financials()
-df = load_scored_data(model_version=14, data_mtime=data_mtime)
+df = load_scored_data(model_version=15, data_mtime=data_mtime)
 raw_financials["stock_code"] = raw_financials["stock_code"].astype(str).str.zfill(6)
 df["stock_code"] = df["stock_code"].astype(str).str.zfill(6)
 event_labels = load_labels(label_mtime=label_mtime)
@@ -1429,7 +1443,7 @@ if comparison_df.empty:
     comparison_df = df[df["year"] == analysis_row["year"]].copy()
 top_n = 10
 top = comparison_df.sort_values("final_risk_score", ascending=False).head(top_n)
-trend_metrics = ["Final Risk", "Accounting Risk", "Peer Risk", "ML Risk"]
+layer_trend_metrics = ["Accounting Risk", "Peer Risk", "ML Risk"]
 
 trend_df = company_df.rename(
     columns={
@@ -1439,31 +1453,47 @@ trend_df = company_df.rename(
         "ml_risk_score": "ML Risk",
     }
 )
-trend = px.line(
+trend_df["Year"] = trend_df["year"].astype(int).astype(str)
+year_ticks = trend_df["Year"].tolist()
+
+final_trend = px.line(
     trend_df,
-    x="year",
-    y=trend_metrics,
+    x="Year",
+    y="Final Risk",
     markers=True,
-    labels={"value": "Score", "year": "Year", "variable": "Metric"},
+    labels={"Final Risk": "Score", "Year": "Year"},
+    title="Final Risk 추세: 세 리스크를 종합한 결과값",
 )
-trend_min = float(trend_df[trend_metrics].min().min())
-trend_max = float(trend_df[trend_metrics].max().max())
-trend_padding = max((trend_max - trend_min) * 0.18, 5)
-trend_y_min = max(0, trend_min - trend_padding)
-trend_y_max = min(100, trend_max + trend_padding)
-if trend_y_max - trend_y_min < 12:
-    midpoint = (trend_y_max + trend_y_min) / 2
-    trend_y_min = max(0, midpoint - 6)
-    trend_y_max = min(100, midpoint + 6)
-trend.update_traces(line=dict(width=3), marker=dict(size=8))
-trend.update_layout(
+final_trend.update_traces(line=dict(width=4, color="#D8FF64"), marker=dict(size=9, color="#D8FF64"))
+final_trend.update_layout(
+    showlegend=False,
+    margin=dict(l=10, r=10, t=50, b=10),
+    yaxis=dict(range=score_axis_range(trend_df, ["Final Risk"])),
+    xaxis=dict(type="category", categoryorder="array", categoryarray=year_ticks),
+)
+st.plotly_chart(style_chart(final_trend), width="stretch")
+
+layer_trend = px.line(
+    trend_df,
+    x="Year",
+    y=layer_trend_metrics,
+    markers=True,
+    labels={"value": "Score", "Year": "Year", "variable": "Risk Layer"},
+    title="Risk Layer 추세: Final Risk를 구성하는 세 신호",
+)
+layer_trend.update_traces(line=dict(width=3), marker=dict(size=8))
+layer_trend.update_layout(
     legend_title_text="",
-    margin=dict(l=10, r=10, t=20, b=10),
-    yaxis=dict(range=[trend_y_min, trend_y_max]),
+    margin=dict(l=10, r=10, t=50, b=10),
+    yaxis=dict(range=score_axis_range(trend_df, layer_trend_metrics)),
+    xaxis=dict(type="category", categoryorder="array", categoryarray=year_ticks),
 )
-st.plotly_chart(style_chart(trend), width="stretch")
+st.plotly_chart(style_chart(layer_trend), width="stretch")
 st.markdown(
-    "<p class='small-note'>가독성을 위해 이 그래프의 y축은 선택 회사의 점수 범위에 맞춰 확대됩니다. 각 점수의 절대 기준은 여전히 0~100 스케일입니다.</p>",
+    "<p class='small-note'><strong>해석 방법:</strong> Final Risk는 독립된 네 번째 리스크가 아니라 "
+    "<span class='inline-token'>Accounting 45%</span>, <span class='inline-token'>Peer 30%</span>, "
+    "<span class='inline-token'>ML 25%</span>를 반영한 종합 점수입니다. 따라서 Accounting Risk가 높고 Peer/ML Risk가 낮으면 "
+    "Final Risk는 그 사이에 위치합니다. 가독성을 위해 두 그래프의 y축은 선택 회사의 점수 범위에 맞춰 확대되며, 절대 기준은 모두 0~100 스케일입니다.</p>",
     unsafe_allow_html=True,
 )
 
@@ -1612,7 +1642,7 @@ st.markdown(
 
 st.markdown("#### Risk 점수 해부")
 st.markdown(
-    "<p class='small-note'>Final Risk를 구성하는 세 점수는 서로 다른 질문에 답합니다. Accounting Risk는 회계비율 자체의 red flag, Peer Risk는 유사 회사 대비 이례성, ML Risk는 여러 재무비율을 함께 봤을 때 일반적인 회사 패턴과 얼마나 다른지를 봅니다.</p>",
+    "<p class='small-note'>Final Risk를 구성하는 세 점수는 서로 다른 질문에 답합니다. Accounting Risk는 회계비율 자체의 red flag, Peer Risk는 유사 회사 대비 얼마나 다른지, ML Risk는 여러 재무비율을 함께 봤을 때 일반적인 회사 패턴과 얼마나 다른지를 봅니다. Peer Risk는 방향성을 보되 과대경고를 줄이기 위해 개별 peer signal을 일정 범위에서 제한합니다.</p>",
     unsafe_allow_html=True,
 )
 st.html(layer_cards_html(analysis_row))

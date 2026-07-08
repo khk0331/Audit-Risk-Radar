@@ -8,6 +8,8 @@ from sklearn.preprocessing import MinMaxScaler, RobustScaler
 
 from src.metrics import FEATURE_COLUMNS
 
+PEER_Z_SCORE_CAP = 6.0
+
 
 def prepare_model_features(
     df: pd.DataFrame,
@@ -62,6 +64,10 @@ def _robust_z(series: pd.Series) -> pd.Series:
     return 0.6745 * (series - median) / mad
 
 
+def _capped_peer_z(series: pd.Series) -> pd.Series:
+    return _robust_z(series).clip(lower=-PEER_Z_SCORE_CAP, upper=PEER_Z_SCORE_CAP)
+
+
 def add_peer_risk(df: pd.DataFrame, peer_features: pd.DataFrame | None = None) -> pd.DataFrame:
     result = df.copy()
     feature_source = peer_features if peer_features is not None else result[FEATURE_COLUMNS]
@@ -69,7 +75,7 @@ def add_peer_risk(df: pd.DataFrame, peer_features: pd.DataFrame | None = None) -
     for col in FEATURE_COLUMNS:
         z_col = f"{col}_peer_z"
         result[z_col] = feature_source[col].groupby([result["year"], result["industry"]]).transform(
-            _robust_z
+            _capped_peer_z
         )
         z_cols.append(z_col)
 
@@ -92,26 +98,55 @@ def add_matched_peer_risk(
     result = df.copy()
     matched_raw = pd.Series(0.0, index=result.index)
     matched_sizes = pd.Series(0, index=result.index, dtype=int)
+    aligned_features = feature_source.reindex(result.index)
 
-    for idx, row in result.iterrows():
-        peers = _matched_peer_indices(result, row, max_peers=max_peers)
-        if len(peers) < min_peers:
-            peers = result[
-                (result["year"] == row["year"])
-                & (result["industry"] == row["industry"])
-                & (result.index != idx)
-            ].index.tolist()
-        if not peers:
-            matched_raw.loc[idx] = result.loc[idx, "industry_peer_risk_raw"]
-            matched_sizes.loc[idx] = 0
+    work = pd.DataFrame(index=result.index)
+    for column in ["year", "stock_code", "industry", "revenue", "total_assets", "operating_income", "sgi"]:
+        work[column] = result[column] if column in result.columns else np.nan
+    work["industry_code"] = result["industry_code"] if "industry_code" in result.columns else ""
+    if "gross_margin" in result.columns:
+        work["gross_margin"] = result["gross_margin"]
+    elif {"gross_profit", "revenue"}.issubset(result.columns):
+        work["gross_margin"] = _safe_divide(
+            pd.to_numeric(result["gross_profit"], errors="coerce"),
+            pd.to_numeric(result["revenue"], errors="coerce"),
+        )
+    else:
+        work["gross_margin"] = 0.0
+    work["industry_peer_risk_raw"] = result["industry_peer_risk_raw"]
+    work["_position"] = np.arange(len(work))
+    feature_values = aligned_features[FEATURE_COLUMNS].to_numpy(dtype=float)
+
+    for _year, group in work.groupby("year", sort=False):
+        positions = group["_position"].to_numpy(dtype=int)
+        if len(positions) <= 1:
             continue
 
-        feature_z_values = []
-        for col in FEATURE_COLUMNS:
-            peer_values = feature_source.loc[peers, col]
-            feature_z_values.append(abs(_robust_z_value(feature_source.loc[idx, col], peer_values)))
-        matched_raw.loc[idx] = float(np.mean(feature_z_values))
-        matched_sizes.loc[idx] = len(peers)
+        group_arrays = _peer_group_arrays(group)
+        for local_pos, absolute_pos in enumerate(positions):
+            peer_local_positions = _matched_peer_local_positions(
+                group_arrays,
+                local_pos,
+                max_peers=max_peers,
+            )
+            if len(peer_local_positions) < min_peers:
+                same_industry = np.flatnonzero(
+                    (group_arrays["industry"] == group_arrays["industry"][local_pos])
+                    & (np.arange(len(positions)) != local_pos)
+                )
+                peer_local_positions = same_industry
+
+            idx = result.index[absolute_pos]
+            if len(peer_local_positions) == 0:
+                matched_raw.loc[idx] = result.iloc[absolute_pos]["industry_peer_risk_raw"]
+                matched_sizes.loc[idx] = 0
+                continue
+
+            peer_absolute_positions = positions[peer_local_positions]
+            target_values = feature_values[absolute_pos]
+            peer_values = feature_values[peer_absolute_positions]
+            matched_raw.loc[idx] = _mean_capped_feature_z(target_values, peer_values)
+            matched_sizes.loc[idx] = len(peer_local_positions)
 
     result["matched_peer_risk_raw"] = matched_raw
     result["matched_peer_group_size"] = matched_sizes
@@ -177,6 +212,126 @@ def _scale_0_100(series: pd.Series) -> pd.Series:
     return pd.Series(scaler.fit_transform(values.to_frame()).ravel(), index=series.index)
 
 
+def _robust_z_value(value: float, peer_values: pd.Series) -> float:
+    values = pd.to_numeric(peer_values, errors="coerce").dropna()
+    if values.empty:
+        return 0.0
+    median = values.median()
+    mad = (values - median).abs().median()
+    if pd.isna(mad) or mad == 0:
+        return 0.0
+    return float(0.6745 * (value - median) / mad)
+
+
+def _capped_robust_z_value(value: float, peer_values: pd.Series) -> float:
+    return float(np.clip(_robust_z_value(value, peer_values), -PEER_Z_SCORE_CAP, PEER_Z_SCORE_CAP))
+
+
+def _peer_group_arrays(group: pd.DataFrame) -> dict[str, np.ndarray]:
+    revenue = pd.to_numeric(group["revenue"], errors="coerce").fillna(0).clip(lower=0)
+    assets = pd.to_numeric(group["total_assets"], errors="coerce").fillna(0).clip(lower=0)
+    operating_income = pd.to_numeric(group["operating_income"], errors="coerce")
+    gross_margin = pd.to_numeric(group["gross_margin"], errors="coerce").fillna(0.0)
+    sgi = pd.to_numeric(group["sgi"], errors="coerce").fillna(1.0)
+
+    operating_margin = _safe_divide(operating_income, pd.to_numeric(group["revenue"], errors="coerce"))
+    return {
+        "stock_code": group["stock_code"].astype(str).to_numpy(),
+        "industry": group["industry"].fillna("").astype(str).to_numpy(),
+        "industry_prefix": group["industry_code"].fillna("").astype(str).str[:2].to_numpy(),
+        "log_revenue": np.log1p(revenue.to_numpy(dtype=float)),
+        "log_assets": np.log1p(assets.to_numpy(dtype=float)),
+        "gross_margin": gross_margin.to_numpy(dtype=float),
+        "operating_margin": operating_margin.fillna(0.0).to_numpy(dtype=float),
+        "sgi": sgi.to_numpy(dtype=float),
+    }
+
+
+def _matched_peer_local_positions(
+    arrays: dict[str, np.ndarray],
+    target_position: int,
+    max_peers: int,
+) -> np.ndarray:
+    count = len(arrays["stock_code"])
+    candidate_mask = np.ones(count, dtype=bool)
+    candidate_mask[target_position] = False
+    if not candidate_mask.any():
+        return np.array([], dtype=int)
+
+    candidate_positions = np.flatnonzero(candidate_mask)
+    industry_match = (
+        arrays["industry"][candidate_positions] == arrays["industry"][target_position]
+    ).astype(float)
+    target_prefix = arrays["industry_prefix"][target_position]
+    industry_code_match = (
+        (target_prefix != "")
+        & (arrays["industry_prefix"][candidate_positions] == target_prefix)
+    ).astype(float)
+
+    size_distance = _rank_distance_array(
+        np.abs(arrays["log_revenue"][candidate_positions] - arrays["log_revenue"][target_position])
+        + np.abs(arrays["log_assets"][candidate_positions] - arrays["log_assets"][target_position])
+    )
+    profit_distance = _rank_distance_array(
+        np.abs(arrays["gross_margin"][candidate_positions] - arrays["gross_margin"][target_position])
+        + np.abs(
+            arrays["operating_margin"][candidate_positions]
+            - arrays["operating_margin"][target_position]
+        )
+    )
+    growth_distance = _rank_distance_array(
+        np.abs(arrays["sgi"][candidate_positions] - arrays["sgi"][target_position])
+    )
+
+    peer_distance = (
+        0.36 * (1 - industry_match)
+        + 0.14 * (1 - industry_code_match)
+        + 0.28 * size_distance
+        + 0.14 * profit_distance
+        + 0.08 * growth_distance
+    )
+    take = min(max_peers, len(candidate_positions))
+    nearest = np.argpartition(peer_distance, take - 1)[:take]
+    ordered = nearest[np.argsort(peer_distance[nearest])]
+    return candidate_positions[ordered]
+
+
+def _rank_distance_array(values: np.ndarray) -> np.ndarray:
+    values = np.asarray(values, dtype=float)
+    if len(values) == 0 or np.nanmax(values) == np.nanmin(values):
+        return np.zeros(len(values), dtype=float)
+    values = np.nan_to_num(values, nan=np.nanmedian(values))
+    order = np.argsort(values, kind="mergesort")
+    ranks = np.empty(len(values), dtype=float)
+    ranks[order] = (np.arange(len(values), dtype=float) + 1) / len(values)
+    return np.clip(ranks, 0, 1)
+
+
+def _mean_capped_feature_z(target_values: np.ndarray, peer_values: np.ndarray) -> float:
+    z_values = []
+    for feature_position in range(target_values.shape[0]):
+        z_values.append(
+            abs(
+                _capped_robust_z_array(
+                    target_values[feature_position],
+                    peer_values[:, feature_position],
+                )
+            )
+        )
+    return float(np.mean(z_values))
+
+
+def _capped_robust_z_array(value: float, peer_values: np.ndarray) -> float:
+    values = pd.to_numeric(pd.Series(peer_values), errors="coerce").dropna().to_numpy(dtype=float)
+    if len(values) == 0 or not np.isfinite(value):
+        return 0.0
+    median = np.median(values)
+    mad = np.median(np.abs(values - median))
+    if not np.isfinite(mad) or mad == 0:
+        return 0.0
+    return float(np.clip(0.6745 * (value - median) / mad, -PEER_Z_SCORE_CAP, PEER_Z_SCORE_CAP))
+
+
 def _matched_peer_indices(df: pd.DataFrame, target: pd.Series, max_peers: int = 12) -> list:
     candidates = df[
         (df["year"] == target["year"])
@@ -197,11 +352,11 @@ def _matched_peer_indices(df: pd.DataFrame, target: pd.Series, max_peers: int = 
         + _log_distance(candidates["total_assets"], target.get("total_assets"))
     )
     candidates["profit_distance"] = _ranked_distance(
-        (candidates.get("gross_margin", 0) - target.get("gross_margin", 0)).abs()
+        (_numeric_column(candidates, "gross_margin", default=0.0) - _safe_numeric(target.get("gross_margin"), default=0.0)).abs()
         + (candidates["operating_margin"] - target_operating_margin).abs()
     )
     candidates["growth_distance"] = _ranked_distance(
-        (candidates.get("sgi", 1.0) - target.get("sgi", 1.0)).abs()
+        (_numeric_column(candidates, "sgi", default=1.0) - _safe_numeric(target.get("sgi"), default=1.0)).abs()
     )
     candidates["peer_distance"] = (
         0.36 * (1 - candidates["industry_match"])
@@ -211,17 +366,6 @@ def _matched_peer_indices(df: pd.DataFrame, target: pd.Series, max_peers: int = 
         + 0.08 * candidates["growth_distance"]
     )
     return candidates.sort_values("peer_distance").head(max_peers).index.tolist()
-
-
-def _robust_z_value(value: float, peer_values: pd.Series) -> float:
-    values = pd.to_numeric(peer_values, errors="coerce").dropna()
-    if values.empty:
-        return 0.0
-    median = values.median()
-    mad = (values - median).abs().median()
-    if pd.isna(mad) or mad == 0:
-        return 0.0
-    return float(0.6745 * (value - median) / mad)
 
 
 def _industry_prefix_match(candidates: pd.DataFrame, target: pd.Series) -> pd.Series:
@@ -263,3 +407,16 @@ def _safe_scalar_divide(numerator: object, denominator: object) -> float:
     if pd.isna(numerator_value) or pd.isna(denominator_value) or denominator_value == 0:
         return 0.0
     return float(numerator_value / denominator_value)
+
+
+def _numeric_column(df: pd.DataFrame, column: str, default: float = 0.0) -> pd.Series:
+    if column not in df.columns:
+        return pd.Series(default, index=df.index)
+    return pd.to_numeric(df[column], errors="coerce").fillna(default)
+
+
+def _safe_numeric(value: object, default: float = 0.0) -> float:
+    numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(numeric):
+        return default
+    return float(numeric)

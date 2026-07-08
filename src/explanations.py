@@ -242,7 +242,7 @@ def explain_peer_layer(row: pd.Series) -> str:
     top_z = _top_peer_z_features(row)
     lines = [
         f"**요약:** Peer Risk는 {_format_number(score)}점으로 `{_risk_band(score)}` 수준입니다. 같은 Year/Industry뿐 아니라 규모, 수익성, 성장성이 비슷한 matched peer와 비교해 회사가 얼마나 다른 방향으로 움직였는지 봅니다.",
-        f"**비교 근거:** Industry 기준 이례성 raw score는 {_format_number(row.get('industry_peer_risk_raw'))}, matched peer 기준 raw score는 {_format_number(row.get('matched_peer_risk_raw'))}입니다. 현재 matched peer group size는 {matched_size}개입니다.",
+        f"**비교 근거:** Industry 기준 이례성 raw score는 {_format_number(row.get('industry_peer_risk_raw'))}, matched peer 기준 raw score는 {_format_number(row.get('matched_peer_risk_raw'))}입니다. 현재 matched peer group size는 {matched_size}개입니다. peer 분포가 지나치게 좁을 때 과대경고가 발생하지 않도록 개별 지표의 peer z-score는 일정 범위에서 cap 처리합니다.",
     ]
 
     if top_z:
@@ -256,7 +256,7 @@ def explain_peer_layer(row: pd.Series) -> str:
                 else "낮은 값이 반드시 위험을 의미하지는 않지만, peer와 다른 방향으로 움직였다는 점에서 원인 설명이 필요합니다."
             )
             lines.append(
-                f"- **{detail['label']} z-score {z_value:.2f}**: peer 중앙값 대비 {direction} 방향으로 벗어났습니다. {implication}"
+                f"- **{detail['label']} peer signal {z_value:.2f}**: 유사 회사 대비 {direction} 방향으로 벗어났습니다. {implication}"
             )
     else:
         lines.append(
