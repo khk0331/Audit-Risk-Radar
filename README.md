@@ -94,16 +94,50 @@ ML Risk는 결론을 내리는 모델이 아니라, Accounting/Peer 분석에서
 
 ## How To Run
 
-### 1. Install dependencies
+### Windows quick start
 
-```bash
-python3 -m pip install -r requirements.txt
+Windows users can run the dashboard without typing Python commands:
+
+```text
+run_windows.bat
 ```
 
-### 2. Run dashboard
+If PowerShell is preferred:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\run_windows.ps1
+```
+
+The script creates a local `.venv`, installs dashboard-only dependencies from `requirements-app.txt`, and opens Streamlit at:
+
+```text
+http://127.0.0.1:8501
+```
+
+See [Windows Setup Guide](docs/windows_setup.md) for troubleshooting.
+
+### macOS / Linux quick start
 
 ```bash
-streamlit run audit_risk_radar/app.py
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements-app.txt
+python -m streamlit run audit_risk_radar/app.py --server.address 127.0.0.1 --server.port 8501
+```
+
+### Full development setup
+
+Use this when running tests, data collection scripts, or optional DART/FinanceDataReader workflows.
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Run dashboard:
+
+```bash
+python -m streamlit run audit_risk_radar/app.py
 ```
 
 Streamlit이 출력하는 로컬 주소를 열면 됩니다.
@@ -112,10 +146,10 @@ Streamlit이 출력하는 로컬 주소를 열면 됩니다.
 http://localhost:8501
 ```
 
-### 3. Run tests
+Run tests:
 
 ```bash
-python3 -m unittest discover tests
+python -m unittest discover tests
 ```
 
 ## Optional: Recollect DART Data
@@ -161,6 +195,7 @@ docs/
   methodology.md
   implementation_report.md
   implementation_report_ko.md
+  windows_setup.md
 data/
   processed/                     # Pre-collected execution data
   raw/                           # DART/KRX reference data
