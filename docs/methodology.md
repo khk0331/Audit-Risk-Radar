@@ -68,7 +68,7 @@ During review, one important calibration issue was found. If peer companies are 
 
 To reduce over-warning, the model caps each peer z-score before aggregating Peer Risk. This keeps the direction of the signal - "different from peers" - while preventing one narrow-distribution feature from dominating the entire score.
 
-Interview framing:
+Peer Risk calibration notes:
 
 - Before improvement: Peer Risk correctly detected relative difference, but could overstate intensity.
 - Improvement: Apply z-score cap and explain Peer Risk as relative difference, not a fraud conclusion.

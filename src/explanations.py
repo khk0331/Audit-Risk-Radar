@@ -364,18 +364,15 @@ def recommend_audit_steps(row: pd.Series) -> list[str]:
     # Recommendations are generated only as planning questions/procedures. They
     # cite ISA/IFRS bases so the user can defend why the question is audit-relevant.
     triggered = get_triggered_features(row)
-    if not triggered:
-        return [
-            "[재무비율 조합] 전년 대비 크게 변한 계정을 매출, 영업현금흐름, 매출채권, 재고자산, 차입금 순서로 대조해 변동 원인을 요약합니다. (근거: ISA 315/520 · 회사와 환경을 이해하고 재무정보 간 관계를 분석하는 절차입니다.)",
-            "[Peer 비교] 선택 회사의 지표가 peer 중앙값과 다른 항목을 3개 이내로 좁혀, 산업 공통 현상인지 회사 고유 현상인지 표시합니다. (근거: ISA 315/520 · 예상과 다른 관계나 변동을 식별하는 절차입니다.)",
-            "[공시 확인] 사업보고서 주석에서 변동을 설명하는 계정 주석이 있는지 확인하고, 설명이 부족한 항목만 후속 질문 후보로 남깁니다. (근거: ISA 330/500 · 식별된 위험에 대응해 필요한 증거 방향을 설계하는 절차입니다.)",
-        ]
+    selected_features = triggered or _top_accounting_features(row, limit=3)
 
     steps = []
-    for feature in triggered[:4]:
+    for feature in selected_features[:4]:
         focus = AUDIT_FOCUS[feature]
+        value = _format_number(row.get(feature))
+        signal = _feature_direction(feature, row.get(feature))
         steps.append(
-            f"[{focus['area']}] {focus['question']} {focus['procedure']} "
+            f"[{focus['area']}] {focus['question']} 현재 {FEATURE_DETAIL[feature]['label']}는 {value}이며 `{signal}`입니다. {focus['procedure']} "
             f"(근거: {focus['basis']} · {focus['isa_quote']})"
         )
     return steps

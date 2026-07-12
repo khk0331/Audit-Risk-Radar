@@ -1059,71 +1059,6 @@ def _format_display_number(value: object) -> str:
     return f"{float(value):.2f}"
 
 
-def build_audit_workplan(row: pd.Series) -> pd.DataFrame:
-    triggered = get_triggered_features(row)
-    if not triggered:
-        triggered = ["dsri", "tata", "lvgi"]
-
-    rows = []
-    for idx, feature in enumerate(triggered[:5], start=1):
-        focus = AUDIT_FOCUS.get(feature)
-        if not focus:
-            continue
-        value = row.get(feature)
-        peer_z = row.get(f"{feature}_peer_z")
-        attention = "High" if idx <= 2 and row.get("final_risk_score", 0) >= 70 else "Watch"
-        rows.append(
-            {
-                "Attention": attention,
-                "Audit Area": focus["area"],
-                "Risk Signal": f"{FEATURE_LABELS.get(feature, feature.upper())} {value:.2f}"
-                if pd.notna(value)
-                else FEATURE_LABELS.get(feature, feature.upper()),
-                "Peer Context": f"Peer z {peer_z:.2f}" if pd.notna(peer_z) else "N/A",
-                "Key Question": focus["question"],
-                "Suggested Procedure": focus["procedure"],
-                "Basis": focus["basis"],
-                "Standards Rationale": focus.get("isa_quote", ""),
-                "Status": "Planning",
-            }
-        )
-    return pd.DataFrame(rows)
-
-
-def build_evidence_memo(row: pd.Series, workplan: pd.DataFrame) -> str:
-    workplan_lines = []
-    for idx, plan_row in workplan.iterrows():
-        workplan_lines.append(
-            f"{idx + 1}. [{plan_row['Attention']}] {plan_row['Audit Area']} - "
-            f"{plan_row['Key Question']} ({plan_row['Basis']} · {plan_row.get('Standards Rationale', '')})"
-        )
-
-    return "\n".join(
-        [
-            "# Audit Risk Radar - Planning Memo",
-            "",
-            f"- Company: {row['company_name']}",
-            f"- Year: {int(row['year'])}",
-            f"- Industry: {row['industry']}",
-            f"- Risk Level: {row['risk_level']}",
-            f"- Final Risk: {row['final_risk_score']:.1f}",
-            f"- Accounting Risk: {row['accounting_risk_score']:.1f}",
-            f"- Peer Risk: {row['peer_risk_score']:.1f}",
-            f"- ML Risk: {row['ml_risk_score']:.1f}",
-            f"- M-Score: {row['m_score']:.2f}",
-            "",
-            "## Key Interpretation",
-            str(row.get("risk_explanation", "")),
-            "",
-            "## Initial Workplan",
-            "\n".join(workplan_lines) if workplan_lines else "No workplan rows generated.",
-            "",
-            "## Important Limitation",
-            "This memo is based only on public DART financial statement data. It supports company-level audit planning analysis, not an audit conclusion.",
-        ]
-    )
-
-
 def company_data_quality_summary(
     raw_company_df: pd.DataFrame,
     scored_company_df: pd.DataFrame,
@@ -1222,7 +1157,7 @@ data_mtime = processed_data_path.stat().st_mtime if processed_data_path.exists()
 label_mtime = event_label_path.stat().st_mtime if event_label_path.exists() else 0.0
 
 # Load committed processed data first. With these CSVs in the repository,
-# interviewers can run the dashboard without preparing a DART API key.
+# reviewers can run the dashboard without preparing a DART API key.
 raw_financials = load_financials()
 df = load_scored_data(model_version=15, data_mtime=data_mtime)
 raw_financials["stock_code"] = raw_financials["stock_code"].astype(str).str.zfill(6)
@@ -1230,10 +1165,6 @@ df["stock_code"] = df["stock_code"].astype(str).str.zfill(6)
 event_labels = load_labels(label_mtime=label_mtime)
 df = attach_event_labels(df, event_labels)
 df["risk_level"] = df["final_risk_score"].apply(classify_risk_level)
-
-# Rebuild narrative fields at runtime so older cached score files still receive
-# the latest ISA/IFRS wording and dashboard explanations.
-df = add_explanations(df)
 if "feature_imputed_count" not in df.columns:
     df["feature_imputed_count"] = 0
 if "feature_imputed_ratio" not in df.columns:
@@ -1414,6 +1345,10 @@ if analysis_df.empty:
         f"선택한 Year({selected_year})에는 해당 회사 데이터가 없어, "
         f"가장 최근 Year({int(analysis_row['year'])}) 기준으로 상세 분석을 표시합니다."
     )
+# Generate narrative fields only for the selected company-year. This keeps the
+# dashboard responsive because thousands of rows do not need fresh Korean/ISA
+# explanations on every rerun.
+analysis_row = add_explanations(pd.DataFrame([analysis_row])).iloc[0]
 comparison_df = df[
     (df["year"] == analysis_row["year"])
     & (df["industry"] == analysis_row["industry"])
@@ -1725,42 +1660,12 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.markdown("#### Planning Workpaper")
-st.markdown(
-    "<p class='small-note'>선택 회사에서 실제로 무엇을 먼저 읽어야 하는지 정리한 planning workpaper 초안입니다. 내부자료가 없다는 한계를 전제로, 공시자료에서 확인 가능한 계정·주석·비율을 우선 제시합니다.</p>",
-    unsafe_allow_html=True,
+show_market_context = st.toggle(
+    "시장/Industry 비교 배경 계산/표시",
+    value=False,
+    help="동일 Industry/Year 참고표와 분포 차트는 렌더링 비용이 있어 필요할 때만 켭니다.",
 )
-workplan_df = build_audit_workplan(analysis_row)
-if workplan_df.empty:
-    st.info("현재 선택 회사에 대해 자동 생성된 workplan 항목이 없습니다.")
-else:
-    st.dataframe(
-        workplan_df.rename(
-            columns={
-                "Attention": "분석 강도",
-                "Audit Area": "감사 영역",
-                "Risk Signal": "Risk Signal",
-                "Peer Context": "Peer Context",
-                "Key Question": "핵심 질문",
-                "Suggested Procedure": "공시 확인 포인트",
-                "Basis": "근거",
-                "Standards Rationale": "기준서 문장 요지",
-                "Status": "상태",
-            }
-        ),
-        width="stretch",
-        hide_index=True,
-    )
-    memo_text = build_evidence_memo(analysis_row, workplan_df)
-    st.download_button(
-        "Planning Memo 다운로드",
-        data=memo_text.encode("utf-8"),
-        file_name=f"audit_risk_memo_{analysis_row['stock_code']}_{int(analysis_row['year'])}.md",
-        mime="text/markdown",
-        help="선택 회사의 주요 점수, 해석, 추천 감사 질문을 Markdown 메모로 저장합니다.",
-    )
-
-with st.expander("시장/Industry 비교 배경 보기"):
+if show_market_context:
     st.markdown("#### 비교 배경 요약")
     metric_cols = st.columns(4)
     metric_cols[0].metric("비교 기준", f"{analysis_row['industry']} · {int(analysis_row['year'])}")
@@ -1781,8 +1686,9 @@ with st.expander("시장/Industry 비교 배경 보기"):
         )
 
     st.markdown("#### 동일 Industry/Year 참고표")
+    top_display = add_explanations(top.sort_values("final_risk_score", ascending=False).copy())
     st.dataframe(
-        top.sort_values("final_risk_score", ascending=False)[
+        top_display[
             [
                 "stock_code",
                 "company_name",
@@ -1842,7 +1748,12 @@ with st.expander("시장/Industry 비교 배경 보기"):
     )
     st.plotly_chart(style_chart(pie), width="stretch")
 
-with st.expander("데이터/모델 품질 및 검증 보기", expanded=False):
+show_model_diagnostics = st.toggle(
+    "데이터/모델 품질 및 검증 계산/표시",
+    value=False,
+    help="전체 패널 진단과 validation 차트는 무거우므로 필요할 때만 렌더링합니다.",
+)
+if show_model_diagnostics:
     st.markdown("### 데이터/모델 진단")
     st.markdown(
         "<p class='section-note'>이 영역은 사용자에게 “점수를 얼마나 믿고 해석할 수 있는지”를 보여줍니다. 표본 규모, 결측 대체, 점수 분포, 시간 기준 검증을 확인합니다.</p>",

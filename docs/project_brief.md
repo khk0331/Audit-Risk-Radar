@@ -44,7 +44,7 @@ The final project should include:
 - Streamlit dashboard
 - Clear README
 - Backtesting case study
-- Interview-ready methodology explanation
+- Methodology explanation and limitation notes
 
 ## First Expansion Scope
 
@@ -57,15 +57,14 @@ The first expansion should move beyond the original 350-statement experiment int
 
 This scale is large enough to make anomaly detection and peer benchmarking more meaningful, while still small enough to manage DART API limits, account mapping issues, and missing data.
 
-## Interview Narrative
+## Project Rationale
 
-1. I started from a prior project that calculated Beneish-style M-Score from DART financial statements.
-2. I recognized that a single formula is interpretable but limited.
-3. I redesigned the project as a broader digital audit risk-screening workflow.
-4. I added peer-group comparison to reflect industry context.
-5. I added unsupervised anomaly detection because labeled fraud data is scarce.
-6. I focused on explainability because audit conclusions require professional judgment and documentation.
-7. The final insight is that AI should not replace auditors, but should help auditors ask better questions earlier.
+1. Beneish-style M-Score provides an interpretable accounting-based starting point.
+2. A single formula is limited, so the workflow adds peer-group comparison and unsupervised anomaly detection.
+3. Peer-group comparison reflects industry and market context.
+4. Unsupervised anomaly detection is used because confirmed public fraud labels are scarce.
+5. Explainability is emphasized because audit planning requires professional judgment and documentation.
+6. The dashboard is designed as a planning analytics aid, not as an audit conclusion engine.
 
 ## Audit Value
 

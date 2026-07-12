@@ -1,87 +1,77 @@
 # Audit Risk Radar
 
-Audit Risk Radar is a Streamlit dashboard and Python pipeline for company-level audit planning analysis using Korean public disclosure data. The project uses OpenDART financial statements, KRX listed-company universe data, Beneish-style accounting indicators, peer benchmarking, and ML-based pattern checks to help an auditor understand the company they are assigned to audit.
+Audit Risk Radar는 DART 공시 재무제표를 이용해 감사 대상 회사의 재무 흐름, 동종기업 대비 위치, 주요 회계 지표 변동을 감사계획 단계에서 구조화하는 Streamlit 기반 planning analytics dashboard입니다.
 
-The project does not claim to prove fraud or identify specific journal entries. It is designed as a digital audit planning tool: it turns public financial statements into explainable risk signals, peer context, and follow-up audit questions.
+이 프로젝트는 부정 적발이나 감사 결론을 내리는 모델이 아닙니다. 내부 원장, 전표, 계약서, 수금내역 없이도 공시 재무제표만으로 감사인이 먼저 확인해야 할 계정과 질문을 정리하는 데 목적이 있습니다.
 
-## Current Status
+## Executive Summary
 
-As of the latest local run:
+- **Problem**: 감사인은 감사계획 단계에서 회사의 사업·재무 리스크를 빠르게 이해해야 하지만, 공시 재무제표만으로는 계정 변동, peer 대비 위치, 이익과 현금흐름의 괴리를 한눈에 보기 어렵습니다.
+- **Solution**: DART 재무제표를 표준 계정 체계로 정리하고, Beneish-style 지표, peer 비교, ML anomaly signal을 결합해 회사별 감사계획 신호를 시각화했습니다.
+- **Output**: 회사 검색 중심 대시보드, M-Score 기준선, 주요 회계 지표 추세, 대표 peer 비교, 공시 기반 확인 포인트를 제공합니다.
+- **Scope**: 부정 탐지 모델이 아니라, 감사인이 더 좋은 질문을 더 일찍 설계하도록 돕는 디지털 감사계획 보조 도구입니다.
 
-- Raw DART panel: 2,574 companies and 11,583 company-year rows
-- Scored dashboard dataset: 2,436 companies and 8,947 company-year rows
-- Period: 2020-2024 raw collection, with scored rows generally starting from 2021 because ratio indices require a prior year
-- Universe: KRX current listed companies matched to DART corp codes, excluding financial companies, SPACs, REIT-like vehicles, and special-purpose entities where appropriate
+## Current Dataset
 
-The repository includes the processed DART panel needed to run the dashboard. A DART API key is **not required** for basic dashboard execution. The API key is required only when collecting new companies, updating the panel, or rerunning the DART collection scripts.
+저장소에는 기본 실행에 필요한 사전 수집 데이터가 포함되어 있습니다.
 
-## Why This Project Exists
+- Raw DART panel: `2,574` companies / `11,583` company-year rows
+- Scored dashboard dataset: `2,436` companies / `8,947` company-year rows
+- Period: raw collection `2020-2024`, scored rows mostly `2021-2024`
+- Universe: KRX 상장회사와 DART corp code를 매칭하고, 금융회사·SPAC·리츠성 특수목적회사는 분석 목적에 맞게 제외
 
-Digital audit work increasingly depends on full-population analytics, automated data processing, explainable scoring, and structured company understanding. Public disclosure data is weaker than internal ERP, journal-entry, and contract-level evidence, but it is still useful for planning-stage company analysis.
+기본 대시보드 실행에는 **DART API key가 필요하지 않습니다.** API key는 데이터를 새로 수집하거나 업데이트할 때만 필요합니다.
 
-This project asks:
+## Key Features
 
-> If an auditor only has public financial statements, can we still understand the assigned company's accounting risk profile before detailed audit evidence is available?
+- Company search 중심의 감사계획 분석 화면
+- DART/OpenDART 재무제표 수집 및 KRX 상장사 universe 매칭
+- 회사별 계정명 차이를 보완하는 표준 계정 매핑 로직
+- Beneish-style M-Score 및 DSRI, GMI, AQI, SGI, SGAI, LVGI, TATA 지표 계산
+- Industry/year 및 matched peer 기반 비교 분석
+- Isolation Forest와 PCA reconstruction error 기반 비지도 이상 패턴 탐지
+- M-Score `-2.22` 기준선 시각화
+- 회사별 주요 지표, 연도별 산출 내역, peer 비교군 표시
+- 공시 재무제표와 주석으로 먼저 확인할 수 있는 ISA/IFRS 기반 질문 제시
+- 계정 매핑 품질 점검 및 결측/대체 지표 진단
 
-The answer is yes, with important limits. Public data cannot replace audit evidence, but it can support a disciplined first-pass risk assessment.
+## Methodology
 
-## Main Features
+### 1. Accounting Risk
 
-- Company-centered search and analysis dashboard
-- KRX current listed-company universe fetch
-- DART/OpenDART financial statement collection
-- Account-name normalization from heterogeneous Korean/IFRS account names
-- Beneish-style indicators as an interpretable accounting baseline
-- Peer risk scoring by industry, year, size, and market-aware comparison logic
-- ML anomaly risk using robust preprocessing and unsupervised models
-- Korean risk explanations for Accounting Risk, Peer Risk, and ML Risk
-- Company risk interpretation, score decomposition, and audit workplan
-- Detailed annual calculation table with comma-formatted raw amounts
-- Data quality diagnostics, imputation flags, and failure logs
-- External event label template for later weak validation
+Beneish-style 지표를 사용해 회계적 red flag를 설명 가능한 방식으로 계산합니다.
 
-## Risk Layers
+| Indicator | Meaning |
+| --- | --- |
+| DSRI | 매출 대비 매출채권 증가 속도 |
+| GMI | 매출총이익률 악화 |
+| AQI | 자산 품질 변화 |
+| SGI | 매출 성장률 |
+| SGAI | 매출 대비 판관비성 비용 변화 |
+| LVGI | 레버리지 변화 |
+| TATA | 이익-현금흐름 괴리 |
 
-### Accounting Risk
+M-Score는 전통적인 `-2.22` 기준선을 참고하지만, 이 앱에서는 단독 결론이 아니라 감사계획 단계의 회계적 신호로 사용합니다.
 
-The accounting layer uses Beneish-style indicators such as:
+### 2. Peer Risk
 
-- DSRI: receivables growth relative to sales
-- GMI: gross margin deterioration
-- AQI: asset quality movement
-- SGI: sales growth
-- SGAI: SG&A proxy movement
-- LVGI: leverage movement
-- TATA: earnings-cash-flow gap relative to assets
+회사 자체의 전년 대비 변화만 보면 산업 전반의 변화와 회사 고유 이슈를 구분하기 어렵습니다. 따라서 동일 Year/Industry 비교와 함께 매출, 총자산, 수익성, 성장성이 유사한 matched peer를 사용해 상대적 이례성을 확인합니다.
 
-M-Score is used as an explainable red-flag baseline, not as a fraud conclusion.
+### 3. ML Risk
 
-### Peer Risk
+확정 부정 라벨이 부족한 공시 데이터 특성을 고려해 비지도 방식의 anomaly signal을 보조 지표로 사용했습니다.
 
-The peer layer compares the selected company with similar companies rather than reading its ratios in isolation. The comparison uses industry-year distributions and matched peer ideas so the app can explain whether a ratio is unusual relative to comparable companies.
+- `Isolation Forest`: 주변 회사들과 다른 정도
+- `PCA reconstruction error`: 일반적인 재무비율 조합으로 설명하기 어려운 정도
+- `RobustScaler` 및 winsorization: 극단값과 규모 차이의 영향을 완화
 
-### ML Risk
-
-The ML layer uses unsupervised anomaly detection because reliable fraud labels are scarce. The current pipeline uses robust preprocessing, imputation tracking, scaling, Isolation Forest style anomaly scoring, and PCA-style reconstruction logic.
-
-The purpose of ML is not to make the conclusion. It highlights multivariate patterns that may be missed by one formula.
-
-## Data Collection Flow
-
-1. Fetch current listed-company universe from KRX.
-2. Match KRX stock codes to DART corp codes.
-3. Exclude finance, SPAC, REIT, and special-purpose companies unless deliberately included.
-4. Collect five years of DART financial statements.
-5. Normalize account names into a common schema.
-6. Save checkpoints and failure logs.
-7. Recalculate risk scores and explanations.
-8. Launch the Streamlit dashboard.
+ML Risk는 결론을 내리는 모델이 아니라, Accounting/Peer 분석에서 놓칠 수 있는 복합 패턴을 보조적으로 알려주는 신호입니다.
 
 ## Account Mapping Challenge
 
-The hardest technical problem is not just downloading more companies. It is mapping inconsistent public account names into a standard analytical schema.
+가장 중요한 기술적 난제는 DART에서 데이터를 가져오는 것 자체보다 **회사별 계정과목명 차이를 표준 계정으로 변환하는 것**이었습니다.
 
-Different companies may use different labels for similar concepts, for example:
+예를 들어 회사마다 매출을 다음처럼 다르게 표시할 수 있습니다.
 
 - 매출액
 - 영업수익
@@ -90,67 +80,53 @@ Different companies may use different labels for similar concepts, for example:
 - 게임매출
 - 콘텐츠매출
 
-The pipeline therefore combines:
+이를 보완하기 위해 다음 로직을 결합했습니다.
 
-- DART/IFRS `account_id` matching
-- Korean account-name synonym candidates
-- Exclusion keywords to avoid false matches
-- Statement preference such as BS, IS, and CF
-- Consolidated statement preference
-- Fuzzy text matching
-- Failure diagnostics with actual account-name samples
+- DART/IFRS `account_id` 우선 매칭
+- 한국어 계정명 후보 사전
+- 잘못된 broad account 매칭을 막기 위한 exclusion keyword
+- BS, IS, CF 등 재무제표 유형 선호도
+- 연결재무제표 우선 사용
+- fuzzy text matching
+- 매칭 실패 및 의심 계정 로그 저장
 
-The current code also handles cases where service or game companies do not present gross profit in the same way as manufacturers. When an index would become `0 / 0`, the metrics layer treats it as a neutral index value rather than dropping the company-year.
-
-After collection, the project runs a second-pass account mapping quality audit. This flags cases where the matched account name and the resulting ratio do not make accounting sense, for example:
-
-- gross profit matched to revenue-like accounts such as `영업수익`
-- receivables matched to broad asset accounts such as `자산총계`
-- operating cash flow matched to cash balance accounts
-- sudden DSRI/GMI/LVGI/AQI jumps that happen in the same year as an account-name change
-
-The quality audit does not automatically delete companies. It creates a review queue so the analyst can decide whether to use a proxy, adjust the account dictionary, recollect the company, or exclude the company-year from scoring.
+또한 `scripts/audit_mapping_quality.py`로 매핑 품질을 사후 점검합니다. 예를 들어 매출총이익이 영업수익 계정에 매칭되거나, 매출채권이 자산총계에 매칭되는 경우를 review queue로 표시합니다.
 
 ## How To Run
 
-The default dashboard uses the pre-collected data committed under `data/processed/` and `data/raw/`.
-This means an interviewer can clone the repository and run the app without preparing a DART API key.
-
-Install dependencies:
+### 1. Install dependencies
 
 ```bash
 python3 -m pip install -r requirements.txt
 ```
 
-Run the app with the sample data or existing processed data:
+### 2. Run dashboard
 
 ```bash
 streamlit run audit_risk_radar/app.py
 ```
 
-Open the local URL printed by Streamlit, usually:
+Streamlit이 출력하는 로컬 주소를 열면 됩니다.
 
 ```text
 http://localhost:8501
 ```
 
-### Optional: Recollect or Update DART Data
-
-The following steps are only needed when you want to rebuild or update the DART data panel. They require your own OpenDART API key.
-
-Fetch current KRX listed-company universe:
+### 3. Run tests
 
 ```bash
-python3 scripts/fetch_krx_universe.py \
-  --market KRX \
-  --output data/raw/krx/current_listed_companies.csv
+python3 -m unittest discover tests
 ```
 
-Backfill missing listed companies from DART:
+## Optional: Recollect DART Data
+
+기본 실행에는 API key가 필요하지 않습니다. 아래 절차는 데이터를 새로 수집하거나 업데이트할 때만 사용합니다.
 
 ```bash
 export DART_API_KEY="your_open_dart_api_key"
+```
 
+```bash
 python3 scripts/backfill_missing_listed_companies.py \
   --start-year 2020 \
   --end-year 2024 \
@@ -163,20 +139,6 @@ python3 scripts/backfill_missing_listed_companies.py \
   --failure-log data/processed/dart_backfill_failures.csv
 ```
 
-Audit account mapping quality after collection:
-
-```bash
-python3 scripts/audit_mapping_quality.py \
-  --input data/processed/financials_panel_2020_2024_full.csv \
-  --output data/processed/account_mapping_quality_issues.csv
-```
-
-Run tests:
-
-```bash
-python3 -m unittest discover tests
-```
-
 ## Repository Structure
 
 ```text
@@ -184,44 +146,51 @@ audit_risk_radar/
   app.py                         # Streamlit dashboard
 src/
   dart_pipeline.py               # DART collection and account matching
-  data_loader.py                 # Sample/DART panel loader
+  data_loader.py                 # Processed/sample data loader
   metrics.py                     # Beneish-style feature engineering
-  risk_scoring.py                # Accounting, peer, and ML risk scores
-  peer_selection.py              # Peer-group matching logic
-  explanations.py                # Korean risk narratives and audit questions
-  event_labels.py                # External weak-label support
+  risk_scoring.py                # Accounting, peer, ML, final risk scores
+  peer_selection.py              # Representative peer selection
+  explanations.py                # Korean explanations and audit questions
+  event_labels.py                # Weak-label template support
 scripts/
-  fetch_krx_universe.py          # Current KRX universe fetch
+  fetch_krx_universe.py
   backfill_missing_listed_companies.py
   collect_dart_panel.py
+  audit_mapping_quality.py
 docs/
-  implementation_report.md       # Detailed project explanation
   methodology.md
-  project_brief.md
-  labeling_guide.md
-data/sample/
-  sample_financials.csv
-data/labels/
-  external_events_template.csv
+  implementation_report.md
+  implementation_report_ko.md
+data/
+  processed/                     # Pre-collected execution data
+  raw/                           # DART/KRX reference data
+  sample/                        # Small fallback sample data
 tests/
   test_metrics.py
 ```
 
-## Interview Positioning
+## Project Value
 
-I built Audit Risk Radar to show how digital audit can turn public financial statement data into planning-stage risk insight. I started with an interpretable Beneish-style baseline, then expanded it with peer benchmarking, unsupervised anomaly detection, account mapping diagnostics, and a Korean dashboard that explains why each company was flagged. The goal is not to replace auditor judgment, but to help auditors ask better questions earlier.
+이 프로젝트의 핵심은 “AI가 감사를 대체한다”가 아니라, **감사인이 더 빠르게 회사의 리스크 구조를 이해하고 더 좋은 질문을 설계하도록 돕는 것**입니다.
+
+프로젝트가 제공하는 실무적 가치는 다음과 같습니다.
+
+1. 공시 재무제표만으로 감사계획 단계에서 관찰 가능한 위험 신호를 구조화합니다.
+2. 회사별 계정명 차이를 표준 항목으로 매핑해 지표 계산의 일관성을 높입니다.
+3. Beneish-style 지표로 설명 가능한 회계적 기준점을 제공합니다.
+4. Peer 비교와 ML anomaly를 더해 회사 고유 이례성과 복합 패턴을 보완합니다.
+5. 최종 결과를 점수에 그치지 않고 공시 기반 확인 포인트로 연결합니다.
 
 ## Limitations
 
-- Public financial statements do not contain journal-entry, contract, invoice, or ERP-level evidence.
-- The model identifies risk signals, not fraud or misstatement conclusions.
-- Account mapping quality affects downstream scores.
-- Peer comparison depends on industry classification and available public data.
-- New listings, mergers, spin-offs, and disclosure format changes can create partial-year coverage.
-- Any red flag requires professional judgment and corroborating audit evidence.
+- 공시 재무제표만 사용하므로 원장, 전표, 계약서, 수금내역 수준의 결론을 낼 수 없습니다.
+- Final Risk는 부정 확률이나 공식 감사기준이 아니라 내부 모델의 상대적 planning signal입니다.
+- Peer 비교는 산업 분류와 공시 데이터의 완전성에 영향을 받습니다.
+- 계정명 매핑 품질은 지표 계산과 점수에 직접 영향을 줍니다.
+- 실제 감사에서는 중요성, 내부통제, 회사 특수성, 내부자료 접근 가능성을 함께 고려해야 합니다.
 
 ## More Detail
 
-See [docs/implementation_report.md](docs/implementation_report.md) for the full project explanation.
-
-한국어 상세 설명은 [docs/implementation_report_ko.md](docs/implementation_report_ko.md)를 참고하세요.
+- [Methodology](docs/methodology.md)
+- [Implementation Report](docs/implementation_report.md)
+- [Korean Implementation Report](docs/implementation_report_ko.md)
