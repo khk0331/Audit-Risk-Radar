@@ -108,11 +108,6 @@ Open PowerShell in the repository folder and run:
 .\run_windows.bat
 ```
 
-If PowerShell is preferred:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\run_windows.ps1
-```
 
 The script creates a local `.venv`, installs dashboard-only dependencies from `requirements-app.txt`, and opens Streamlit at:
 
