@@ -8,13 +8,12 @@ The project does not claim to prove fraud or identify specific journal entries. 
 
 As of the latest local run:
 
-- Raw DART panel: 2,050 companies and 9,760 company-year rows
-- Companies with complete five-year raw coverage: 1,864
-- Scored dashboard dataset: 1,995 companies and 7,675 company-year rows
+- Raw DART panel: 2,574 companies and 11,583 company-year rows
+- Scored dashboard dataset: 2,436 companies and 8,947 company-year rows
 - Period: 2020-2024 raw collection, with scored rows generally starting from 2021 because ratio indices require a prior year
 - Universe: KRX current listed companies matched to DART corp codes, excluding financial companies, SPACs, REIT-like vehicles, and special-purpose entities where appropriate
 
-Large generated datasets are intentionally ignored by git. They can be regenerated with the scripts in this repository using a valid OpenDART API key.
+The repository includes the processed DART panel needed to run the dashboard. A DART API key is **not required** for basic dashboard execution. The API key is required only when collecting new companies, updating the panel, or rerunning the DART collection scripts.
 
 ## Why This Project Exists
 
@@ -29,7 +28,6 @@ The answer is yes, with important limits. Public data cannot replace audit evide
 ## Main Features
 
 - Company-centered search and analysis dashboard
-- Regulatory focus issue mapping based on the 2025 FSS priority review accounting issues PDF
 - KRX current listed-company universe fetch
 - DART/OpenDART financial statement collection
 - Account-name normalization from heterogeneous Korean/IFRS account names
@@ -37,7 +35,7 @@ The answer is yes, with important limits. Public data cannot replace audit evide
 - Peer risk scoring by industry, year, size, and market-aware comparison logic
 - ML anomaly risk using robust preprocessing and unsupervised models
 - Korean risk explanations for Accounting Risk, Peer Risk, and ML Risk
-- Audit briefing section that explains why a company is risky and what to ask next
+- Company risk interpretation, score decomposition, and audit workplan
 - Detailed annual calculation table with comma-formatted raw amounts
 - Data quality diagnostics, imputation flags, and failure logs
 - External event label template for later weak validation
@@ -115,6 +113,9 @@ The quality audit does not automatically delete companies. It creates a review q
 
 ## How To Run
 
+The default dashboard uses the pre-collected data committed under `data/processed/` and `data/raw/`.
+This means an interviewer can clone the repository and run the app without preparing a DART API key.
+
 Install dependencies:
 
 ```bash
@@ -126,6 +127,16 @@ Run the app with the sample data or existing processed data:
 ```bash
 streamlit run audit_risk_radar/app.py
 ```
+
+Open the local URL printed by Streamlit, usually:
+
+```text
+http://localhost:8501
+```
+
+### Optional: Recollect or Update DART Data
+
+The following steps are only needed when you want to rebuild or update the DART data panel. They require your own OpenDART API key.
 
 Fetch current KRX listed-company universe:
 

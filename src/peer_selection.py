@@ -23,6 +23,8 @@ def select_representative_peers(
     target_row: pd.Series,
     max_peers: int = 8,
 ) -> pd.DataFrame:
+    # These peers are displayed to the user, so the goal is interpretability:
+    # choose a small set of close comparables, then show why they were selected.
     candidates = rank_peer_candidates(scored, target_row)
     if candidates.empty:
         return pd.DataFrame(columns=PEER_DISPLAY_COLUMNS + ["peer_reason"])
@@ -46,6 +48,9 @@ def rank_peer_candidates(
     target_row: pd.Series,
     include_reasons: bool = True,
 ) -> pd.DataFrame:
+    # Peer selection starts from the same year. This keeps macro conditions and
+    # reporting periods aligned before comparing industry, scale, profitability,
+    # and growth.
     year = int(target_row["year"])
     candidates = scored[
         (scored["year"].astype(int) == year)
@@ -77,6 +82,9 @@ def rank_peer_candidates(
     )
     candidates["growth_distance"] = _ranked_distance((sgi - target_sgi).abs())
 
+    # Weighting reflects practical comparability logic used in planning and
+    # valuation-style peer selection: industry fit first, then size and operating
+    # profile. The weights are transparent heuristics, not trained coefficients.
     candidates["peer_distance"] = (
         0.36 * (1 - candidates["industry_match"])
         + 0.14 * (1 - candidates["industry_code_match"])

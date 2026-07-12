@@ -8,6 +8,8 @@ from sklearn.preprocessing import MinMaxScaler, RobustScaler
 
 from src.metrics import FEATURE_COLUMNS
 
+# Peer z-scores are capped so a very tight peer distribution does not turn a
+# small absolute difference into an exaggerated risk score.
 PEER_Z_SCORE_CAP = 6.0
 
 
@@ -22,6 +24,8 @@ def prepare_model_features(
     features = result[feature_columns].replace([np.inf, -np.inf], np.nan)
     missing_mask = features.isna()
 
+    # Keep an audit trail of imputation. In the app, this tells the user when a
+    # model score is influenced by missing public disclosure inputs.
     result["feature_imputed_count"] = missing_mask.sum(axis=1)
     result["feature_imputed_ratio"] = result["feature_imputed_count"] / len(feature_columns)
     result["imputed_features"] = missing_mask.apply(
@@ -32,6 +36,9 @@ def prepare_model_features(
     imputed = features.copy()
     group_keys = [result["year"], result["industry"]]
     for col in feature_columns:
+        # Prefer the most comparable median first, then widen the fallback
+        # scope. This avoids dropping companies merely because one ratio is
+        # unavailable while still preserving industry/year context where possible.
         industry_year_median = imputed[col].groupby(group_keys).transform("median")
         year_median = imputed[col].groupby(result["year"]).transform("median")
         global_median = imputed[col].median()
@@ -48,6 +55,8 @@ def prepare_model_features(
 
     clipped = imputed.copy()
     for col in feature_columns:
+        # Winsorization limits extreme public-data artifacts before ML scaling.
+        # It reduces the chance that one mapping issue dominates the model.
         lower = clipped[col].quantile(lower_quantile)
         upper = clipped[col].quantile(upper_quantile)
         if pd.notna(lower) and pd.notna(upper) and lower < upper:
@@ -74,6 +83,8 @@ def add_peer_risk(df: pd.DataFrame, peer_features: pd.DataFrame | None = None) -
     z_cols = []
     for col in FEATURE_COLUMNS:
         z_col = f"{col}_peer_z"
+        # First peer view: compare each company with the same Year/Industry
+        # distribution using robust z-scores instead of mean/std outlier-sensitive z.
         result[z_col] = feature_source[col].groupby([result["year"], result["industry"]]).transform(
             _capped_peer_z
         )
@@ -81,6 +92,8 @@ def add_peer_risk(df: pd.DataFrame, peer_features: pd.DataFrame | None = None) -
 
     result["industry_peer_risk_raw"] = result[z_cols].abs().mean(axis=1)
     result = add_matched_peer_risk(result, feature_source)
+    # Second peer view: combine broad industry context with a smaller matched
+    # peer group based on size, profitability, and growth characteristics.
     result["peer_risk_raw"] = (
         0.50 * result["industry_peer_risk_raw"]
         + 0.50 * result["matched_peer_risk_raw"]
@@ -117,6 +130,8 @@ def add_matched_peer_risk(
     work["_position"] = np.arange(len(work))
     feature_values = aligned_features[FEATURE_COLUMNS].to_numpy(dtype=float)
 
+    # Process by year to avoid comparing companies across different macro and
+    # reporting environments. Array-based matching keeps the full panel fast.
     for _year, group in work.groupby("year", sort=False):
         positions = group["_position"].to_numpy(dtype=int)
         if len(positions) <= 1:
@@ -161,12 +176,17 @@ def add_ml_risk(
     result = df.copy()
     features = model_features if model_features is not None else prepare_model_features(result)[1]
 
+    # RobustScaler is used because financial ratios can be heavy-tailed even
+    # after winsorization; median/IQR scaling is less sensitive than z-scaling.
     scaled = RobustScaler().fit_transform(features)
 
+    # Isolation Forest captures "far from neighbors" behavior in the ratio space.
     iso = IsolationForest(contamination=0.08, random_state=random_state)
     iso.fit(scaled)
     result["isolation_risk_raw"] = -iso.decision_function(scaled)
 
+    # PCA reconstruction error captures combinations of ratios that are hard to
+    # explain with the dominant low-dimensional financial statement patterns.
     pca_components = min(3, scaled.shape[1])
     pca = PCA(n_components=pca_components, random_state=random_state)
     reconstructed = pca.inverse_transform(pca.fit_transform(scaled))
@@ -181,6 +201,9 @@ def add_ml_risk(
 def add_composite_risk(df: pd.DataFrame) -> pd.DataFrame:
     result = df.copy()
     result["accounting_risk_score"] = _scale_0_100(result["m_score"])
+    # The weights are a transparent planning assumption, not a trained fraud
+    # probability model: interpretable accounting signal first, peer context
+    # second, and ML anomaly as a supporting signal.
     result["final_risk_score"] = (
         0.45 * result["accounting_risk_score"]
         + 0.30 * result["peer_risk_score"]
@@ -197,6 +220,9 @@ def score_financials(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def _scale_0_100(series: pd.Series) -> pd.Series:
+    # Convert heterogeneous raw scores into a common dashboard scale. The score
+    # is relative to the current panel, so it supports prioritization rather
+    # than an absolute probability interpretation.
     values = series.replace([np.inf, -np.inf], np.nan)
     fill_value = values.median()
     if pd.isna(fill_value):

@@ -16,17 +16,23 @@ FEATURE_COLUMNS = [
 
 
 def _safe_divide(numerator: pd.Series, denominator: pd.Series) -> pd.Series:
+    # Division by zero should create a missing analytical value, not an
+    # infinite ratio that later dominates scaling and peer comparisons.
     denominator = denominator.replace(0, np.nan)
     return numerator / denominator
 
 
 def _safe_index(current: pd.Series, prior: pd.Series) -> pd.Series:
+    # Beneish-style indices compare the current ratio with the prior-year
+    # ratio. When both years are effectively zero, the most neutral index is 1.
     result = _safe_divide(current, prior)
     both_zero = current.fillna(0).abs().le(1e-12) & prior.fillna(0).abs().le(1e-12)
     return result.mask(both_zero, 1.0)
 
 
 def add_beneish_style_features(financials: pd.DataFrame) -> pd.DataFrame:
+    # Each index is calculated company-by-company because DSRI, GMI, AQI, SGI,
+    # SGAI, and LVGI all require the same company's prior-year denominator.
     df = financials.sort_values(["stock_code", "year"]).copy()
     grouped = df.groupby("stock_code", group_keys=False)
     profit_for_margin, margin_proxy_used = _profit_for_margin(df)
@@ -46,6 +52,9 @@ def add_beneish_style_features(financials: pd.DataFrame) -> pd.DataFrame:
     df["sgai"] = _safe_index(df["sga_proxy"], grouped["sga_proxy"].shift(1))
     df["lvgi"] = _safe_index(df["leverage"], grouped["leverage"].shift(1))
 
+    # This follows the classic Beneish eight-variable spirit, adapted to the
+    # public DART accounts available in the project. DEPI is omitted because
+    # depreciation detail is not consistently available across all companies.
     df["m_score"] = (
         -4.84
         + 0.920 * df["dsri"]
@@ -70,6 +79,10 @@ def _profit_for_margin(df: pd.DataFrame) -> tuple[pd.Series, pd.Series]:
         proxy_used = pd.Series(bool(proxy_used), index=df.index)
     proxy_used = proxy_used.fillna(False).astype(bool)
 
+    # Some service, platform, or game companies do not disclose gross profit in
+    # the same shape as manufacturers. If the mapped gross profit is essentially
+    # revenue, using it would create an artificial 100% margin and distort GMI.
+    # In that case operating income is a more conservative margin proxy.
     revenue_like_gross_profit = (
         gross_profit.notna()
         & revenue.notna()

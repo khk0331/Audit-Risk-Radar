@@ -126,6 +126,9 @@ RISK_LAYER_DEFINITIONS = [
         "해석": "Accounting 45%, Peer 30%, ML 25%의 투명한 설계 가중평균입니다. 부정 확률이 아니라 감사계획 우선순위 신호입니다.",
     },
 ]
+
+# These explanation tables are shown in the app so a reviewer can understand
+# both the score bands and the final-risk weighting without reading the source.
 RISK_WEIGHT_RATIONALE = [
     {
         "Layer": "Accounting Risk",
@@ -1253,6 +1256,9 @@ if not processed_data_path.exists():
 event_label_path = Path("data/labels/external_events_template.csv")
 data_mtime = processed_data_path.stat().st_mtime if processed_data_path.exists() else 0.0
 label_mtime = event_label_path.stat().st_mtime if event_label_path.exists() else 0.0
+
+# Load committed processed data first. With these CSVs in the repository,
+# interviewers can run the dashboard without preparing a DART API key.
 raw_financials = load_financials()
 df = load_scored_data(model_version=15, data_mtime=data_mtime)
 raw_financials["stock_code"] = raw_financials["stock_code"].astype(str).str.zfill(6)
@@ -1260,6 +1266,9 @@ df["stock_code"] = df["stock_code"].astype(str).str.zfill(6)
 event_labels = load_labels(label_mtime=label_mtime)
 df = attach_event_labels(df, event_labels)
 df["risk_level"] = df["final_risk_score"].apply(classify_risk_level)
+
+# Rebuild narrative fields at runtime so older cached score files still receive
+# the latest ISA/IFRS wording and dashboard explanations.
 df = add_explanations(df)
 if "feature_imputed_count" not in df.columns:
     df["feature_imputed_count"] = 0
@@ -1354,6 +1363,9 @@ st.markdown(
     "<p class='section-note'>감사 대상 회사를 먼저 검색하고 분석 Year를 선택하면, 공시 재무제표 기준으로 재무 흐름·동종기업 대비 위치·후속 감사 질문을 한 화면에서 정리합니다.</p>",
     unsafe_allow_html=True,
 )
+
+# The main workflow starts from a company search because the project is an
+# assigned-client planning tool, not a generic "top risky companies" screener.
 company_lookup = (
     raw_financials[["stock_code", "company_name", "industry"]]
     .drop_duplicates()
@@ -1448,6 +1460,8 @@ top_n = 10
 top = comparison_df.sort_values("final_risk_score", ascending=False).head(top_n)
 layer_trend_metrics = ["Accounting Risk", "Peer Risk", "ML Risk"]
 
+# Split Final Risk from its three component layers. This avoids the visual
+# misunderstanding that Final Risk is an independent fourth signal.
 trend_df = company_df.rename(
     columns={
         "final_risk_score": "Final Risk",

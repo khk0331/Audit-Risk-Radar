@@ -13,6 +13,8 @@ DRIVER_LABELS = {
     "tata": "총자산 대비 발생액 비중이 높습니다",
 }
 
+# FEATURE_DETAIL translates numeric Beneish-style indicators into audit language.
+# The dashboard uses these texts to explain why a ratio matters, not just its value.
 FEATURE_DETAIL = {
     "dsri": {
         "label": "DSRI",
@@ -51,6 +53,9 @@ FEATURE_DETAIL = {
     },
 }
 
+# AUDIT_FOCUS connects each triggered indicator to a planning question,
+# a public-data procedure, and the relevant ISA/IFRS basis. This keeps the app
+# from producing unsupported "black-box" audit recommendations.
 AUDIT_FOCUS = {
     "dsri": {
         "area": "매출채권 및 수익 인식",
@@ -105,6 +110,8 @@ AUDIT_FOCUS = {
 
 
 def get_triggered_features(row: pd.Series) -> list[str]:
+    # Most Beneish-style indices are neutral around 1.0. The 1.25 threshold is a
+    # planning trigger, while TATA uses an accrual-specific threshold.
     triggered = []
     for feature in DRIVER_LABELS:
         value = row.get(feature)
@@ -218,6 +225,8 @@ def _top_peer_z_features(row: pd.Series, limit: int = 4) -> list[tuple[str, floa
 
 
 def explain_accounting_layer(row: pd.Series) -> str:
+    # Accounting Risk explains the interpretable formula-driven layer first,
+    # because this is the easiest layer for an auditor to challenge and validate.
     score = row.get("accounting_risk_score")
     features = _top_accounting_features(row)
     lines = [
@@ -244,6 +253,9 @@ def explain_accounting_layer(row: pd.Series) -> str:
 
 
 def explain_peer_layer(row: pd.Series) -> str:
+    # Peer Risk is framed as "different from comparable companies" rather than
+    # "wrong." This distinction matters because peer differences may reflect a
+    # real business model difference, not a misstatement.
     score = row.get("peer_risk_score")
     matched_size = int(row.get("matched_peer_group_size", 0) or 0)
     top_z = _top_peer_z_features(row)
@@ -277,6 +289,8 @@ def explain_peer_layer(row: pd.Series) -> str:
 
 
 def explain_ml_layer(row: pd.Series) -> str:
+    # ML Risk is deliberately described as a pattern signal. It should guide
+    # where to ask questions, but it should not override accounting evidence.
     score = row.get("ml_risk_score")
     imputed_count = int(row.get("feature_imputed_count", 0) or 0)
     imputed_features = row.get("imputed_features", "")
@@ -347,6 +361,8 @@ def detailed_risk_analysis(row: pd.Series) -> str:
 
 
 def recommend_audit_steps(row: pd.Series) -> list[str]:
+    # Recommendations are generated only as planning questions/procedures. They
+    # cite ISA/IFRS bases so the user can defend why the question is audit-relevant.
     triggered = get_triggered_features(row)
     if not triggered:
         return [

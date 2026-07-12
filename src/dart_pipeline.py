@@ -734,6 +734,9 @@ def extract_standard_row_with_diagnostics(
     company: DartCompany,
     year: int,
 ) -> tuple[dict[str, object] | None, list[str]]:
+    # Convert one company's raw DART statement rows into the standard schema
+    # used by the metrics layer. This is the main guardrail against company-by-
+    # company account-name differences breaking downstream risk scores.
     values = {
         "year": year,
         "stock_code": company.stock_code,
@@ -744,6 +747,8 @@ def extract_standard_row_with_diagnostics(
 
     matched_accounts = {}
     for target, spec in ACCOUNT_CANDIDATES.items():
+        # Each target account is matched using IFRS/DART account_id, Korean name
+        # candidates, exclusion keywords, and preferred statement type.
         amount, match = _extract_amount_with_match(fs, spec)
         values[target] = amount
         if match:
@@ -751,6 +756,9 @@ def extract_standard_row_with_diagnostics(
 
     values["gross_profit_proxy_used"] = False
     if pd.isna(values["gross_profit"]) and not pd.isna(values["operating_income"]):
+        # Some service companies do not provide a clean gross-profit line. Using
+        # operating income as an explicit proxy is better than silently dropping
+        # the company, and the proxy flag is carried into later quality checks.
         values["gross_profit"] = values["operating_income"]
         values["gross_profit_proxy_used"] = True
         matched_accounts["gross_profit"] = {
@@ -763,6 +771,8 @@ def extract_standard_row_with_diagnostics(
     essential = ["revenue", "total_assets", "gross_profit", "operating_income"]
     missing_essential = [col for col in essential if pd.isna(values[col])]
     if missing_essential:
+        # Return account-name samples with the failure so the mapping dictionary
+        # can be improved later instead of leaving a black-box collection error.
         account_sample = summarize_statement_accounts(fs)
         return None, [
             "필수 계정 자동 매칭 실패",
@@ -879,6 +889,8 @@ def _extract_amount_with_match(fs: pd.DataFrame, spec: dict[str, object]) -> tup
     if not candidates:
         return None, None
 
+    # Keep the best-scoring account and return its metadata. The metadata is
+    # later stored in matched_accounts so suspicious mappings can be audited.
     score, amount, row = sorted(candidates, key=lambda item: item[0], reverse=True)[0]
     match = {
         "account_id": row.get("account_id", ""),
@@ -908,10 +920,14 @@ def _account_match_score(row: dict[str, object], spec: dict[str, object]) -> flo
     statement = str(row.get("sj_div", "") or "")
     score = 0.0
 
+    # account_id is the strongest signal because it is less language-dependent
+    # than Korean account names.
     if account_id in set(spec.get("ids", [])):
         score += 100.0
 
     for keyword in spec.get("keywords", []):
+        # Name matching catches cases where account_id is absent or too generic.
+        # Exact and substring matches are favored; fuzzy matching is a fallback.
         normalized_keyword = _normalize_account_text(keyword)
         if not normalized_keyword:
             continue
@@ -925,6 +941,8 @@ def _account_match_score(row: dict[str, object], spec: dict[str, object]) -> flo
                 score += 18.0 * similarity
 
     for keyword in spec.get("exclude_keywords", []):
+        # Exclusion keywords prevent broad accounts such as total assets or cash
+        # balance from being incorrectly used as receivables or cash flow.
         normalized_keyword = _normalize_account_text(keyword)
         if normalized_keyword and normalized_keyword in account_name:
             score -= 45.0

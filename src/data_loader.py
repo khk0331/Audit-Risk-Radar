@@ -6,6 +6,9 @@ import numpy as np
 import pandas as pd
 
 
+# The dashboard is designed to run without a DART API key during review.
+# It therefore tries the committed processed DART panel first, then falls
+# back to a smaller sample dataset only when processed data is missing.
 REQUIRED_COLUMNS = {
     "year",
     "stock_code",
@@ -40,6 +43,9 @@ def load_financials(path: str | Path | None = None) -> pd.DataFrame:
         return generate_sample_financials(path)
 
     df = pd.read_csv(path, dtype={"stock_code": str})
+
+    # Fail fast when a required analytical account is missing. A silent
+    # missing column here would later distort M-Score, peer risk, and ML risk.
     missing = REQUIRED_COLUMNS.difference(df.columns)
     if missing:
         raise ValueError(f"Missing required columns: {sorted(missing)}")
@@ -97,6 +103,8 @@ def generate_sample_financials(output_path: str | Path, random_state: int = 42) 
 
     df = pd.DataFrame(rows)
 
+    # Inject a few artificial red-flag patterns so the sample dashboard still
+    # demonstrates the risk logic when the real DART panel is unavailable.
     flagged_codes = ["000007", "000019", "000043", "000061"]
     mask = (df["stock_code"].isin(flagged_codes)) & (df["year"] == 2023)
     df.loc[mask, "receivables"] *= 2.3
