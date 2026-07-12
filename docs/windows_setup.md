@@ -4,19 +4,19 @@ This repository includes pre-collected dashboard data, so a Windows user does no
 
 ## Assumption
 
-This guide assumes Python is already installed and the following command works in Command Prompt:
-
-```cmd
-python --version
-```
-
-If the command does not work, add Python to PATH or reinstall Python with **Add python.exe to PATH** enabled.
+This guide assumes Python is already installed and available from the terminal.
 
 ## Recommended Quick Start
 
 1. Download or clone this repository.
-2. Double-click `run_windows.bat`.
-3. Open <http://127.0.0.1:8501> if the browser does not open automatically.
+2. Open PowerShell in the repository folder.
+3. Run:
+
+```powershell
+.\run_windows.bat
+```
+
+4. Open <http://127.0.0.1:8501> if the browser does not open automatically.
 
 The script creates `.venv`, installs dashboard dependencies from `requirements-app.txt`, and starts Streamlit.
 
@@ -40,7 +40,7 @@ python -m streamlit run audit_risk_radar\app.py --server.address 127.0.0.1 --ser
 
 ## Common Issues
 
-- `python is not recognized`: add Python to PATH or reinstall Python with **Add python.exe to PATH** enabled.
+- `python is not recognized`: Python is not available from PATH. Add Python to PATH or reinstall Python with **Add python.exe to PATH** enabled.
 - `streamlit is not recognized`: use `python -m streamlit ...` instead of `streamlit ...`.
 - App opens but no company appears: make sure the `data/` folder was included when downloading the repository.
 - DART API key prompt: the dashboard does not need an API key. API keys are required only for recollecting or updating raw DART data.

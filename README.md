@@ -98,16 +98,10 @@ ML Risk는 결론을 내리는 모델이 아니라, Accounting/Peer 분석에서
 
 Windows users can run the dashboard with Python already installed.
 
-First confirm this command works in Command Prompt:
+Open PowerShell in the repository folder and run:
 
-```cmd
-python --version
-```
-
-Then run:
-
-```text
-run_windows.bat
+```powershell
+.\run_windows.bat
 ```
 
 If PowerShell is preferred:

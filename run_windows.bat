@@ -3,17 +3,6 @@ setlocal
 
 cd /d "%~dp0"
 
-echo Checking Python from PATH...
-python --version
-if errorlevel 1 (
-    echo.
-    echo Python is installed but the "python" command is not available in this terminal.
-    echo Open Command Prompt and check: python --version
-    echo If it fails, add Python to PATH or reinstall Python with "Add python.exe to PATH" enabled.
-    pause
-    exit /b 1
-)
-
 if not exist ".venv\Scripts\python.exe" (
     echo Creating Windows virtual environment...
     python -m venv .venv

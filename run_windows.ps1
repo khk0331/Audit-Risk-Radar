@@ -2,16 +2,6 @@ $ErrorActionPreference = "Stop"
 
 Set-Location $PSScriptRoot
 
-try {
-    python --version
-} catch {
-    Write-Host 'Python is installed but the "python" command is not available in this terminal.'
-    Write-Host "Open PowerShell and check: python --version"
-    Write-Host 'If it fails, add Python to PATH or reinstall Python with "Add python.exe to PATH" enabled.'
-    Read-Host "Press Enter to exit"
-    exit 1
-}
-
 if (-not (Test-Path ".venv\Scripts\python.exe")) {
     Write-Host "Creating Windows virtual environment..."
     python -m venv .venv
