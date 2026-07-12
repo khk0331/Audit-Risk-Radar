@@ -2,35 +2,19 @@ $ErrorActionPreference = "Stop"
 
 Set-Location $PSScriptRoot
 
-$pythonCommand = if (Get-Command py -ErrorAction SilentlyContinue) {
-    @("py", "-3")
-} else {
-    @("python")
-}
-
-function Invoke-ProjectPython {
-    param([string[]]$PythonArgs)
-
-    if ($pythonCommand.Length -gt 1) {
-        & $pythonCommand[0] $pythonCommand[1] @PythonArgs
-    } else {
-        & $pythonCommand[0] @PythonArgs
-    }
-}
-
 try {
-    Invoke-ProjectPython @("--version") | Out-Null
+    python --version
 } catch {
-    Write-Host "Python 3 was not found."
-    Write-Host "Install Python 3.10 or newer from https://www.python.org/downloads/"
-    Write-Host 'Make sure "Add python.exe to PATH" is checked during installation.'
+    Write-Host 'Python is installed but the "python" command is not available in this terminal.'
+    Write-Host "Open PowerShell and check: python --version"
+    Write-Host 'If it fails, add Python to PATH or reinstall Python with "Add python.exe to PATH" enabled.'
     Read-Host "Press Enter to exit"
     exit 1
 }
 
 if (-not (Test-Path ".venv\Scripts\python.exe")) {
     Write-Host "Creating Windows virtual environment..."
-    Invoke-ProjectPython @("-m", "venv", ".venv")
+    python -m venv .venv
 }
 
 Write-Host "Installing dashboard dependencies..."

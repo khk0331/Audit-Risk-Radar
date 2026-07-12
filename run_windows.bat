@@ -3,25 +3,20 @@ setlocal
 
 cd /d "%~dp0"
 
-where py >nul 2>nul
-if %errorlevel%==0 (
-    set "PY=py -3"
-) else (
-    set "PY=python"
-)
-
-%PY% --version >nul 2>nul
+echo Checking Python from PATH...
+python --version
 if errorlevel 1 (
-    echo Python 3 was not found.
-    echo Install Python 3.10 or newer from https://www.python.org/downloads/
-    echo Make sure "Add python.exe to PATH" is checked during installation.
+    echo.
+    echo Python is installed but the "python" command is not available in this terminal.
+    echo Open Command Prompt and check: python --version
+    echo If it fails, add Python to PATH or reinstall Python with "Add python.exe to PATH" enabled.
     pause
     exit /b 1
 )
 
 if not exist ".venv\Scripts\python.exe" (
     echo Creating Windows virtual environment...
-    %PY% -m venv .venv
+    python -m venv .venv
     if errorlevel 1 (
         echo Failed to create virtual environment.
         pause
@@ -29,11 +24,9 @@ if not exist ".venv\Scripts\python.exe" (
     )
 )
 
-call ".venv\Scripts\activate.bat"
-
 echo Installing dashboard dependencies...
-python -m pip install --upgrade pip
-python -m pip install -r requirements-app.txt
+".venv\Scripts\python.exe" -m pip install --upgrade pip
+".venv\Scripts\python.exe" -m pip install -r requirements-app.txt
 if errorlevel 1 (
     echo Dependency installation failed.
     pause
@@ -42,6 +35,6 @@ if errorlevel 1 (
 
 echo Starting Audit Risk Radar...
 echo Open http://127.0.0.1:8501 if the browser does not open automatically.
-python -m streamlit run audit_risk_radar\app.py --server.address 127.0.0.1 --server.port 8501
+".venv\Scripts\python.exe" -m streamlit run audit_risk_radar\app.py --server.address 127.0.0.1 --server.port 8501
 
 pause

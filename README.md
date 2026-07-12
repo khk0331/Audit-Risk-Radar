@@ -96,7 +96,15 @@ ML Risk는 결론을 내리는 모델이 아니라, Accounting/Peer 분석에서
 
 ### Windows quick start
 
-Windows users can run the dashboard without typing Python commands:
+Windows users can run the dashboard with Python already installed.
+
+First confirm this command works in Command Prompt:
+
+```cmd
+python --version
+```
+
+Then run:
 
 ```text
 run_windows.bat
