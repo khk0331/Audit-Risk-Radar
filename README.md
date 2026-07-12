@@ -94,7 +94,11 @@ ML Risk는 결론을 내리는 모델이 아니라, Accounting/Peer 분석에서
 
 ## How To Run
 
-### Windows quick start
+For normal dashboard review, choose **one** quick start path for your operating system. You do not need to run both Windows and macOS/Linux commands.
+
+The **Full development setup** section is optional. Use it only if you want to run tests, inspect scripts, or recollect data.
+
+### Option A. Windows dashboard only
 
 Windows users can run the dashboard with Python already installed.
 
@@ -118,7 +122,7 @@ http://127.0.0.1:8501
 
 See [Windows Setup Guide](docs/windows_setup.md) for troubleshooting.
 
-### macOS / Linux quick start
+### Option B. macOS / Linux dashboard only
 
 ```bash
 python3 -m venv .venv
@@ -128,15 +132,33 @@ python -m pip install -r requirements-app.txt
 python -m streamlit run audit_risk_radar/app.py --server.address 127.0.0.1 --server.port 8501
 ```
 
-### Full development setup
+### Optional. Full development setup
 
-Use this when running tests, data collection scripts, or optional DART/FinanceDataReader workflows.
+This section is not required to open the dashboard. Use it only when running tests, data collection scripts, or optional DART/FinanceDataReader workflows.
+
+Windows:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m unittest discover tests
+```
+
+macOS / Linux:
 
 ```bash
 python -m pip install -r requirements.txt
+python -m unittest discover tests
 ```
 
-Run dashboard:
+Run dashboard manually if needed:
+
+Windows:
+
+```powershell
+.\.venv\Scripts\python.exe -m streamlit run audit_risk_radar\app.py
+```
+
+macOS / Linux:
 
 ```bash
 python -m streamlit run audit_risk_radar/app.py
@@ -146,12 +168,6 @@ Streamlit이 출력하는 로컬 주소를 열면 됩니다.
 
 ```text
 http://localhost:8501
-```
-
-Run tests:
-
-```bash
-python -m unittest discover tests
 ```
 
 ## Optional: Recollect DART Data

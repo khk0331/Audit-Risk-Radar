@@ -20,6 +20,8 @@ This guide assumes Python is already installed and available from the terminal.
 
 The script creates `.venv`, installs dashboard dependencies from `requirements-app.txt`, and starts Streamlit.
 
+After this step, no macOS/Linux setup command is needed. The full development commands in the main README are optional and only for running tests or data collection scripts.
+
 ## PowerShell Alternative
 
 If Windows blocks double-click execution, open PowerShell in the repository folder and run:
