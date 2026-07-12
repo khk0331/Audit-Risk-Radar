@@ -15,19 +15,10 @@ from src.explanations import (
     AUDIT_FOCUS,
     FEATURE_DETAIL,
     add_explanations,
-    detailed_risk_analysis,
-    explain_accounting_layer,
-    explain_ml_layer,
-    explain_peer_layer,
     get_triggered_features,
 )
 from src.metrics import add_beneish_style_features
 from src.peer_selection import peer_methodology_note, select_representative_peers
-from src.regulatory_focus import (
-    load_regulatory_focus_issues,
-    match_regulatory_focus_issues,
-    summarize_focus_matches,
-)
 from src.risk_scoring import score_financials
 
 
@@ -96,6 +87,71 @@ RISK_LEVEL_HELP = {
     "Watch": "단일 결론은 어렵지만 추세와 주요 계정 변동을 함께 확인할 필요가 있습니다.",
     "Normal": "현재 공시 재무제표 기준으로는 상대적으로 안정적인 분석 신호입니다.",
 }
+RISK_SCORE_BANDS = [
+    {
+        "구간": "0-39",
+        "해석": "상대적으로 낮음",
+        "감사계획 의미": "로컬 패널 내에서 뚜렷한 이상 신호가 낮은 편입니다. 다만 중요 계정은 일반적인 감사계획에 따라 계속 검토합니다.",
+    },
+    {
+        "구간": "40-69",
+        "해석": "관찰 필요",
+        "감사계획 의미": "전년 대비 변동, peer 대비 차이, 복합 지표 중 일부가 눈에 띕니다. 공시 설명과 주요 계정 변동 원인을 확인합니다.",
+    },
+    {
+        "구간": "70-100",
+        "해석": "심층 분석 필요",
+        "감사계획 의미": "로컬 패널 기준 상위 위험 신호입니다. 감사계획 단계에서 관련 계정과 가정에 대한 후속 질문을 우선 배치합니다.",
+    },
+]
+RISK_LAYER_DEFINITIONS = [
+    {
+        "점수": "Accounting Risk",
+        "질문": "회계비율 자체가 전통적인 red flag와 닮았는가?",
+        "해석": "Beneish-style 지표를 0-100으로 정규화한 상대 점수입니다. M-Score의 -2.22 기준은 별도 기준선으로 함께 봅니다.",
+    },
+    {
+        "점수": "Peer Risk",
+        "질문": "유사 회사들과 비교했을 때 얼마나 다르게 움직였는가?",
+        "해석": "동일 Year/Industry와 matched peer 대비 robust z-score를 0-100으로 정규화합니다. 높은 점수는 peer 대비 설명이 필요한 차이가 크다는 뜻입니다.",
+    },
+    {
+        "점수": "ML Risk",
+        "질문": "여러 재무비율 조합이 일반적인 패턴에서 벗어났는가?",
+        "해석": "Isolation Forest와 PCA reconstruction error를 결합한 비지도 이상 패턴 점수입니다. 원인 단정보다는 Accounting/Peer 해석을 보완합니다.",
+    },
+    {
+        "점수": "Final Risk",
+        "질문": "감사계획상 어느 정도 주의 깊게 볼 회사인가?",
+        "해석": "Accounting 45%, Peer 30%, ML 25%의 투명한 설계 가중평균입니다. 부정 확률이 아니라 감사계획 우선순위 신호입니다.",
+    },
+]
+RISK_WEIGHT_RATIONALE = [
+    {
+        "Layer": "Accounting Risk",
+        "Weight": "45%",
+        "근거": "Beneish(1999) M-Score 계열의 설명 가능한 회계 지표를 anchor로 둡니다.",
+    },
+    {
+        "Layer": "Peer Risk",
+        "Weight": "30%",
+        "근거": "ISA 520의 분석적 절차 논리처럼 전년·동종기업 대비 관계와 변동을 확인하는 축입니다.",
+    },
+    {
+        "Layer": "ML Risk",
+        "Weight": "25%",
+        "근거": "비지도 이상탐지는 보조 신호로 사용합니다. 설명 가능성보다 낮은 비중을 두어 black-box 과대해석을 줄입니다.",
+    },
+]
+FEATURE_GUIDE_ROWS = [
+    {"지표": "DSRI", "전체명": "Days Sales in Receivables Index", "의미": "매출 대비 매출채권이 전년보다 빠르게 증가했는지 봅니다.", "주의 기준": "1.0 초과면 관찰, 1.2 이상이면 수익 인식·회수가능성 질문"},
+    {"지표": "GMI", "전체명": "Gross Margin Index", "의미": "매출총이익률이 전년보다 악화됐는지 봅니다.", "주의 기준": "1.0 초과면 수익성 악화"},
+    {"지표": "AQI", "전체명": "Asset Quality Index", "의미": "총자산 중 유동자산·유형자산 외 자산 비중이 커졌는지 봅니다.", "주의 기준": "1.0 초과면 자산화·손상검토 질문"},
+    {"지표": "SGI", "전체명": "Sales Growth Index", "의미": "매출 성장률이 전년 대비 얼마나 높은지 봅니다.", "주의 기준": "1.2 이상이면 고성장에 따른 매출 인식 압력 관찰"},
+    {"지표": "SGAI", "전체명": "SG&A Expenses Index", "의미": "매출 대비 판관비 부담이 전년보다 커졌는지 봅니다.", "주의 기준": "1.0 초과면 비용 구조·기간귀속 질문"},
+    {"지표": "LVGI", "전체명": "Leverage Index", "의미": "총자산 대비 부채 부담이 전년보다 커졌는지 봅니다.", "주의 기준": "1.0 초과면 유동성·차입약정·계속기업 관찰"},
+    {"지표": "TATA", "전체명": "Total Accruals to Total Assets", "의미": "순이익과 영업현금흐름 사이의 괴리를 봅니다.", "주의 기준": "0.05 이상 주의, 0.08 이상 강한 발생액 신호"},
+]
 
 px.defaults.color_discrete_sequence = COLORWAY
 px.defaults.template = "plotly_dark"
@@ -211,21 +267,19 @@ st.markdown(
         font-size: 0.78rem;
         line-height: 1;
     }
-    .preview-panel {
+    .scope-panel {
         background: var(--moss-paper);
         border: 1px solid rgba(242, 239, 228, 0.32);
         border-radius: 8px;
         color: #182116;
         padding: 1rem;
         min-height: 186px;
-        display: grid;
-        grid-template-rows: auto 1fr auto;
         box-shadow: inset 0 0 0 1px rgba(24, 33, 22, 0.08);
     }
-    .preview-panel * {
+    .scope-panel * {
         color: #182116;
     }
-    .preview-topline {
+    .scope-topline {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -234,34 +288,39 @@ st.markdown(
         text-transform: uppercase;
         border-bottom: 1px solid rgba(24, 33, 22, 0.12);
         padding-bottom: 0.55rem;
+        margin-bottom: 0.85rem;
     }
-    .preview-number {
-        font-size: 2.05rem;
-        font-weight: 800;
-        margin: 0.75rem 0 0.25rem 0;
-        color: #203A2B;
-    }
-    .preview-bars {
+    .scope-metric-grid {
         display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        align-items: end;
-        gap: 0.32rem;
-        height: 58px;
-        margin-top: 0.45rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.62rem;
     }
-    .preview-bars span {
-        display: block;
-        background: #203A2B;
-        border-radius: 3px 3px 0 0;
+    .scope-metric {
+        background: rgba(31, 59, 44, 0.08);
+        border: 1px solid rgba(24, 33, 22, 0.14);
+        border-radius: 8px;
+        padding: 0.72rem;
+        min-height: 82px;
     }
-    .preview-bars span:nth-child(2n) { background: var(--moss-lime); }
-    .preview-foot {
-        display: flex;
-        justify-content: space-between;
-        gap: 0.5rem;
-        margin-top: 0.8rem;
-        font-size: 0.75rem;
-        color: #56624C;
+    .scope-value {
+        color: #203A2B;
+        font-size: 1.5rem;
+        line-height: 1.05;
+        font-weight: 820;
+        margin-bottom: 0.28rem;
+    }
+    .scope-label {
+        color: #59624F;
+        font-size: 0.78rem;
+        line-height: 1.35;
+    }
+    .scope-search-note {
+        border-top: 1px solid rgba(24, 33, 22, 0.12);
+        margin-top: 0.85rem;
+        padding-top: 0.72rem;
+        color: #4D5C45;
+        font-size: 0.84rem;
+        line-height: 1.45;
     }
     .kpi-grid {
         display: grid;
@@ -699,11 +758,6 @@ def load_labels(label_mtime: float = 0.0):
     return load_event_labels()
 
 
-@st.cache_data
-def load_focus_issues(focus_mtime: float = 0.0):
-    return load_regulatory_focus_issues()
-
-
 def classify_risk_level(score: float) -> str:
     if score >= 70:
         return "High"
@@ -831,46 +885,8 @@ def analysis_to_html(text: str) -> str:
     return "".join(lines)
 
 
-def top_indicator_summary(row: pd.Series, limit: int = 3) -> str:
-    candidates = []
-    for feature, label in FEATURE_LABELS.items():
-        value = row.get(feature)
-        if pd.isna(value):
-            continue
-        if feature == "tata":
-            severity = abs(float(value)) / 0.08
-        else:
-            severity = abs(float(value) - 1.0)
-        candidates.append((severity, label, float(value)))
-    if not candidates:
-        return "주요 지표 산출 불가"
-    top_items = sorted(candidates, reverse=True)[:limit]
-    return ", ".join(f"{label} {value:.2f}" for _, label, value in top_items)
-
-
-def first_audit_question(row: pd.Series) -> str:
-    steps = str(row.get("recommended_audit_steps", "")).splitlines()
-    if not steps:
-        return "재무비율 변동 원인을 전년 및 peer와 비교해 설명합니다."
-    first = re.sub(r"^\d+\.\s*", "", steps[0]).strip()
-    return first[:210] + ("..." if len(first) > 210 else "")
-
-
 def fmt_score(value: object) -> str:
     return f"{float(value):.1f}" if pd.notna(value) else "N/A"
-
-
-def micro_bars_html(values: list[float]) -> str:
-    clean_values = [max(0.0, min(100.0, float(value))) for value in values if pd.notna(value)]
-    if not clean_values:
-        clean_values = [18, 34, 52, 41, 66, 58, 82, 49]
-    while len(clean_values) < 8:
-        clean_values.extend(clean_values)
-    bars = "".join(
-        f"<span style='height:{max(12, min(92, value)):.0f}%;'></span>"
-        for value in clean_values[:8]
-    )
-    return f"<div class='micro-bars'>{bars}</div>"
 
 
 def layer_tile_html(title: str, score: object, note: str) -> str:
@@ -1100,6 +1116,7 @@ def build_audit_workplan(row: pd.Series) -> pd.DataFrame:
                 "Key Question": focus["question"],
                 "Suggested Procedure": focus["procedure"],
                 "Basis": focus["basis"],
+                "Standards Rationale": focus.get("isa_quote", ""),
                 "Status": "Planning",
             }
         )
@@ -1111,7 +1128,7 @@ def build_evidence_memo(row: pd.Series, workplan: pd.DataFrame) -> str:
     for idx, plan_row in workplan.iterrows():
         workplan_lines.append(
             f"{idx + 1}. [{plan_row['Attention']}] {plan_row['Audit Area']} - "
-            f"{plan_row['Key Question']} ({plan_row['Basis']})"
+            f"{plan_row['Key Question']} ({plan_row['Basis']} · {plan_row.get('Standards Rationale', '')})"
         )
 
     return "\n".join(
@@ -1234,26 +1251,16 @@ processed_data_path = Path("data/processed/financials_panel_2020_2024_full.csv")
 if not processed_data_path.exists():
     processed_data_path = Path("data/processed/financials_panel.csv")
 event_label_path = Path("data/labels/external_events_template.csv")
-focus_issue_path = Path("data/reference/regulatory_focus_issues.csv")
 data_mtime = processed_data_path.stat().st_mtime if processed_data_path.exists() else 0.0
 label_mtime = event_label_path.stat().st_mtime if event_label_path.exists() else 0.0
-focus_mtime = focus_issue_path.stat().st_mtime if focus_issue_path.exists() else 0.0
 raw_financials = load_financials()
 df = load_scored_data(model_version=15, data_mtime=data_mtime)
 raw_financials["stock_code"] = raw_financials["stock_code"].astype(str).str.zfill(6)
 df["stock_code"] = df["stock_code"].astype(str).str.zfill(6)
 event_labels = load_labels(label_mtime=label_mtime)
-focus_issues = load_focus_issues(focus_mtime=focus_mtime)
 df = attach_event_labels(df, event_labels)
 df["risk_level"] = df["final_risk_score"].apply(classify_risk_level)
-if "detailed_risk_analysis" not in df.columns:
-    df["detailed_risk_analysis"] = df.apply(detailed_risk_analysis, axis=1)
-if "accounting_risk_analysis" not in df.columns:
-    df["accounting_risk_analysis"] = df.apply(explain_accounting_layer, axis=1)
-if "peer_risk_analysis" not in df.columns:
-    df["peer_risk_analysis"] = df.apply(explain_peer_layer, axis=1)
-if "ml_risk_analysis" not in df.columns:
-    df["ml_risk_analysis"] = df.apply(explain_ml_layer, axis=1)
+df = add_explanations(df)
 if "feature_imputed_count" not in df.columns:
     df["feature_imputed_count"] = 0
 if "feature_imputed_ratio" not in df.columns:
@@ -1290,28 +1297,27 @@ st.markdown(
                     <span class='reference-chip'>Audit Questions</span>
                 </div>
             </div>
-            <div class='preview-panel'>
-                <div class='preview-topline'>
-                    <span>Risk Signal Preview</span>
-                    <span>2020-2024</span>
+            <div class='scope-panel'>
+                <div class='scope-topline'>
+                    <span>Analysis Scope</span>
+                    <span>{int(df['year'].min())}-{int(df['year'].max())}</span>
                 </div>
-                <div>
-                    <div class='preview-number'>{df['company_name'].nunique():,}</div>
-                    <div style='font-size:0.86rem; color:#4D5C45;'>scored companies in local panel</div>
-                    <div class='preview-bars'>
-                        <span style='height:32%;'></span>
-                        <span style='height:58%;'></span>
-                        <span style='height:42%;'></span>
-                        <span style='height:76%;'></span>
-                        <span style='height:64%;'></span>
-                        <span style='height:88%;'></span>
-                        <span style='height:48%;'></span>
+                <div class='scope-metric-grid'>
+                    <div class='scope-metric'>
+                        <div class='scope-value'>{df['company_name'].nunique():,}</div>
+                        <div class='scope-label'>분석 가능 회사</div>
+                    </div>
+                    <div class='scope-metric'>
+                        <div class='scope-value'>{len(df):,}</div>
+                        <div class='scope-label'>회사-Year 관측치</div>
+                    </div>
+                    <div class='scope-metric'>
+                        <div class='scope-value'>3</div>
+                        <div class='scope-label'>Risk Layer</div>
                     </div>
                 </div>
-                <div class='preview-foot'>
-                    <span>Accounting</span>
-                    <span>Peer</span>
-                    <span>ML</span>
+                <div class='scope-search-note'>
+                    먼저 회사를 검색하세요. 회사 선택 후에만 실제 점수 추세, peer 비교, M-Score 기준선, 감사 질문이 표시됩니다.
                 </div>
             </div>
         </div>
@@ -1343,22 +1349,9 @@ st.markdown(
 
 years = sorted(df["year"].unique(), reverse=True)
 
-st.markdown("### 분석 Year 설정")
+st.markdown("### 회사 검색 및 Year 설정")
 st.markdown(
-    "<p class='section-note'>감사 대상 회사와 분석 Year를 선택하면, 공시 재무제표 기준으로 회사의 재무 흐름과 주요 리스크 신호를 감사계획 관점에서 정리합니다.</p>",
-    unsafe_allow_html=True,
-)
-
-selected_year = st.selectbox("Year", years)
-filtered = df[df["year"] == selected_year]
-
-if filtered.empty:
-    st.warning("선택한 Year에 해당하는 회사가 없습니다. 다른 Year를 선택해 주세요.")
-    st.stop()
-
-st.markdown("### 개별 회사 공시 Risk 분석")
-st.markdown(
-    "<p class='section-note'>회사명/종목코드로 원하는 기업을 검색하면 해당 회사의 공시 재무제표 기반 리스크, 전년 대비 지표 변화, 후속 감사 질문을 한 화면에서 확인합니다.</p>",
+    "<p class='section-note'>감사 대상 회사를 먼저 검색하고 분석 Year를 선택하면, 공시 재무제표 기준으로 재무 흐름·동종기업 대비 위치·후속 감사 질문을 한 화면에서 정리합니다.</p>",
     unsafe_allow_html=True,
 )
 company_lookup = (
@@ -1389,19 +1382,29 @@ company_lookup["label"] = (
     + company_lookup["analysis_status"].astype(str)
 )
 
-st.markdown("#### 회사 검색")
 st.markdown(
     "<p class='small-note'>현재 확장 패널에 적재된 회사 중 분석 대상을 선택합니다. 전체 패널은 DART 공시 재무제표를 사전에 수집한 데이터베이스이므로, 화면에서 별도 API 호출 없이 즉시 분석합니다.</p>",
     unsafe_allow_html=True,
 )
 company_options = company_lookup["label"].tolist()
-selected_label = st.selectbox(
-    "Company 검색/선택",
-    company_options,
-    index=None,
-    placeholder="회사명 또는 종목코드를 입력해 선택하세요",
-    help="회사명 또는 종목코드를 입력하면 현재 수집된 전체 패널 안에서 자동완성 검색이 가능합니다.",
-)
+
+search_col, year_col = st.columns([2.2, 0.8])
+with search_col:
+    selected_label = st.selectbox(
+        "Company 검색/선택",
+        company_options,
+        index=None,
+        placeholder="회사명 또는 종목코드를 입력해 선택하세요",
+        help="회사명 또는 종목코드를 입력하면 현재 수집된 전체 패널 안에서 자동완성 검색이 가능합니다.",
+    )
+with year_col:
+    selected_year = st.selectbox("Year", years)
+
+filtered = df[df["year"] == selected_year]
+if filtered.empty:
+    st.warning("선택한 Year에 해당하는 회사가 없습니다. 다른 Year를 선택해 주세요.")
+    st.stop()
+
 if selected_label is None:
     st.info("분석할 회사를 검색해 선택하면 회사별 리스크 분석이 표시됩니다.")
     st.stop()
@@ -1538,42 +1541,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.markdown("##### 감리 테마 연결")
-focus_matches = match_regulatory_focus_issues(analysis_row, focus_issues)
-st.markdown(
-    f"<div class='driver-note'><strong>감리 테마 참고:</strong> {html.escape(summarize_focus_matches(focus_matches))}</div>",
-    unsafe_allow_html=True,
-)
-if focus_matches.empty:
-    st.info(
-        "현재 등록된 감리 테마 DB 기준으로 강한 연결 신호는 없습니다. "
-        "다만 감리 테마 DB는 매년 발표자료에 맞춰 업데이트해야 하며, 실제 감사계획에서는 회사의 주석과 업종 특성을 함께 고려해야 합니다."
-    )
-else:
-    display_focus_matches = focus_matches.rename(
-        columns={
-            "issue_name": "감리 테마",
-            "source_year": "연도",
-            "source_agency": "출처",
-            "source_title": "근거 자료",
-            "source_date": "자료일",
-            "match_strength": "연결 강도",
-            "matched_signal": "연결 근거",
-            "related_accounts": "관련 계정",
-            "description": "테마 설명",
-            "target_selection": "심사대상 선정 기준",
-            "audit_implication": "감사계획 시사점",
-            "basis_standards": "관련 K-IFRS",
-            "reference_note": "비고",
-        }
-    )
-    st.dataframe(display_focus_matches, width="stretch", hide_index=True)
-    st.markdown(
-        "<p class='small-note'>이 표는 선택 회사의 공시 재무비율 신호를 등록된 감리 테마와 연결한 참고 정보입니다. "
-        "감리 대상 여부나 위반 여부를 판단하는 기능이 아니라, 감사계획 단계에서 놓치지 말아야 할 회계 이슈를 알려주는 용도입니다.</p>",
-        unsafe_allow_html=True,
-    )
-
 drivers_df = driver_table(analysis_row)
 if not drivers_df.empty:
     st.markdown(
@@ -1583,68 +1550,35 @@ if not drivers_df.empty:
     )
     st.dataframe(drivers_df, width="stretch", hide_index=True)
 
-st.markdown("#### 감사 브리핑")
-briefing_bars = micro_bars_html(
-    [
-        analysis_row.get("final_risk_score", 0),
-        analysis_row.get("accounting_risk_score", 0),
-        analysis_row.get("peer_risk_score", 0),
-        analysis_row.get("ml_risk_score", 0),
-        abs(float(analysis_row.get("dsri", 1) or 1) - 1) * 100,
-        abs(float(analysis_row.get("gmi", 1) or 1) - 1) * 100,
-        abs(float(analysis_row.get("sgi", 1) or 1) - 1) * 100,
-        abs(float(analysis_row.get("tata", 0) or 0)) * 600,
-    ]
-)
-briefing_html = f"""
-<div class='signal-board'>
-    <div class='signal-head'>
-        <div class='window-dots'><span></span><span></span><span></span></div>
-        <div class='signal-title'>Audit signal briefing</div>
-        <div class='moss-badge'>{html.escape(str(analysis_row['risk_level']))}</div>
-    </div>
-    <div class='signal-grid'>
-        <div class='signal-item'>
-            <div class='signal-kicker'>Planning Signal</div>
-            <div class='signal-main'>{html.escape(str(analysis_row['risk_level']))} · Final Risk {fmt_score(analysis_row['final_risk_score'])}</div>
-            <div class='small-note'>감사 결론이 아니라, 선택 회사의 재무제표를 어느 관점에서 더 깊게 이해할지 정리하는 신호입니다.</div>
-            {briefing_bars}
-        </div>
-        <div class='signal-item'>
-            <div class='signal-kicker'>Main Drivers</div>
-            <div class='signal-main'>{html.escape(top_indicator_summary(analysis_row))}</div>
-            <div class='small-note'>전년 대비 변화율과 발생액 성격 지표 중 눈에 띄는 항목입니다. 아래 점수 해부에서 원인을 더 확인합니다.</div>
-        </div>
-        <div class='signal-item'>
-            <div class='signal-kicker'>First Audit Question</div>
-            <div class='signal-main'>후속 질문 후보</div>
-            <div class='small-note'>{html.escape(first_audit_question(analysis_row))}</div>
-        </div>
-        <div class='signal-item'>
-            <div class='signal-kicker'>Data Status</div>
-            <div class='signal-main'>Public disclosure only</div>
-            <div class='small-note'>내부 원장/전표가 아닌 DART 공시 재무제표 기반입니다. 결과는 감사계획 단계의 회사 이해 메모로 해석합니다.</div>
-        </div>
-    </div>
-</div>
-"""
-st.markdown(briefing_html, unsafe_allow_html=True)
-
-st.markdown("#### 위험 신호 해석")
-st.markdown(
-    f"<div class='risk-analysis'>{analysis_to_html(analysis_row['detailed_risk_analysis'])}</div>",
-    unsafe_allow_html=True,
-)
-st.markdown(
-    "<p class='small-note'>위 해석은 공시 재무제표 기반의 회사 이해 및 감사계획 논리입니다. 실제 감사 단계에서는 중요성, 내부통제, 내부자료 접근 가능성에 따라 절차가 달라집니다.</p>",
-    unsafe_allow_html=True,
-)
-
 st.markdown("#### Risk 점수 해부")
 st.markdown(
     "<p class='small-note'>Final Risk를 구성하는 세 점수는 서로 다른 질문에 답합니다. Accounting Risk는 회계비율 자체의 red flag, Peer Risk는 유사 회사 대비 얼마나 다른지, ML Risk는 여러 재무비율을 함께 봤을 때 일반적인 회사 패턴과 얼마나 다른지를 봅니다. Peer Risk는 방향성을 보되 과대경고를 줄이기 위해 개별 peer signal을 일정 범위에서 제한합니다.</p>",
     unsafe_allow_html=True,
 )
+guide_col, weight_col = st.columns([1.2, 1.0])
+with guide_col:
+    st.markdown("##### 점수 구간 해석")
+    st.dataframe(pd.DataFrame(RISK_SCORE_BANDS), width="stretch", hide_index=True)
+    st.markdown(
+        "<p class='small-note'>세부 Risk와 Final Risk는 모두 0-100 상대 점수입니다. 30점대는 현재 로컬 패널 기준으로 낮은 편이며, 40점 이상부터 감사계획상 원인 설명을 확인하는 관찰 구간으로 봅니다.</p>",
+        unsafe_allow_html=True,
+    )
+with weight_col:
+    st.markdown("##### Final Risk 가중치")
+    st.dataframe(pd.DataFrame(RISK_WEIGHT_RATIONALE), width="stretch", hide_index=True)
+    st.markdown(
+        "<p class='small-note'>가중치는 특정 논문이 제시한 정답이 아니라, 설명 가능한 Beneish-style 지표를 중심에 두고 peer/ML 신호를 보조적으로 결합한 설계 가정입니다. 따라서 이 점수는 부정 확률이 아니라 감사계획 우선순위 신호로 해석합니다.</p>",
+        unsafe_allow_html=True,
+    )
+with st.expander("Risk Layer별 의미와 방법론 근거"):
+    st.dataframe(pd.DataFrame(RISK_LAYER_DEFINITIONS), width="stretch", hide_index=True)
+    st.markdown(
+        """
+        - **Beneish reference**: Beneish(1999)는 재무비율 기반 M-Score로 이익조정 가능성을 탐지하는 접근을 제시했습니다. 이 앱은 이를 감사계획용 red flag anchor로 사용합니다.
+        - **ISA 315 / 520 reference**: 감사인은 회사와 환경을 이해하고, 분석적 절차를 통해 비정상적 관계와 변동을 식별합니다. Peer Risk와 추세 분석은 이 논리를 공시 데이터에 적용한 것입니다.
+        - **ML reference**: Isolation Forest와 PCA는 label이 부족한 공시 데이터에서 특이한 재무비율 조합을 찾는 보조 탐지 장치입니다. 단독 결론으로 쓰지 않고 Accounting/Peer 해석과 함께 읽습니다.
+        """
+    )
 st.html(layer_cards_html(analysis_row))
 layer_tabs = st.tabs(["Accounting Risk", "Peer Risk", "ML Risk"])
 with layer_tabs[0]:
@@ -1740,6 +1674,13 @@ indicator_fig.update_layout(
 )
 st.plotly_chart(style_chart(indicator_fig), width="stretch")
 
+st.markdown("##### 지표 설명")
+st.dataframe(pd.DataFrame(FEATURE_GUIDE_ROWS), width="stretch", hide_index=True)
+st.markdown(
+    "<p class='small-note'>위 기준은 감사 결론을 내리는 절대 임계값이 아니라 planning 단계의 참고 기준입니다. M-Score는 Beneish-style 지표를 종합한 값이며, 전통적으로 -2.22보다 높으면 주의 신호로 해석합니다.</p>",
+    unsafe_allow_html=True,
+)
+
 st.markdown("##### 연도별 산출 내역")
 st.markdown(
     "<p class='small-note'>Beneish-style 지표는 대부분 전년 대비 변화율입니다. 아래 표에서 기초 비율이 어떻게 움직였는지 보면 특정 연도 지표가 튄 이유를 추적할 수 있습니다.</p>",
@@ -1813,24 +1754,6 @@ calculation_df = calculation_df.rename(
 )
 st.dataframe(calculation_df, width="stretch", hide_index=True)
 
-with st.expander("회계 지표 설명"):
-    st.markdown(
-        """
-        | 지표 | 산식 | 참고 기준과 해석 |
-        | --- | --- | --- |
-        | M-Score | Beneish-style 지표 종합 | `-2.22`보다 높으면 전통적으로 주의 신호로 봅니다. 이 앱에서는 단독 결론이 아니라 회사의 회계적 위험 신호를 이해하는 기준점입니다. |
-        | DSRI | 당기 `(매출채권 / 매출)` ÷ 전기 `(매출채권 / 매출)` | `1.0` 초과면 매출채권이 매출보다 빠르게 증가, `1.2` 이상이면 수익 인식과 회수가능성을 주의합니다. |
-        | GMI | 전기 `매출총이익률` ÷ 당기 `매출총이익률` | `1.0` 초과면 수익성 악화로, 이익 조정 압력이 커질 수 있습니다. |
-        | AQI | 당기 `자산품질` ÷ 전기 `자산품질` | `1.0` 초과면 비유동/기타 자산성 항목 비중 증가를 의미합니다. |
-        | SGI | 당기 `매출` ÷ 전기 `매출` | `1.2` 이상이면 고성장 구간으로 보고 매출 인식 압력과 함께 해석합니다. |
-        | SGAI | 당기 `판관비 Proxy` ÷ 전기 `판관비 Proxy` | `1.0` 초과면 매출 대비 비용 부담 증가를 의미합니다. |
-        | LVGI | 당기 `레버리지` ÷ 전기 `레버리지` | `1.0` 초과면 부채 부담과 유동성 압력이 커진 것으로 봅니다. |
-        | TATA | `(순이익 - 영업현금흐름)` ÷ `총자산` | `0.05` 이상이면 주의, `0.08` 이상이면 강한 발생액 신호로 봅니다. |
-
-        위 기준은 감사 결론을 내리는 절대 임계값이 아니라 planning 단계의 참고 기준입니다.
-        """
-    )
-
 st.markdown("#### 추천 감사 질문/후속 절차")
 latest_steps = analysis_row["recommended_audit_steps"].splitlines()
 for step in latest_steps:
@@ -1875,6 +1798,7 @@ else:
                 "Key Question": "핵심 질문",
                 "Suggested Procedure": "추천 절차",
                 "Basis": "근거",
+                "Standards Rationale": "기준서 문장 요지",
                 "Status": "상태",
             }
         ),

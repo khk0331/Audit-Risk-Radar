@@ -1,0 +1,879 @@
+﻿stock_code,company_name,corp_code,industry_code,industry,status,collected_years,diagnostics
+000140,하이트진로홀딩스,00148993,64992,Unclassified,added_partial,4,2021: 표준 재무제표 API 응답 없음
+001890,아이파크영창,00141282,33201,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+001970,에스지신성건설,00173661,41221,Construction,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+002270,롯데푸드,00120508,10422,Manufacturing,added_partial,2,2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+005190,동성화학,00116356,201,Manufacturing,added_partial,1,2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+005980,성지건설,00133238,41221,Construction,added_partial,3,2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+007630,폴루스바이오팜,00167280,461,Wholesale/Retail,added_partial,2,2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+008120,엠소닉,00124577,26,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+010090,이마트에브리데이,00164308,47121,Wholesale/Retail,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+011400,아진카인텍,00173069,30320,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+011810,STX,00138297,46800,Wholesale/Retail,added_partial,4,"2024: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=선급금, 매출채권, 단기비금융자산, 매각예정비유동자산, 현금및현금성자산, 재고자산, 단기금융자산, 기타채권, 비유동자산, 장기선급금, 장기금융자산, 장기매출채권, 이연법인세자산, 무형자산, 관계기업 및 공동기업에 대한 지분, 기타비유동자산, 유형자산, 자본총계"
+012210,삼미금속,00125664,25912,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+012580,신세계톰보이,00132488,4741,Wholesale/Retail,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+012700,리드코프,00117708,46712,Wholesale/Retail,added_partial,1,"2020: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=I. 유동자산, 당기법인세자산, II. 비유동자산, 장기금융리스채권, 기타금융자산, 기타포괄손익-공정가치 측정 금융자산, 유형자산, 사용권자산, 무형자산, 투자부동산, 이연법인세자산, 현금및현금성자산, III. 금융업자산, 단기금융상품, 당기손익-공정가치측정금융자산, 대출채권, 기타자산, 관계기업투자주식; 2021: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=I. 유동자산, 당기법인세자산, II. 비유동자산, 장기금융리스채권, 기타금융자산, 당기손익-공정가치 측정 금융자산, 기타포괄손익-공정가치 측정 금융자산, 유형자산, 사용권자산, 무형자산, 투자부동산, 현금및현금성자산, 이연법인세자산, III. 금융업자산, 단기금융상품, 대출채권, 파생상품자산, 기타자산; 2022: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=I. 유동자산, 당기법인세자산, II. 비유동자산, 장기금융리스채권, 기타금융자산, 당기손익-공정가치측정금융자산, 기타포괄손익-공정가치측정금융자산, 관계기업투자주식, 유형자산, 사용권자산, 무형자산, 현금및현금성자산, 투자부동산, 이연법인세자산, III. 금융업자산, 단기금융상품, 대출채권, 기타상각후원가측정금융자산; 2023: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=기타포괄손익-공정가치측정금융자산, 대출채권, 기타자산, 관계기업투자주식, 유형자산, 사용권자산, 무형자산, 기타금융자산, 이연법인세자산, 당기손익-공정가치측정금융자산, 매각예정자산, 파생상품자산, 당기법인세자산, 기타상각후원가측정금융자산, 금융리스채권, 자산 총계, I. 유동자산, 매출채권"
+017860,DS단석,00108612,204,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+018700,졸스,00122205,464,Wholesale/Retail,added_partial,4,"2023: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=현금및현금성자산, 계약자산, 당기법인세자산, 재고자산, 기타유동자산, 기타유동금융자산, 기타유동채권, 비유동자산, 기타비유동채권, 무형자산, 투자부동산, 관계기업투자, 기타비유동자산, 기타비유동금융자산, 유형자산, 자본총계, 지배기업의 소유주지분, 기타포괄손익누계액"
+039130,하나투어,00269940,75210,Business Services,added_partial,4,"2022: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=유동자산, 기타금융자산, 당기법인세자산, 매각예정자산, 당기손익-공정가치측정금융자산, 비유동자산, 기타포괄손익-공정가치측정금융자산, 공동기업 및 관계기업투자자산, 장기기타채권, 장기금융리스채권, 현금및현금성자산, 투자부동산, 유형자산, 무형자산, 사용권자산, 이연법인세자산, 기타비유동자산, 자산총계"
+042420,네오위즈홀딩스,00266952,582,Information/Communication,added_partial,4,"2022: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=유동자산, 매출채권및기타채권, 공동기업및관계기업투자, 유형자산, 사용권자산, 투자부동산, 무형자산, 금융자산, 기타자산, 이연법인세자산, 자산총계, 현금및현금성자산, 유동부채, 매입채무및기타채무, 금융부채, 리스부채, 당기법인세부채, 충당부채"
+044990,에이치엔에스하이텍,00311216,262,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+055550,신한지주,00382199,64992,Unclassified,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+059270,해성에어로보틱스,00453442,259,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+062040,산일전기,00366438,28112,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+064400,LG씨엔에스,00139834,62021,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+067370,선바이오,00407036,212,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+068100,케이웨더,00426828,291,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+079900,전진건설로봇,00372129,292,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+082660,코스나인,00442455,204,Manufacturing,added_partial,4,"2024: 필수 계정 자동 매칭 실패; 누락 필수 계정=revenue, total_assets, gross_profit, operating_income; 계정명 샘플=당기법인세자산, 유동재고자산, 기타유동자산, 기타유동금융자산, 매출채권 및 기타유동채권, 비유동자산, 순확정급여자산, 기타비유동자산, 기타비유동금융자산, 유형자산, 사용권자산, 자본총계, 지배기업의 소유주에게 귀속되는 자본, 기타자본구성요소, 기타불입자본, 자본금, 이익잉여금(결손금), 자본과부채총계"
+084440,유비온,00531078,582,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+088280,쏘닉스,00561723,26129,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+088340,유라클,00407294,58221,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+089860,롯데렌탈,00545716,76110,Business Services,added_partial,4,2020: 표준 재무제표 API 응답 없음
+092790,넥스틸,00220613,2419,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+096250,와이즈넛,00351427,58221,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+099390,브레인즈컴퍼니,00642897,58221,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+099430,바이오플러스,00636656,211,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+101970,우양에이치씨,00450931,2512,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+102370,케이옥션,00668600,4610,Wholesale/Retail,added_partial,4,2020: 표준 재무제표 API 응답 없음
+102950,아하,00677334,262,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+105760,포스뱅크,00862312,291,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+107600,새빗켐,00862880,2049,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+109670,씨싸이트,00492706,14199,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+111380,동인기연,00367710,151,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+112290,와이씨켐,00619507,20491,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+114840,아이패밀리에스씨,00692254,204,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+115180,큐리언트,01042650,70113,Professional Services,added_partial,4,"2020: 필수 계정 자동 매칭 실패; 누락 필수 계정=revenue; 계정명 샘플=유동자산, 기타비유동금융자산, 기타비유동자산, 자산총계, 유동부채, 기타유동금융부채, 유동리스부채, 기타유동부채, 비유동부채, 기타비유동부채, 현금및현금성자산, 순확정급여부채, 비유동충당부채, 장기매입채무 및 기타비유동채무, 비유동리스부채, 부채총계, 지배기업의 소유주에게 귀속되는 자본, 자본금"
+123420,위메이드플레이,00815767,5821,Information/Communication,added_partial,2,"2022: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=유동자산, 장기매출채권및기타채권, 비유동당기손익공정가치측정금융자산, 관계기업투자, 유형자산, 무형자산, 투자부동산, 기타비유동금융자산, 기타비유동자산, 순확정급여자산, 이연법인세자산, 현금및현금성자산, 자산총계, 유동부채, 미지급금및기타채무, 유동장기종업원급여부채, 유동리스부채, 기타금융부채; 2023: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=기타금융자산, 현금및현금성자산, 유동당기손익공정가치측정금융자산, 당기법인세자산, 기타유동자산, 단기금융상품, 비유동자산, 순확정급여자산, 이연법인세자산, 무형자산, 투자부동산, 관계기업투자및공동기업투자, 비유동당기손익공정가치측정금융자산, 기타비유동자산, 기타비유동금융자산, 유형자산, 사용권자산, 자본총계; 2024: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=기타유동금융자산, 현금및현금성자산, 유동당기손익공정가치측정금융자산, 당기법인세자산, 기타유동자산, 단기금융상품, 비유동자산, 순확정급여자산, 이연법인세자산, 무형자산, 투자부동산, 관계기업투자및공동기업투자, 비유동당기손익공정가치측정금융자산, 기타비유동자산, 기타비유동금융자산, 유형자산, 사용권자산, 자본총계"
+126720,수산인더스트리,00193328,42311,Construction,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+126730,코칩,00446901,2629,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+127980,화인써키트,00527002,262,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+129920,대성하이텍,00577335,29223,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+136410,아셈스,00922304,22212,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+136490,선진,00855093,109,Manufacturing,added_partial,4,"2024: 필수 계정 자동 매칭 실패; 누락 필수 계정=revenue, total_assets, gross_profit, operating_income; 계정명 샘플=유동생산용생물자산, 현금및현금성자산, 당기법인세자산, 유동재고자산, 기타유동자산, 기타유동금융자산, 현금성자산으로 분류되지 않는 단기예금, 매출채권 및 기타유동채권, 비유동자산, 장기금융상품, 비유동생산용생물자산, 이연법인세자산, 무형자산, 지분법적용 투자지분, 투자부동산, 매출채권 및 기타비유동채권, 비유동 순확정급여자산, 기타비유동자산"
+137080,나래나노텍,00362122,292,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+137310,에스디바이오센서,00854997,27112,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+139990,아주스틸,00486705,2419,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+140430,카티스,01116265,620,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+145170,노브랜드,00305941,14300,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+146060,율촌,00495633,24131,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+146320,비씨엔씨,01301623,261,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+148780,비큐AI,00980043,58222,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+148930,에이치와이티씨,00885906,25924,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+159010,아스플로,00561732,29133,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+160190,하이젠알앤엠,00650771,28111,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+162300,신스틸,00958664,241,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+163280,에어레인,01663116,29175,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+168360,펨트론,00957373,292,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+172670,에이엘티,00493325,2612,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+176750,듀켐바이오,00867034,212,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+177900,쓰리에이로직스,00870065,2611,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+187660,페니트리움바이오,01409022,70113,Professional Services,added_partial,4,2020: 표준 재무제표 API 응답 없음
+188040,바이오포트,01157846,108,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+188260,세니젠,01305869,339,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+195940,HK이노엔,01012066,212,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+198940,한주라이트메탈,00156600,24212,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+199430,케이엔알시스템,00672603,272,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+199480,뱅크웨어글로벌,01138595,58222,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+199550,레이저옵텍,01161432,27112,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+200350,아티스트스튜디오,00990819,591,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+203400,에이비온,00977377,70113,Professional Services,added_partial,4,2020: 표준 재무제표 API 응답 없음
+204610,티쓰리,00609661,5821,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+209640,와이제이링크,01023211,29299,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+212710,아이에스티이,01208751,261,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+216400,인바이츠바이오코아,00537221,70113,Professional Services,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+217880,틸론,00976615,58222,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+221800,지구홀딩스,01026616,72911,Professional Services,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+222160,NPX,01037542,292,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+226590,엠디바이스,01022142,262,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+232830,아이티센피엔에스,01113499,58221,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+233990,질경이,01063556,20423,Manufacturing,added_partial,2,2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+236340,메디젠휴먼케어,01023822,70113,Professional Services,added_partial,1,2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+238500,솔루믹스,01118643,739,Professional Services,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+240550,동방메디컬,01073261,271,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+240600,유진테크놀로지,01085026,259,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+251120,바이오에프디엔씨,01160974,2110,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+252990,샘씨엔에스,01199727,2629,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+254490,미래반도체,00299844,467,Wholesale/Retail,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+257720,실리콘투,00982023,46800,Wholesale/Retail,added_partial,4,2020: 표준 재무제표 API 응답 없음
+259960,크래프톤,00760971,5821,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+260970,에스앤디,00560849,108,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+261780,아리바이오LAB,01141599,70113,Professional Services,added_partial,4,2020: 표준 재무제표 API 응답 없음
+266170,레드우즈,00990396,59114,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+266350,팡스카이,01208821,5821,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+267080,세븐브로이맥주,01575361,11112,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+270660,에브리봇,01201590,28519,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+271830,팸텍,01146220,29271,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+271940,일진하이솔루스,00972503,319,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+273640,와이엠텍,01215618,2812,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+274400,이노시뮬레이션,00965318,58221,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+276040,스코넥,01290248,5821,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+276730,한울앤제주,01230255,11112,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+282720,금양그린파워,00872656,423,Construction,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+285800,진영,00816933,2221,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+287840,인투셀,01374443,70113,Professional Services,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+288180,케이피항공산업,01101254,31322,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+288980,모아데이타,01423837,58222,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+289930,웨이비스,01270749,261,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+290090,트윔,01217014,58222,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+290560,파라택시스이더리움,01130849,58221,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+291230,엔피,01276901,759,Business Services,added_partial,4,"2020: 필수 계정 자동 매칭 실패; 누락 필수 계정=revenue; 계정명 샘플=유동자산, 미지급금및기타채무, 기타유동부채, 비유동부채, 전환사채, 이연법인세부채, 부채총계, 자본금, 자본잉여금, 이익잉여금(결손금), 현금및현금성자산, 자본총계, 자본과부채총계, 단기금융상품, 매출채권 및 기타채권, 당기법인세자산, 자산총계, 유동부채"
+291810,핀텔,01524507,58222,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+293580,나우IB,00651017,64919,Unclassified,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+294570,쿠콘,01311055,639,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+295310,에이치브이엠,01011368,24219,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+296640,이노에이엑스,01341630,58222,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+298830,슈어소프트테크,01012640,582,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+299660,셀리드,01235296,701,Professional Services,added_partial,4,"2023: 필수 계정 자동 매칭 실패; 누락 필수 계정=revenue; 계정명 샘플=매출채권, 당기손익-공정가치측정금융자산, 현금및현금성자산, 계약자산, 상각후원가측정금융자산, 당기법인세자산, 기타유동자산, 기타금융자산, 단기금융상품, 비유동자산, 무형자산, 기타비유동자산, 유형자산, 사용권자산, 기타자본항목, 기타포괄손익누계액, 자본총계, 자본금"
+303360,프로티아,01267958,271,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+303530,이노뎁,01264872,582,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+303810,동국생명과학,01233465,212,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+304360,에스바이오메딕스,01258020,212,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+307870,비투엔,01326792,582,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+307930,컴퍼니케이,00598198,649,Unclassified,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+308080,바이젠셀,01335790,701,Professional Services,added_partial,4,2020: 표준 재무제표 API 응답 없음
+308430,셀비온,01275489,212,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+310210,보로노이,01327746,701,Professional Services,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+310870,디와이씨,01336443,303,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+311320,지오엘리먼트,00668965,262,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+311960,인터로이드,01290132,58222,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+314140,알피바이오,01182259,212,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+315640,딥노이드,01344831,582,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+318160,셀바이오휴먼텍,01288410,139,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+321260,프로이천,01359736,261,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+321370,센서뷰,01593668,262,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+323280,태성,01366000,292,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+323350,다원넥스뷰,01344363,292,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+323990,박셀바이오,01335851,70113,Professional Services,added_partial,2,"2020: 필수 계정 자동 매칭 실패; 누락 필수 계정=revenue; 계정명 샘플=유동자산, 사용권자산, 무형자산, 기타금융자산, 자산총계, 유동부채, 기타금융부채, 우선주차입금, 유동파생상품부채, 리스부채, 현금및현금성자산, 기타유동부채, 비유동부채, 순확정급여부채, 부채총계, 자본금, 자본잉여금, 단기금융상품; 2021: 필수 계정 자동 매칭 실패; 누락 필수 계정=revenue; 계정명 샘플=유동자산, 사용권자산, 무형자산, 기타금융자산, 기타비유동자산, 자산총계, 유동부채, 기타금융부채, 리스부채, 기타유동부채, 현금및현금성자산, 비유동부채, 순확정급여부채, 부채총계, 자본금, 자본잉여금, 기타자본항목, 이익잉여금(결손금); 2022: 필수 계정 자동 매칭 실패; 누락 필수 계정=revenue; 계정명 샘플=유동자산, 사용권자산, 무형자산, 기타금융자산, 기타비유동자산, 자산총계, 유동부채, 기타금융부채, 리스부채, 기타유동부채, 현금및현금성자산, 비유동부채, 순확정급여부채, 부채총계, 자본금, 자본잉여금, 기타자본항목, 이익잉여금(결손금)"
+328130,루닛,01397620,58222,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+328380,솔트웨어,01390399,620,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+330730,스톤브릿지벤처스,01305249,649,Unclassified,added_partial,4,2020: 표준 재무제표 API 응답 없음
+331380,포커스에이아이,01393721,265,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+331520,밸로프,01398151,582,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+332290,누보,01394669,203,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+333050,이노테나,01407158,582,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+333430,일승,01396676,311,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+334970,프레스티지바이오로직스,01258428,212,Manufacturing,added_partial,4,"2020: 필수 계정 자동 매칭 실패; 누락 필수 계정=revenue; 계정명 샘플=유동자산, 무형자산, 기타비유동자산, 자산총계, 유동부채, 단기차입금, 기타유동채무, 기타유동부채, 유동성장기부채, 유동성전환사채, 현금및현금성자산, 상환전환우선주전환권부채, 파생상품금융부채, 비유동부채, 장기차입금, 기타비유동채무, 상환전환우선주부채, 전환사채"
+335870,윙스풋,01405585,474,Wholesale/Retail,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+336060,웨이버스,01408999,582,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+336570,원텍,01407909,271,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+336680,탑런토탈솔루션,00814582,262,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+338840,와이바이오로직스,01226234,70113,Professional Services,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+340360,다보링크,01416642,264,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+340440,세림B&G,01416572,222,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+340810,시선AI,01315042,58221,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+341170,퓨쳐메디신,01185867,70113,Professional Services,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+344860,이노진,01419135,20423,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+347850,디앤디파마텍,01376715,70113,Professional Services,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+348080,큐라티스,01357765,70113,Professional Services,added_partial,4,2020: 표준 재무제표 API 응답 없음
+348340,뉴로메카,01336461,29280,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+348370,엔켐,01011526,20119,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+351020,미쥬,01547933,141,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+351320,넥사다이내믹스,01440153,29272,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+351330,이삭엔지니어링,01135640,62021,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+351870,차이커뮤니케이션,00909835,71310,Professional Services,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+352090,스톰테크,01226270,22211,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+352480,씨앤씨인터내셔널,01226410,20423,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+352910,오비고,00494546,620,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+353190,휴럼,01453670,108,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+353590,오토앤,01084294,4521,Wholesale/Retail,added_partial,4,2020: 표준 재무제표 API 응답 없음
+354320,알멕,00229030,24222,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+355150,코스텍시스,01476219,261,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+355390,크라우드웍스,01514005,582,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+355690,에이텀,01444380,262,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+356680,엑스게이트,01372782,58221,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+357230,에이치피오,01068737,108,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+357580,아모센스,01012987,262,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+357880,SKAI,01381984,58222,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+358570,지아이이노베이션,01351080,70113,Professional Services,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+359090,씨엔알리서치,01487446,739,Professional Services,added_partial,4,2020: 표준 재무제표 API 응답 없음
+360070,탑머티리얼,01360875,28202,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+360350,코셈,01493793,27219,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+361570,알비더블유,01303029,59201,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+361610,SK아이이테크놀로지,01386916,282,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+361670,삼영에스앤씨,00405506,2629,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+362320,청담글로벌,01534577,46443,Wholesale/Retail,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+362990,드림인사이트,01492688,71310,Professional Services,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+363250,진시스템,01437858,271,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+365270,큐라클,01397772,70113,Professional Services,added_partial,4,2020: 표준 재무제표 API 응답 없음
+365330,에스와이스틸텍,01135084,2511,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+365340,성일하이텍,01274329,201,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+365590,하이딥,01505186,261,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+365900,브이씨,01354740,3330,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+366030,나인앤컴퍼니,01307335,144,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+367000,플래티어,01454341,58222,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+368600,아이씨에이치,01302853,262,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+368770,파이버프로,01513440,27219,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+368970,오에스피,01491607,109,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+370090,퓨런티어,01357446,27213,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+371950,풍원정밀,00417167,262,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+372170,윤성에프앤씨,00925374,292,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+372320,큐로셀,01492651,70113,Professional Services,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+372800,아이티아이즈,01429840,58221,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+372910,한컴라이프케어,00534598,27199,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+373110,엑셀세라퓨틱스,01492217,211,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+373160,데이원컴퍼니,01455492,85669,Education,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+373170,엠아이큐브솔루션,01497142,58221,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+373200,엑스플러스,01514698,339,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+375500,DL이앤씨,01524093,412,Construction,added_partial,4,2020: 표준 재무제표 API 응답 없음
+376180,피코그램,00604028,339,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+376270,HEM파마,01480708,70111,Professional Services,added_partial,4,2020: 표준 재무제표 API 응답 없음
+376290,씨유테크,00575106,26224,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+376300,디어유,01456011,58222,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+376900,로킷헬스케어,01335143,21309,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+376930,노을,01494118,27112,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+376980,원티드랩,01441611,58221,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+377030,비트맥스,01409095,582,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+377220,프롬바이오,01217865,108,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+377330,이지트로닉스,01140837,2811,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+377450,리파인,01210066,63991,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+377460,큐에이드,01175499,953,Unclassified,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+377480,마음AI,01297898,58222,Information/Communication,added_partial,4,2020: 표준 재무제표 API 응답 없음
+377740,바이오노트,00622787,213,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+378340,필에너지,01488320,29299,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+378800,샤페론,01387164,211,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+378850,화승알앤에이,01532603,30399,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+380540,옵티코어,01506990,266,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+381620,제닉스로보틱스,01293485,29299,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+381970,케이카,01323032,45120,Wholesale/Retail,added_partial,4,2020: 표준 재무제표 API 응답 없음
+382150,온코크로스,01423916,70111,Professional Services,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+382480,지아이텍,01311310,292,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+382800,지앤비에스 에코,00958327,29271,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+382840,원준,01459212,292,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+382900,범한퓨얼셀,01435489,28111,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+383220,F&F,01568413,14111,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+383310,에코프로에이치엔,01566248,204,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+383800,LX홀딩스,01562589,64992,Unclassified,added_partial,4,2020: 표준 재무제표 API 응답 없음
+383930,디티앤씨알오,01437432,70113,Professional Services,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+384470,코어라인소프트,01512575,58222,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+387570,파인메딕스,01455410,27199,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+388050,지투파워,01462605,28123,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+388610,지에프씨생명과학,01221752,20495,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+388720,유일로보틱스,01152586,292,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+388790,라이콤,01569102,264,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+388870,파로스아이바이오,01495180,70113,Professional Services,added_partial,1,"2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2024: 필수 계정 자동 매칭 실패; 누락 필수 계정=revenue; 계정명 샘플=당기법인세자산, 기타유동자산, 기타유동금융자산, 매출채권 및 기타유동채권, 비유동자산, 순확정급여자산, 무형자산, 기타비유동금융자산, 유형자산, 자본총계, 지배기업의 소유주에게 귀속되는 자본, 자본잉여금, 기타자본, 기타포괄손익누계액, 자본금, 이익잉여금(결손금), 자본과부채총계, 유동부채"
+389020,자람테크놀로지,01365038,261,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+389030,지니너스,01494154,70113,Professional Services,added_partial,4,2020: 표준 재무제표 API 응답 없음
+389140,포바이포,01513699,59113,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+389260,대명에너지,01150515,4112,Construction,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+389470,인벤티지랩,01516456,701,Professional Services,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+389500,에스비비테크,00567897,291,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+389650,넥스트바이오메디컬,01385050,27199,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+389680,유디엠텍,01498576,58222,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+391710,코닉오토메이션,01573284,292,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+393210,토마토시스템,01436479,582,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+393890,더블유씨피,01291317,28202,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+393970,대진첨단소재,01549472,22213,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+394280,오픈엣지테크놀로지,01571107,582,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+394800,쓰리빌리언,01506617,701,Professional Services,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+396270,넥스트칩,01515864,26112,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+396300,세아메카닉스,00534701,259,Manufacturing,added_partial,4,2020: 표준 재무제표 API 응답 없음
+396470,워트,00866451,29271,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+397030,에이프릴바이오,01375822,70113,Professional Services,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+398120,에스지헬스케어,01179866,27111,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+399720,가온칩스,01364747,26112,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+402030,코난테크놀로지,00601988,58221,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+402340,SK스퀘어,01596425,64992,Unclassified,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+402490,그린리소스,01370863,261,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+403490,우듬지팜,01299106,103,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+403550,쏘카,01026157,76110,Business Services,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+403850,더핑크퐁컴퍼니,01138364,591,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+403870,HPSP,01288827,29271,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+405000,플라즈맵,01575839,27199,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+405100,큐알티,01033591,73909,Professional Services,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+405920,나라셀라,01021639,46331,Wholesale/Retail,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+406820,뷰티스킨,01147487,20423,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+407400,꿈비,01586455,32099,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+408900,스튜디오미르,01139965,59112,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+408920,메쎄이상,01596656,759,Business Services,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+411080,샌즈랩,01242241,582,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+412350,레이저쎌,01573381,29271,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+412540,제일엠앤에스,00528791,292,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+413390,엠오티,01563922,29299,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+413630,씨피시스템,01601222,222,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+413640,비아이매트릭스,01462739,5822,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+415380,스튜디오삼익,01540815,47520,Wholesale/Retail,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+416180,신성에스티,00761183,30399,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+417010,나노팀,01524118,291,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+417180,핑거스토리,01584934,63991,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+417200,LS머트리얼즈,01528141,26291,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+417500,제이아이테크,01367586,204,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+417790,트루엔,01134216,265,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+417840,저스템,01383229,29271,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+417860,오브젠,01472930,58222,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+417970,모델솔루션,00657783,292,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+418250,시큐레터,01579570,58221,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+418420,라온텍,00965512,262,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+418470,KT밀리의서재,01467451,581,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+418550,제이오,00411808,721,Professional Services,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+418620,E8,01516890,582,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+419050,삼기에너지솔루션즈,01526806,303,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+419080,엔젯,01587056,29272,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+419120,산돌,01516368,58222,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+419530,SAMG엔터,01082418,59112,Information/Communication,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+419540,비스토스,01506848,27199,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+420570,제이투케이바이오,01553129,20423,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+420770,기가비스,00765569,292,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+424760,벨로크,01622331,620,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+424960,스마트레이더시스템,01555215,272,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+424980,마이크로투나노,00624378,26129,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+425040,티이엠씨,01301252,20121,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+425420,티에프이,01035368,262,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+429270,시지트로닉스,01284751,26129,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+430690,한싹,01602638,58221,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+431190,케이쓰리아이,01689266,582,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+432430,와이랩,01406265,591,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+432470,케이엔에스,01402995,29299,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+432720,퀄리타스반도체,01584183,26112,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+432980,엠에프씨,01217795,21100,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+434480,모니터랩,01583652,58221,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+435570,에르코스,01253636,107,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+437730,삼현,00262266,303,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+438700,버넥트,01605529,58222,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+439090,마녀공장,01136977,204,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+439580,블루엠텍,01559637,467,Wholesale/Retail,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+440110,파두,01292291,26112,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+440320,오픈놀,01585155,58222,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+441270,파인엠텍,01686755,26299,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+443060,HD현대마린솔루션,01194689,7212,Professional Services,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+443250,레뷰코퍼레이션,01468061,71310,Professional Services,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+443670,에스피소프트,01381391,620,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+444530,심플랫폼,01590980,58222,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+445090,에이직랜드,01540453,26112,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+445180,퓨릿,01027828,20119,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+445680,큐리옥스바이오시스템즈,01498974,271,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+446070,유니드비티플러스,01702017,16102,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+446540,메가터치,00923516,28201,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+446840,지슨,01693922,272,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+448280,에코아이,01218299,716,Professional Services,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+448710,코츠테크놀로지,00959210,26310,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+450080,에코프로머티,01311408,28202,Manufacturing,added_partial,3,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음
+450330,하스,01663569,21309,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+450520,인스웨이브,01222113,58222,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+450950,아스테라시스,01590528,27112,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+451220,아이엠티,01546101,29299,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+451250,삐아,01283974,20423,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+451760,컨텍,01685251,620,Information/Communication,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+452160,제이엔비,01309421,29271,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+452190,한빛레이저,00607496,29221,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+452200,민테크,01689035,27212,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+452260,한화갤러리아,01722437,47111,Wholesale/Retail,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+452280,한선엔지니어링,00958451,259,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+452300,캡스톤파트너스,01497124,649,Unclassified,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+452400,이닉스,00338170,30399,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+452430,사피엔반도체,01676642,2611,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+453340,현대그린푸드,01721809,471,Wholesale/Retail,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+453450,그리드위즈,01299203,739,Professional Services,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+453860,에이에스텍,01538528,20499,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+454910,두산로보틱스,01105153,2928,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+455900,엔젤로보틱스,01592049,29280,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+456010,아이씨티케이,01373709,261,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+456040,OCI,01760738,20129,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+456070,이엔셀,01544468,211,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+456160,지투지바이오,01577952,21212,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+457190,이수스페셜티케미컬,01762569,20111,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+457370,한켐,01016309,20119,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+457550,우진엔텍,01030503,7390,Professional Services,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+457600,벡트,01453944,26519,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+458650,성우,00319272,282,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+458870,씨어스,01514227,27199,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+459100,위츠,01445440,26299,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+460470,아이빔테크놀로지,01678312,27309,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+460850,동국씨엠,01765256,24122,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+460860,동국제강,01765265,241,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+460870,에스엠씨지,01142260,231,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+460930,현대힘스,00667373,31114,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+460940,피앤에스로보틱스,01419205,27199,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+461030,아이엠비디엑스,01497373,701,Professional Services,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+461300,아이스크림미디어,00657224,582,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+462350,이노스페이스,01700587,31311,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+462510,라메디텍,01504211,2711,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+462520,조선내화,01770203,2321,Manufacturing,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+462870,시프트업,01384787,58212,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+462980,아이지넷,01728167,63991,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+463480,모티브링크,00367400,26294,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+464080,에스오에스랩,01686427,27211,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+464280,티디에스팜,01232192,21212,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+464490,쿼드메디슨,01671285,211,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+464500,아이언디바이스,01706794,26112,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+464580,닷밀,01605282,591,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+465480,인스피언,01284876,582,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+465770,STX그린로지스,01784394,501,Transportation,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+466100,클로봇,01784914,58221,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+466410,사이냅소프트,01207901,58222,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+469750,아이비젼웍스,01516766,292,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+471820,셀로맥스사이언스,01448544,10897,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+472850,폰드그룹,01806951,474,Wholesale/Retail,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+473980,노머스,01703849,90199,Arts/Sports,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+474170,루미르,01636565,31311,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+474610,RF시스템즈,01286476,25924,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+474650,링크솔루션,01764099,29222,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+475040,스트라드비젼,01370517,582,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+475150,SK이터닉스,01817081,411,Construction,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+475400,씨메스로보틱스,01588189,29299,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+475460,미트박스,01374717,639,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+475560,더본코리아,00968607,468,Wholesale/Retail,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+475580,에이럭스,01641600,33999,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+475660,에스켐,01383779,204,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+475830,오름테라퓨틱,01658831,211,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+475960,토모큐브,01573336,27309,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+476060,온코닉테라퓨틱스,01632912,701,Professional Services,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+476080,M83,01704680,59111,Information/Communication,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+476830,알지노믹스,01596920,70113,Professional Services,added_partial,2,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음
+478560,블랙야크아이앤씨,01718407,152,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+479960,위너스일렉,01137860,289,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+480370,씨케이솔루션,01210677,29172,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+481070,에이유브랜즈,01803927,47430,Wholesale/Retail,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+482630,삼양엔씨켐,00863533,20499,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+483650,달바글로벌,01649204,20423,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+484870,엠앤씨솔루션,01519790,292,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+487570,HS효성,01854763,64999,Unclassified,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+489500,엘케이켐,01747977,20499,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+489790,한화비전,01867758,264,Manufacturing,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+499790,GS피앤엘,01882845,64992,Unclassified,added_partial,1,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음
+950210,프레스티지바이오파마,01510489,70113,Professional Services,added_partial,1,"2020: 표준 재무제표 API 응답 없음; 2022: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=유동자산, 유형자산, 무형자산, 기타비유동금융자산, 기타비유동자산, 자산총계, 유동부채, 매입채무, 미지급금, 단기차입금, 현금및현금성자산, 유동성리스부채, 기타유동금융부채, 기타유동부채, 비유동부채, 장기차입금, 비유동리스부채, 기타비유동부채; 2023: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=유동자산, 장기금융상품, 유형자산, 무형자산, 기타비유동금융자산, 기타비유동자산, 자산총계, 유동부채, 매입채무, 미지급금, 현금및현금성자산, 차입금, 유동성리스부채, 기타유동금융부채, 기타유동부채, 비유동부채, 비유동리스부채, 기타비유동부채; 2024: 필수 계정 자동 매칭 실패; 누락 필수 계정=gross_profit; 계정명 샘플=현금및현금성자산, 유동재고자산, 기타유동자산, 기타유동금융자산, 단기금융상품, 비유동자산, 장기금융상품, 당기손익공정가치 측정 금융자산, 무형자산, 기타비유동자산, 기타비유동금융자산, 유형자산, 자본총계, 지배기업의 소유주에게 귀속되는 자본, 자본잉여금, 기타자본, 기타포괄손익누계액, 자본금"
+000010,신한은행,00149293,64121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+000030,우리은행,00254045,64121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+000060,메리츠화재해상보험,00117744,65121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+000110,한국스탠다드차타드은행,00148504,64121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+000370,한화손해보험,00135917,65121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+000400,롯데손해보험,00113562,65121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+000470,그린손해보험,00104971,65121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+0004Y0,디비금융제14호스팩,01884065,649,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+000540,흥국화재,00103176,65121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+000610,제일화재해상보험,00148744,65121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+000810,삼성화재해상보험,00139214,65121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+001200,유진증권,00131054,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+001270,부국증권,00123772,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+001280,우리증권,00163178,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+001290,상상인증권,00112059,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+001450,현대해상,00164973,65121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+001500,현대차증권,00137997,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+001510,SK증권,00131850,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+001720,신영증권,00136721,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+001750,한양증권,00162416,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+002550,KB손해보험,00120216,65121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+002860,하나은행,00130897,64121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+0030R0,대신밸류리츠,01885222,642,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+003330,하나IB증권,00115038,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+003450,케이비증권,00164876,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+003460,유화증권,00145190,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+003470,유안타증권,00117601,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+003530,한화투자증권,00148610,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+003540,대신증권,00110893,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+003690,코리안리,00113191,65200,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+0037T0,KB제32호스팩,01902990,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+004940,하나은행,00158909,64121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+005270,아이엠뱅크,00109019,64121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+005280,부산은행,00124106,64121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+005830,DB손해보험,00159102,65121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+005890,동원증권,00162142,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+005940,NH투자증권,00120182,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+006220,제주은행,00148832,64121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+006350,전북은행,00147295,64121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+006800,미래에셋증권,00111722,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+007200,진흥저축은행,00150855,64131,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+007330,푸른저축은행,00124805,64132,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+007640,애큐온저축은행,00111014,64132,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+007800,솔로몬저축은행,00189343,64131,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+007830,부산저축은행,00124054,64132,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+008270,산은캐피탈,00260356,64911,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+008560,메리츠증권,00163682,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+008670,신한투자증권,00138321,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+010050,우리종합금융,00104102,64919,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+010460,화인자산관리,00156521,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+012320,경동인베스트,00143527,649,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+012420,메리츠종합금융,00161639,64919,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+016360,삼성증권,00104856,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+016600,큐캐피탈,00267942,649,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+016610,DB증권,00115694,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+019550,SBI인베스트먼트,00156910,64209,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+019570,플루토스,00110750,64209,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+021080,에이티넘인베스트,00161462,64209,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+021880,메이슨캐피탈,00136101,64911,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+023760,한국캐피탈,00149594,64911,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+024110,기업은행,00149646,64121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+026890,스틱인베스트먼트,00117498,64201,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+027360,아주IB투자,00156895,649,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+027830,대성창투,00109037,64209,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+029780,삼성카드,00126292,64913,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+030210,다올투자증권,00156859,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+030610,교보증권,00113359,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+031210,서울보증보험,00112998,65122,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+032830,삼성생명,00126256,65110,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+034830,한국토지신탁,00233653,642,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+039490,키움증권,00296290,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+041190,우리기술투자,00231664,6491,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+046440,KG파이낸셜,00405278,582,Information/Communication,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+055550,신한지주,00382199,64992,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+060250,NHN KCP,00357740,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+071050,한국금융지주,00432102,64992,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+078020,LS증권,00330424,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+082640,동양생명,00117267,65110,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+085620,미래에셋생명,00112332,65110,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+086790,하나금융지주,00547583,64992,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+088260,이리츠코크렙,00544452,68112,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+088350,한화생명,00113058,65110,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+088980,맥쿼리인프라,00435297,64201,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+094800,맵스리얼티,00600013,642,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+100790,미래에셋벤처투자,00340096,649,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+105560,KB금융,00688996,64992,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+123890,한국자산신탁,00404701,642,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+138040,메리츠금융지주,00860332,64992,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+138930,BNK금융지주,00858364,64992,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+139130,iM금융지주,00878915,64992,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+145270,케이탑리츠,00861076,68112,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+175330,JB금융지주,00980122,64992,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+190650,코리아에셋투자증권,00304915,66121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+199730,바이오인프라,01110058,70113,Professional Services,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+204620,글로벌텍스프리,01042711,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+211050,인카금융서비스,01013694,66202,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+234340,헥토파이낸셜,00763701,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+241520,DSC인베스트먼트,01109715,64209,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+244920,에이플러스에셋,00684802,66202,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+246690,TS인베스트먼트,00778235,64209,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+266470,바이오인프라생명과학,01130885,70113,Professional Services,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+277070,린드먼아시아,00616962,64209,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+279570,케이뱅크,01203312,64121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+289080,SV인베스트먼트,00599151,649,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+293940,신한알파리츠,01276594,6811,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+309960,LB인베스트먼트,00231901,64991,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+316140,우리금융지주,01350869,64992,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+323410,카카오뱅크,01133217,64121,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+330590,롯데리츠,01363818,681,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+334890,이지스밸류플러스리츠,01394377,681,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+338100,NH프라임리츠,01391033,681,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+348950,제이알글로벌리츠,01415892,681,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+350520,이지스레지던스리츠,01436628,681,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+357120,코람코라이프인프라리츠,01430475,6811,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+357250,미래에셋맵스리츠,01437292,681,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+357430,마스턴프리미어리츠,01442966,681,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+365550,ESR켄달스퀘어리츠,01437186,681,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+369370,블리츠웨이엔터테인먼트,01508855,901,Arts/Sports,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+377190,디앤디플랫폼리츠,01475609,681,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+377300,카카오페이,01244601,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+395400,SK리츠,01535150,68112,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+396690,미래에셋글로벌리츠,01576102,6811,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+400760,NH올원리츠,01480780,6812,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+404990,신한서부티엔디리츠,01436558,68112,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+415640,KB발해인프라,01880801,642,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+417310,코람코더원리츠,01180118,68112,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+432320,KB스타리츠,01622720,68112,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+440290,HB인베스트먼트,00309460,649,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+448730,삼성FN리츠,01688896,6811,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+451800,한화리츠,01669226,68112,Real Estate,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+465320,교보15호스팩,01781847,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+466690,키움히어로제1호스팩,01784677,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+467930,IBKS제23호스팩,01785700,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+468760,유진스팩10호,01787072,66191,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+469480,IBKS제24호스팩,01792791,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+469880,하나30호스팩,01791321,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+469900,하나31호스팩,01791561,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+471050,대신밸런스제17호스팩,01792825,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+472220,신영스팩10호,01796858,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+472230,SK증권제11호스팩,01797440,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+473000,SK증권제12호스팩,01798722,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+473050,유안타제15호스팩,01798980,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+473950,SK증권제13호스팩,01801822,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+474490,유안타제16호스팩,01804476,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+474660,신한제12호스팩,01809569,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+474930,신한제13호스팩,01807747,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+475240,하나32호스팩,01807738,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+475250,하나33호스팩,01807729,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+477340,에이치엠씨제7호스팩,01813377,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+477380,미래에셋비전스팩4호,01814233,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+477470,미래에셋비전스팩5호,01817249,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+477760,디비금융스팩12호,01814589,6491,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+478110,이베스트스팩6호,01815764,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+478390,KB제29호스팩,01816268,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+478440,미래에셋비전스팩6호,01819867,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+479880,한국제15호스팩,01818682,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+481850,신한글로벌액티브리츠,01714997,64201,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+481890,엔에이치스팩31호,01834194,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+482520,교보16호스팩,01845701,6619,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+482680,미래에셋비전스팩7호,01841635,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+482690,대신밸런스제19호스팩,01845534,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+484130,하나34호스팩,01847550,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+486630,KB제30호스팩,01851650,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+487360,신한제14호스팩,01853214,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+487720,키움제10호스팩,01877126,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+487830,신한제15호스팩,01854408,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+488060,유진스팩11호,01854392,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+489210,교보17호스팩,01866528,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+489480,키움제11호스팩,01873272,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+489730,디비금융제13호스팩,01857991,649,Unclassified,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+492220,KB제31호스팩,01866926,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+493790,유안타제17호스팩,01872219,66199,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+496070,신한제16호스팩,01875146,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+498390,한화플러스제5호스팩,01881800,661,Financial,excluded_industry_or_spac,0,Financial industry or SPAC/special purpose company excluded.
+0001A0,덕양에너젠,01516933,352,Utilities,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+000360,삼환기업,00129411,41221,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+000380,대아건설,00110963,41221,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+000420,로케트전기,00120377,28201,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0004V0,엔비알모션,00924931,259,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+000790,씨앤상선,00134060,50112,Transportation,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0007C0,아크릴,01829819,58222,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0007J0,인벤테라,01869710,70113,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+000830,삼성물산,00126229,467,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0008Z0,에스엔시스,01294110,28123,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0009K0,에임드바이오,01781999,70113,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0010F0,보원케미칼,00871587,2221,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0010V0,제이피아이헬스케어,00185301,27199,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001150,서통,00131434,20202,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001190,마이크로닉스,00112068,13109,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0011A0,액스비스,01554508,289,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0011T0,채비,01279698,28119,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001300,제일모직,00148328,20202,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001310,풍림산업,00155498,41112,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001370,FnC코오롱,00152914,1419,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0013V0,삼진식품,01370322,10211,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001490,천지산업,00151447,46417,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001580,신광기업,00135670,28410,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001590,일화모직공업,00146719,13212,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0015G0,그린광학,00677486,273,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0015N0,아로마티카,01381805,20423,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0015S0,페스카로,01817920,739,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001600,서광건설산업,00173397,41221,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001670,경남모직,00101275,13212,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+0017J0,세미티에스,01596221,29299,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001830,동부일렉트로닉스,00138491,2612,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001950,남한제지,00107923,1710,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+001980,대호,00113696,41221,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+002250,알보젠코리아,00105244,21212,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+002300,한국제지,00159412,1710,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+002480,범양사,00122728,13213,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+002530,벽산건설,00122922,41112,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+002540,고제,00103325,10895,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+002670,미주제강,00115472,24121,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+002850,영풍산업,00141334,6200,Mining,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+002930,삼도물산,00125406,46413,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+002950,두산건설,00115852,41221,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+003020,남양,00107446,13922,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+003040,한일약품공업,00163044,21212,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+003050,링세오코리아,00110547,28302,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+003190,알앤엘재생의학연구소,00112004,21100,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+003590,광덕물산,00103583,14111,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+003640,유니온스틸,00140380,24122,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+003660,고려시멘트,00102821,23311,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+003900,동원데어리푸드,00164292,10421,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+003930,부흥,00124513,14111,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+003940,삼양제넥스,00132105,108,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+003990,BHK,00136235,46800,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004010,롯데미도파,00121729,47111,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004130,대덕GDS,00109170,2622,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004190,스마텔,00147949,2629,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004200,고려개발,00102681,41221,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004230,세신,00133928,25931,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004320,호반산업,00144766,41221,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004510,디와이홀딩스,00117382,29162,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004530,에스와이,00151252,1090,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004550,대우송도개발,00161028,45110,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004620,캠브리지코오롱,00128759,14111,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004660,신동방CP,00115427,10520,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004740,보루네오가구,00123152,32029,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004790,렉스엘이앤지,00106492,26,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+004820,조인에너지,00174305,467,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+005330,카스코,00106650,30,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+005350,심팩인더스트리,00123648,29230,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+005560,제이에스전선,00140362,28302,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+005600,중앙제지,00149840,17105,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+005620,대성합동지주,00110495,715,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+005760,위너스인프라인,00165200,1419,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+005900,동양건설산업,00117072,41221,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+006070,기린,00106508,10602,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+006150,한메엔에스,00136217,2622,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+006210,휴리프,00142698,26,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+006250,극동전선,00105165,28302,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+006440,한일건설,00162780,4111,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+006600,동신제약,00116499,21212,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+006750,센추리,00101992,29172,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+007050,유리이에스,00128731,29230,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+007150,동양텔레콤,00117638,26,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+007190,한솔아트원제지,00137702,171,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+007480,대한은박지,00113173,24222,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+007490,태창기업,00154204,13401,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+007910,세원화성,00108047,20202,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+008000,도레이케미칼,00148717,20501,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+008020,경남에너지,00101336,35200,Utilities,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+008030,아이텍스필,00130000,1419,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+008080,에스와이코퍼레이션,00126885,27,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+008320,한국기술산업,00110176,28302,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+008340,대주코레스,00133715,24222,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+008400,씨앤중공업,00150226,30203,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+008540,케이비물산,00154189,14120,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+008720,삼양엔텍,00127024,29299,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+008780,아이인프라,00119362,2629,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+008900,티이씨앤코,00138127,28302,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+009010,에듀언스,00173634,85501,Education,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+009080,퍼시픽글라스,00154417,23192,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+009220,그로웰전자,00101637,2642,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+009280,다함이텍,00130046,26,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+009360,베네데스하이텍,00151614,46800,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+009380,아세아페이퍼텍,00149248,17105,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+009690,케이엠에이치,00159908,28302,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+009720,한국전기초자,00159175,231,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+009790,휴닉스,00130037,2622,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+009890,맥슨텔레콤,00120960,2642,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+009940,대아리드선,00110981,2629,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+010150,포스코티엠씨,00159926,2629,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+010200,극동제혁,00105183,15110,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+010520,현대하이스코,00164469,2413,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+010670,나노트로닉스,00268437,27212,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+010730,금강화섬,00105509,13103,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+011020,코오롱유화,00152950,20202,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+011050,케드콤,00159281,2642,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+011720,현대페인트,00164955,20411,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+011800,배명금속,00122436,24122,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+012090,성원건설,00133034,41221,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+012250,셰프라인,00142591,25992,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+012400,허메스홀딩스,00153551,26429,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+012410,글로스텍,00102645,2611,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+012460,우영,00143013,26,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+012650,쌍용건설,00138206,41221,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+012720,건영,00100957,4111,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+012760,하스코,00116806,30,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+012990,LG석유화학,00120100,20111,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+013200,우방,00142564,4111,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+014950,삼익제약,00127875,21212,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+052960,태양3C,00302236,452,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+059180,엔더블유시,00341314,264,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+061090,세나테크놀로지,01010615,26429,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+066830,제노텍,00393618,204,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+076340,지에이이노더스,00321204,421,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+081180,쎄크,00406222,291,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+092590,럭스피아,00578325,2611,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+093510,엔지브이아이,00521433,30399,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+098070,한텍,00404941,251,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+103660,씨앗,00762377,204,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+112190,KC산업,00366517,412,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+114920,대주이엔티,00414540,2413,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+116100,태양기계,00442631,30320,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+121060,유니포인트,00445869,620,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+122830,원포유,00337296,582,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+125020,티씨머티리얼즈,00381756,283,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+125490,한라캐스트,00683061,303,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+136150,원일티엔아이,00488244,291,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+136660,큐엠씨,00816696,2927,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+140610,엔솔바이오사이언스,01018802,70113,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+140660,위월드,00663289,26429,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+149010,아이케이세미콘,00861100,2611,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+153890,져스텍,00577593,28111,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+162120,루켄테크놀러지스,00886792,289,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+169670,코스텍시스템,00610861,29271,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+176590,코나솔,00666329,259,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+178600,대동고려삼,00910202,108,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+179720,머니무브,00978075,649,Unclassified,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+180060,탑선,00874937,289,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+185190,수프로,00830447,46204,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+189350,코셋,00965062,26410,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+191600,블루탑,00611286,2622,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+199150,데이터스트림즈,00553025,58221,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+199290,바이오프로테크,00669450,271,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+200580,메디쎄이,01018617,27199,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+202960,판도라티비,00541862,58221,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+206950,볼빅,00756163,33309,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+207490,에이펙스인텍,00832700,28422,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+208850,이비테크,01116344,28909,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+208890,미래엔에듀파트너,00876209,857,Education,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+212310,오건에코텍,01085442,27192,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+215570,크로넥스,01034730,70113,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+217320,썬테크,00963000,28111,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+217590,티엠씨,00949161,2830,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+217910,에스제이켐,01139497,20129,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+222670,플럼라인생명과학,01063237,701,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+223220,로지스몬,01060735,529,Transportation,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+224760,엔에스컴퍼니,00929228,412,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+224810,엄지하우스,00607797,424,Construction,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+227420,도부,01109690,132,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+229500,노브메타파마,01065785,70113,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+232530,이엠티,00925967,28202,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+233250,메디안디노스틱,01035942,213,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+234030,싸이닉솔루션,00874168,26112,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+234070,에이원큐브텍,00614089,76310,Business Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+236030,씨알푸드,01085187,105,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+243870,아이티센코어,00565215,62021,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+244880,나눔테크,01117422,27199,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+245450,씨앤에스링크,01116380,264,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+251280,안지오랩,01115044,70113,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+253610,루트락,01262023,467,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+254160,제이엠멀티,01366824,16101,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+258050,테크트랜스,01246742,25923,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+260870,SK시그넷,01188730,2811,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+261520,이지스,01211889,58221,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+270210,에스알바이오텍,01187458,20423,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+276240,엘리비젼,01119651,26519,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+279060,이노벡스,01353848,272,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+289170,바이오텐,01352575,108,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+296160,프로젠,01156795,70113,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+296520,가이아코퍼레이션,01229240,46499,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+299480,지앤이헬스케어,01188749,13999,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+302920,더콘텐츠온,00991225,59130,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+309710,아이티켐,00914341,21100,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+317450,명인제약,00179489,21212,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+318060,그래피,01565054,20202,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+318660,타임기술,01345724,582,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+322970,무진메디,01293388,70113,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+327610,펨토바이오메드,01336735,271,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+331660,한국미라클피플사,01363924,20422,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+331740,아우토크립트,01649620,58222,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+332190,오션스바이오,01860010,27199,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+336040,타스컴,01118139,27199,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+337840,유엑스엔,01396931,27112,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+340450,지씨지놈,01432598,739,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+342870,오아,01428948,47320,Wholesale/Retail,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+346010,타이드,01309069,262,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+354390,바스칸바이오제약,00533809,212,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+364950,에이아이코리아,01307593,29271,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+379390,이성씨엔아이,01365384,72129,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+380550,뉴로핏,01782004,58222,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+388210,씨엠티엑스,01529982,26299,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+390110,애니메디솔루션,01507810,27199,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+394420,리센스메디컬,01685677,27199,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+397810,애드포러스,01551042,713,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+402420,켈스,01507722,27199,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+403360,라피치,01466832,58221,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+403810,아이엘로보틱스,01669794,262,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+408470,한패스,01445024,64999,Unclassified,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+413300,티엘엔지니어링,01583953,72129,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+424870,이뮨온시아,01203659,70113,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+434190,탈로스,01020269,28202,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+439260,대한조선,00182696,3111,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+439960,코스모로보틱스,01802928,27199,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+446440,에피바이오텍,01281541,70113,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+447690,아이오바이오,01680131,27199,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+448780,마이크로엔엑스,01206717,27191,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+448900,한국피아이엠,00765897,303,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+452450,피아이이,01429220,29299,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+455180,케이지에이,01638387,29271,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+456190,큐라켐,01205514,213,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+456570,아이엠지티,01579020,213,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+458350,에스팀,01379563,75992,Business Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+459510,나우로보틱스,01594791,29280,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+459550,알트,01466373,264,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+462310,뉴키즈온,01467503,141,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+462860,더즌,01563667,612,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+463020,뉴엔AI,01639508,58222,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+468530,프로티나,01688568,701,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+469610,이노테크,01745173,29299,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+475230,엔알비,01708163,259,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+475430,키스트론,00204323,28302,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+476040,오가노이드사이언스,01626391,70129,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+476710,타조이엔터테인먼트,01518506,901,Arts/Sports,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+477850,마키나락스,01709065,582,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+478340,나라스페이스테크놀로지,01787355,31311,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+484120,도우인시스,01380578,26211,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+484590,삼양컴텍,00141583,25200,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+484810,티엑스알로보틱스,01458161,291,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+486990,노타,01810477,582,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+487580,폴레드,01565364,28519,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+488280,에스투더블유,01803635,582,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+488900,비츠로넥스텍,01194607,31322,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+489460,바이오비쥬,01657197,204,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+490470,세미파이브,01627363,721,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+491000,리브스메드,01385005,27112,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+493280,아이엠바이오로직스,01859500,701,Professional Services,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+493330,지에프아이,01450938,29192,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+494120,큐리오시스,01786958,273,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+495810,유비씨,01867749,58221,Information/Communication,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+496320,본시스템즈,01872459,292,Manufacturing,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
+950250,테라뷰,01957282,64992,Unclassified,failed,0,2020: 표준 재무제표 API 응답 없음; 2021: 표준 재무제표 API 응답 없음; 2022: 표준 재무제표 API 응답 없음; 2023: 표준 재무제표 API 응답 없음; 2024: 표준 재무제표 API 응답 없음
