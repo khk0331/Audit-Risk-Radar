@@ -109,13 +109,13 @@ final_risk_score =
   + 0.25 * ml_risk_score
 ```
 
-This weighting is a documented design assumption, not a coefficient estimated from confirmed fraud labels. The rationale is:
+This weighting is a documented prototype assumption, not a coefficient estimated from confirmed fraud labels or an official audit standard. It is kept transparent so reviewers can challenge or revise it. The current design logic is:
 
 - **Accounting Risk 45%**: Beneish-style indicators are explainable accounting signals and provide the anchor for the planning score.
 - **Peer Risk 30%**: ISA-style analytical procedures compare relationships and fluctuations across prior periods and comparable entities, so peer context is a second major signal.
 - **ML Risk 25%**: unsupervised anomaly models are useful for pattern discovery, but they are less directly explainable; therefore, they are used as a supporting signal rather than the dominant component.
 
-The score is used to structure planning-stage company analysis, not final judgment or a fraud probability. A production version should run sensitivity analysis on the weights and validate the calibration against external weak labels such as restatements, modified opinions, enforcement actions, and going-concern emphasis.
+The score is used to structure planning-stage company analysis, not final judgment or a fraud probability. In the dashboard, the detailed component explanations and public-disclosure check points are more important than the composite score itself. A production version should run sensitivity analysis on the weights and validate the calibration against external weak labels such as restatements, modified opinions, enforcement actions, and going-concern emphasis.
 
 ## Validation Strategy
 

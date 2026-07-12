@@ -87,23 +87,6 @@ RISK_LEVEL_HELP = {
     "Watch": "단일 결론은 어렵지만 추세와 주요 계정 변동을 함께 확인할 필요가 있습니다.",
     "Normal": "현재 공시 재무제표 기준으로는 상대적으로 안정적인 분석 신호입니다.",
 }
-RISK_SCORE_BANDS = [
-    {
-        "구간": "0-39",
-        "해석": "상대적으로 낮음",
-        "감사계획 의미": "로컬 패널 내에서 뚜렷한 이상 신호가 낮은 편입니다. 다만 중요 계정은 일반적인 감사계획에 따라 계속 검토합니다.",
-    },
-    {
-        "구간": "40-69",
-        "해석": "관찰 필요",
-        "감사계획 의미": "전년 대비 변동, peer 대비 차이, 복합 지표 중 일부가 눈에 띕니다. 공시 설명과 주요 계정 변동 원인을 확인합니다.",
-    },
-    {
-        "구간": "70-100",
-        "해석": "심층 분석 필요",
-        "감사계획 의미": "로컬 패널 기준 상위 위험 신호입니다. 감사계획 단계에서 관련 계정과 가정에 대한 후속 질문을 우선 배치합니다.",
-    },
-]
 RISK_LAYER_DEFINITIONS = [
     {
         "점수": "Accounting Risk",
@@ -123,29 +106,10 @@ RISK_LAYER_DEFINITIONS = [
     {
         "점수": "Final Risk",
         "질문": "감사계획상 어느 정도 주의 깊게 볼 회사인가?",
-        "해석": "Accounting 45%, Peer 30%, ML 25%의 투명한 설계 가중평균입니다. 부정 확률이 아니라 감사계획 우선순위 신호입니다.",
+        "해석": "세부 리스크를 결합한 내부 모델 산출값입니다. 부정 확률이 아니라 감사계획 우선순위 신호입니다.",
     },
 ]
 
-# These explanation tables are shown in the app so a reviewer can understand
-# both the score bands and the final-risk weighting without reading the source.
-RISK_WEIGHT_RATIONALE = [
-    {
-        "Layer": "Accounting Risk",
-        "Weight": "45%",
-        "근거": "Beneish(1999) M-Score 계열의 설명 가능한 회계 지표를 anchor로 둡니다.",
-    },
-    {
-        "Layer": "Peer Risk",
-        "Weight": "30%",
-        "근거": "ISA 520의 분석적 절차 논리처럼 전년·동종기업 대비 관계와 변동을 확인하는 축입니다.",
-    },
-    {
-        "Layer": "ML Risk",
-        "Weight": "25%",
-        "근거": "비지도 이상탐지는 보조 신호로 사용합니다. 설명 가능성보다 낮은 비중을 두어 black-box 과대해석을 줄입니다.",
-    },
-]
 FEATURE_GUIDE_ROWS = [
     {"지표": "DSRI", "전체명": "Days Sales in Receivables Index", "의미": "매출 대비 매출채권이 전년보다 빠르게 증가했는지 봅니다.", "주의 기준": "1.0 초과면 관찰, 1.2 이상이면 수익 인식·회수가능성 질문"},
     {"지표": "GMI", "전체명": "Gross Margin Index", "의미": "매출총이익률이 전년보다 악화됐는지 봅니다.", "주의 기준": "1.0 초과면 수익성 악화"},
@@ -153,7 +117,7 @@ FEATURE_GUIDE_ROWS = [
     {"지표": "SGI", "전체명": "Sales Growth Index", "의미": "매출 성장률이 전년 대비 얼마나 높은지 봅니다.", "주의 기준": "1.2 이상이면 고성장에 따른 매출 인식 압력 관찰"},
     {"지표": "SGAI", "전체명": "SG&A Expenses Index", "의미": "매출 대비 판관비 부담이 전년보다 커졌는지 봅니다.", "주의 기준": "1.0 초과면 비용 구조·기간귀속 질문"},
     {"지표": "LVGI", "전체명": "Leverage Index", "의미": "총자산 대비 부채 부담이 전년보다 커졌는지 봅니다.", "주의 기준": "1.0 초과면 유동성·차입약정·계속기업 관찰"},
-    {"지표": "TATA", "전체명": "Total Accruals to Total Assets", "의미": "순이익과 영업현금흐름 사이의 괴리를 봅니다.", "주의 기준": "0.05 이상 주의, 0.08 이상 강한 발생액 신호"},
+    {"지표": "TATA", "전체명": "Total Accruals to Total Assets", "의미": "순이익과 영업현금흐름 사이의 괴리를 봅니다.", "주의 기준": "0.05 이상 관찰, 0.08 이상 이익 대비 현금흐름 부족 신호"},
 ]
 
 px.defaults.color_discrete_sequence = COLORWAY
@@ -1023,10 +987,10 @@ def feature_signal_label(feature: str, row: pd.Series) -> str:
     value = float(value)
     if feature == "tata":
         if value >= 0.08:
-            return "강한 발생액 신호"
+            return "이익 대비 현금흐름 부족"
         if value >= 0.05:
-            return "주의 발생액 신호"
-        return "발생액 신호 낮음"
+            return "이익-현금흐름 괴리 관찰"
+        return "이익-현금흐름 괴리 낮음"
     if value >= 1.25:
         return "뚜렷한 상승"
     if value >= 1.10:
@@ -1508,9 +1472,8 @@ layer_trend.update_layout(
 st.plotly_chart(style_chart(layer_trend), width="stretch")
 st.markdown(
     "<p class='small-note'><strong>해석 방법:</strong> Final Risk는 독립된 네 번째 리스크가 아니라 "
-    "<span class='inline-token'>Accounting 45%</span>, <span class='inline-token'>Peer 30%</span>, "
-    "<span class='inline-token'>ML 25%</span>를 반영한 종합 점수입니다. 따라서 Accounting Risk가 높고 Peer/ML Risk가 낮으면 "
-    "Final Risk는 그 사이에 위치합니다. 가독성을 위해 두 그래프의 y축은 선택 회사의 점수 범위에 맞춰 확대되며, 절대 기준은 모두 0~100 스케일입니다.</p>",
+    "Accounting, Peer, ML 신호를 결합한 내부 모델 산출값입니다. 공식 감사 기준이나 부정 확률이 아니므로, "
+    "아래의 세부 원인과 공시 확인 포인트를 함께 읽어야 합니다. 가독성을 위해 두 그래프의 y축은 선택 회사의 점수 범위에 맞춰 확대됩니다.</p>",
     unsafe_allow_html=True,
 )
 
@@ -1559,38 +1522,23 @@ drivers_df = driver_table(analysis_row)
 if not drivers_df.empty:
     st.markdown(
         "<div class='driver-note'><strong>읽는 법:</strong> 아래 표는 점수에 영향을 준 핵심 지표를 감사 언어로 번역한 것입니다. "
-        "값은 전년 대비 변화 또는 발생액 비율이며, Peer z는 같은 Year/Industry 내 상대적 이례성을 뜻합니다.</div>",
+        "값은 전년 대비 변화 또는 이익-현금흐름 괴리 비율이며, Peer z는 같은 Year/Industry 내 상대적 이례성을 뜻합니다.</div>",
         unsafe_allow_html=True,
     )
     st.dataframe(drivers_df, width="stretch", hide_index=True)
 
 st.markdown("#### Risk 점수 해부")
 st.markdown(
-    "<p class='small-note'>Final Risk를 구성하는 세 점수는 서로 다른 질문에 답합니다. Accounting Risk는 회계비율 자체의 red flag, Peer Risk는 유사 회사 대비 얼마나 다른지, ML Risk는 여러 재무비율을 함께 봤을 때 일반적인 회사 패턴과 얼마나 다른지를 봅니다. Peer Risk는 방향성을 보되 과대경고를 줄이기 위해 개별 peer signal을 일정 범위에서 제한합니다.</p>",
+    "<p class='small-note'>점수 자체보다 중요한 것은 어느 계정과 지표가 점수를 끌어올렸는지입니다. 세부 탭에서 Accounting, Peer, ML 신호를 각각 확인하고, 아래 감사 질문은 공시자료로 확인 가능한 항목 중심으로 제시합니다.</p>",
     unsafe_allow_html=True,
 )
-guide_col, weight_col = st.columns([1.2, 1.0])
-with guide_col:
-    st.markdown("##### 점수 구간 해석")
-    st.dataframe(pd.DataFrame(RISK_SCORE_BANDS), width="stretch", hide_index=True)
-    st.markdown(
-        "<p class='small-note'>세부 Risk와 Final Risk는 모두 0-100 상대 점수입니다. 30점대는 현재 로컬 패널 기준으로 낮은 편이며, 40점 이상부터 감사계획상 원인 설명을 확인하는 관찰 구간으로 봅니다.</p>",
-        unsafe_allow_html=True,
-    )
-with weight_col:
-    st.markdown("##### Final Risk 가중치")
-    st.dataframe(pd.DataFrame(RISK_WEIGHT_RATIONALE), width="stretch", hide_index=True)
-    st.markdown(
-        "<p class='small-note'>가중치는 특정 논문이 제시한 정답이 아니라, 설명 가능한 Beneish-style 지표를 중심에 두고 peer/ML 신호를 보조적으로 결합한 설계 가정입니다. 따라서 이 점수는 부정 확률이 아니라 감사계획 우선순위 신호로 해석합니다.</p>",
-        unsafe_allow_html=True,
-    )
-with st.expander("Risk Layer별 의미와 방법론 근거"):
+with st.expander("점수 산출 방식과 한계"):
     st.dataframe(pd.DataFrame(RISK_LAYER_DEFINITIONS), width="stretch", hide_index=True)
     st.markdown(
         """
-        - **Beneish reference**: Beneish(1999)는 재무비율 기반 M-Score로 이익조정 가능성을 탐지하는 접근을 제시했습니다. 이 앱은 이를 감사계획용 red flag anchor로 사용합니다.
-        - **ISA 315 / 520 reference**: 감사인은 회사와 환경을 이해하고, 분석적 절차를 통해 비정상적 관계와 변동을 식별합니다. Peer Risk와 추세 분석은 이 논리를 공시 데이터에 적용한 것입니다.
-        - **ML reference**: Isolation Forest와 PCA는 label이 부족한 공시 데이터에서 특이한 재무비율 조합을 찾는 보조 탐지 장치입니다. 단독 결론으로 쓰지 않고 Accounting/Peer 해석과 함께 읽습니다.
+        - **M-Score만 공식적 기준선을 가집니다.** 전통적 참고 기준은 `-2.22`입니다.
+        - **Accounting/Peer/ML/Final Risk는 내부 모델의 상대 점수입니다.** 공식 감사 기준이나 부정 확률이 아니며, 회사 간 우선순위와 원인 설명을 돕기 위한 도구입니다.
+        - **Final Risk는 내부 모델 요약값입니다.** 공식 기준이 아니므로, 세부 리스크와 공시 확인 포인트를 읽기 위한 보조 지표로만 사용합니다.
         """
     )
 st.html(layer_cards_html(analysis_row))
@@ -1768,34 +1716,18 @@ calculation_df = calculation_df.rename(
 )
 st.dataframe(calculation_df, width="stretch", hide_index=True)
 
-st.markdown("#### 추천 감사 질문/후속 절차")
+st.markdown("#### 공시 기반 확인 포인트")
 latest_steps = analysis_row["recommended_audit_steps"].splitlines()
 for step in latest_steps:
     st.markdown(f"- {step}")
 st.markdown(
-    "<p class='small-note'>위 절차는 ISA 감사기준과 IFRS 회계기준 관점을 연결한 planning checklist입니다. 공시자료 단계에서는 검토 영역과 질문 후보를 제시하는 수준이며, 실제 감사에서는 중요성, 내부통제, 산업 특성, 내부자료 접근 가능성을 함께 고려해야 합니다.</p>",
+    "<p class='small-note'>아래 항목은 원장·전표 확인 절차가 아니라, 공시 재무제표와 주석만으로 먼저 확인할 수 있는 질문입니다. 실제 감사에서는 이 중 설명이 부족한 항목을 내부자료 요청과 세부 감사절차로 확장합니다.</p>",
     unsafe_allow_html=True,
 )
 
-with st.expander("Audit Tech 벤치마크 관점"):
-    st.markdown(
-        """
-        | Big4 audit tech에서 관찰되는 방향 | 이 앱에서 구현한 방식 |
-        | --- | --- |
-        | 대량 데이터 기반 planning analytics | DART 5개년 패널에서 선택 회사의 Final Risk와 세부 risk layer를 산출합니다. |
-        | 회계 지표와 anomaly analytics 결합 | Beneish-style, peer risk, ML anomaly score를 분리해 보여줍니다. |
-        | 결과 설명 가능성 | 각 점수별 원인, 주요 지표, peer z-score를 해석합니다. |
-        | 감사 절차로 연결 | Risk signal을 Audit Area, Key Question, Suggested Procedure, ISA/IFRS 근거로 변환합니다. |
-        | workpaper 재사용성 | Planning Memo를 다운로드해 면접/보고용 산출물로 사용할 수 있습니다. |
-
-        현재 앱은 내부 원장, 전표, 계약 단위 데이터가 없기 때문에 journal testing이나 전수 거래 분석까지 수행하지 않습니다.
-        대신 공시 재무제표만으로 가능한 planning analytics 범위에 집중합니다.
-        """
-    )
-
-st.markdown("#### Audit Workplan")
+st.markdown("#### Planning Workpaper")
 st.markdown(
-    "<p class='small-note'>Big4 감사 플랫폼의 공통 방향처럼, 분석 결과를 감사인이 실행할 수 있는 업무 단위로 변환합니다. 아래 표는 공시 데이터에서 포착된 신호를 계정 영역, 핵심 질문, 후속 절차, 근거 기준서로 연결한 planning workpaper 초안입니다.</p>",
+    "<p class='small-note'>선택 회사에서 실제로 무엇을 먼저 읽어야 하는지 정리한 planning workpaper 초안입니다. 내부자료가 없다는 한계를 전제로, 공시자료에서 확인 가능한 계정·주석·비율을 우선 제시합니다.</p>",
     unsafe_allow_html=True,
 )
 workplan_df = build_audit_workplan(analysis_row)
@@ -1810,7 +1742,7 @@ else:
                 "Risk Signal": "Risk Signal",
                 "Peer Context": "Peer Context",
                 "Key Question": "핵심 질문",
-                "Suggested Procedure": "추천 절차",
+                "Suggested Procedure": "공시 확인 포인트",
                 "Basis": "근거",
                 "Standards Rationale": "기준서 문장 요지",
                 "Status": "상태",

@@ -52,7 +52,7 @@ The accounting layer uses Beneish-style indicators such as:
 - SGI: sales growth
 - SGAI: SG&A proxy movement
 - LVGI: leverage movement
-- TATA: accruals relative to assets
+- TATA: earnings-cash-flow gap relative to assets
 
 M-Score is used as an explainable red-flag baseline, not as a fraud conclusion.
 
