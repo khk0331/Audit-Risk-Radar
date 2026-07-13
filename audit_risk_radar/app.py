@@ -168,6 +168,20 @@ st.markdown(
     div[data-testid="stMetric"] label, div[data-testid="stMetric"] [data-testid="stMetricValue"] {
         color: var(--moss-cream);
     }
+    [data-testid="stDataFrame"], [data-testid="stTable"] {
+        background: var(--moss-panel);
+        border: 1px solid var(--moss-border);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    [data-testid="stDataFrame"] [data-testid="stElementToolbar"] {
+        background: rgba(7, 9, 7, 0.92);
+        border: 1px solid var(--moss-border);
+        border-radius: 8px;
+    }
+    [data-testid="stDataFrame"] canvas {
+        background: var(--moss-panel) !important;
+    }
     .small-note {
         color: var(--moss-muted);
         font-size: 0.86rem;
@@ -482,6 +496,73 @@ st.markdown(
         font-weight: 760;
         line-height: 1;
     }
+    .plain-summary {
+        background: linear-gradient(180deg, rgba(23, 29, 21, 0.98), rgba(12, 16, 11, 0.98));
+        border: 1px solid var(--moss-border);
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.65rem 0 1rem 0;
+        box-shadow: inset 0 1px 0 rgba(242, 239, 228, 0.04);
+    }
+    .plain-summary-title {
+        color: var(--moss-lime);
+        font-weight: 780;
+        font-size: 0.82rem;
+        margin-bottom: 0.38rem;
+        text-transform: uppercase;
+    }
+    .plain-summary-body {
+        color: var(--moss-cream);
+        font-size: 1rem;
+        line-height: 1.65;
+    }
+    .movement-grid, .question-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.72rem;
+        margin: 0.65rem 0 1rem 0;
+    }
+    .movement-card, .question-card {
+        background: var(--moss-panel);
+        border: 1px solid var(--moss-border);
+        border-radius: 8px;
+        padding: 0.9rem;
+        min-height: 136px;
+    }
+    .movement-label, .question-label {
+        color: var(--moss-muted);
+        font-size: 0.74rem;
+        font-weight: 760;
+        text-transform: uppercase;
+        margin-bottom: 0.45rem;
+    }
+    .movement-value {
+        color: var(--moss-cream);
+        font-size: 1.08rem;
+        font-weight: 780;
+        line-height: 1.35;
+        margin-bottom: 0.45rem;
+    }
+    .movement-note, .question-note {
+        color: var(--moss-muted);
+        font-size: 0.82rem;
+        line-height: 1.5;
+    }
+    .question-title {
+        color: var(--moss-cream);
+        font-size: 0.98rem;
+        font-weight: 760;
+        line-height: 1.45;
+        margin-bottom: 0.55rem;
+    }
+    .question-basis {
+        border-top: 1px solid var(--moss-border);
+        color: var(--moss-rust);
+        font-size: 0.76rem;
+        line-height: 1.45;
+        margin-top: 0.7rem;
+        padding-top: 0.55rem;
+    }
     .readout-grid {
         display: grid;
         grid-template-columns: 1.05fr 0.95fr 1fr;
@@ -691,6 +772,7 @@ st.markdown(
         .layer-grid { grid-template-columns: 1fr; }
         .quality-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .readout-grid { grid-template-columns: 1fr; }
+        .movement-grid, .question-grid { grid-template-columns: 1fr; }
         .workflow-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .briefing-grid { grid-template-columns: 1fr; }
     }
@@ -743,6 +825,54 @@ def style_chart(fig: go.Figure) -> go.Figure:
         yaxis=dict(gridcolor="#20271E", zerolinecolor="#3A4536"),
     )
     return fig
+
+
+def dark_table(data: pd.DataFrame) -> pd.io.formats.style.Styler:
+    return (
+        data.style.set_table_styles(
+            [
+                {
+                    "selector": "thead th",
+                    "props": [
+                        ("background-color", "#171D15"),
+                        ("color", "#F2EFE4"),
+                        ("border-color", "#2D352B"),
+                        ("font-weight", "700"),
+                    ],
+                },
+                {
+                    "selector": "tbody td",
+                    "props": [
+                        ("background-color", "#10140F"),
+                        ("color", "#F2EFE4"),
+                        ("border-color", "#2D352B"),
+                    ],
+                },
+                {
+                    "selector": "tbody tr:nth-child(even) td",
+                    "props": [("background-color", "#131A12")],
+                },
+                {
+                    "selector": "tbody tr:hover td",
+                    "props": [
+                        ("background-color", "#1F3B2C"),
+                        ("color", "#F2EFE4"),
+                    ],
+                },
+            ]
+        )
+        .set_properties(
+            **{
+                "background-color": "#10140F",
+                "color": "#F2EFE4",
+                "border-color": "#2D352B",
+            }
+        )
+    )
+
+
+def show_table(data: pd.DataFrame, **kwargs) -> None:
+    st.dataframe(dark_table(data), **kwargs)
 
 
 def score_axis_range(frame: pd.DataFrame, columns: list[str], min_span: float = 12) -> list[float]:
@@ -1033,6 +1163,152 @@ def risk_readout_html(row: pd.Series) -> str:
         </div>
     </div>
     """
+
+
+def _to_float(value: object) -> float | None:
+    numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(numeric):
+        return None
+    return float(numeric)
+
+
+def _format_amount_krw(value: object) -> str:
+    numeric = _to_float(value)
+    if numeric is None:
+        return "N/A"
+    abs_value = abs(numeric)
+    sign = "-" if numeric < 0 else ""
+    if abs_value >= 1_0000_0000_0000:
+        return f"{sign}{abs_value / 1_0000_0000_0000:,.1f}조"
+    return f"{sign}{abs_value / 1_0000_0000:,.1f}억"
+
+
+def _format_change(current: object, prior: object) -> tuple[str, float | None]:
+    current_value = _to_float(current)
+    prior_value = _to_float(prior)
+    if current_value is None or prior_value is None:
+        return "비교 불가", None
+    if abs(prior_value) < 1e-9:
+        return "전기 0 기준 비교 제한", None
+    ratio = current_value / prior_value
+    change_pct = (current_value - prior_value) / abs(prior_value) * 100
+    if ratio > 0 and ratio >= 1.8:
+        label = f"{ratio:,.1f}배"
+    elif ratio > 0 and ratio <= 0.55:
+        label = f"{ratio:,.2f}배"
+    else:
+        label = f"{change_pct:+,.1f}%"
+    return label, abs(change_pct)
+
+
+def prior_raw_row(raw_company_df: pd.DataFrame, analysis_year: int) -> pd.Series | None:
+    candidates = raw_company_df[pd.to_numeric(raw_company_df["year"], errors="coerce") < analysis_year]
+    if candidates.empty:
+        return None
+    return candidates.sort_values("year").iloc[-1]
+
+
+def movement_cards_html(row: pd.Series, raw_company_df: pd.DataFrame) -> str:
+    analysis_year = int(row["year"])
+    current_candidates = raw_company_df[
+        pd.to_numeric(raw_company_df["year"], errors="coerce") == analysis_year
+    ]
+    current = current_candidates.iloc[-1] if not current_candidates.empty else row
+    prior = prior_raw_row(raw_company_df, analysis_year)
+    if prior is None:
+        return (
+            "<div class='plain-summary'>"
+            "<div class='plain-summary-title'>전년 비교 제한</div>"
+            "<div class='plain-summary-body'>전기 원천 재무제표가 부족해 전년 대비 변동을 자동 요약하기 어렵습니다. "
+            "이 경우 점수는 peer/ML 및 산출 가능한 지표 중심으로 해석해야 합니다.</div>"
+            "</div>"
+        )
+
+    items = [
+        ("매출", "revenue", "수익 인식과 성장의 출발점입니다."),
+        ("매출채권", "receivables", "매출 성장의 회수가능성과 기말 매출 인식 질문으로 이어집니다."),
+        ("총자산", "total_assets", "자산 취득, 자본화, 손상검토 필요성을 볼 때 중요합니다."),
+        ("총부채", "total_liabilities", "차입, 유동성, 재무구조 변화 질문으로 이어집니다."),
+        ("영업현금흐름", "operating_cash_flow", "손익이 현금창출로 뒷받침되는지 확인합니다."),
+        ("영업손익", "operating_income", "매출 성장과 수익성의 방향이 일관되는지 봅니다."),
+    ]
+    ranked = []
+    for label, column, note in items:
+        if column not in current.index or column not in prior.index:
+            continue
+        change_label, severity = _format_change(current.get(column), prior.get(column))
+        if severity is None:
+            severity = 0
+        ranked.append((severity, label, column, note, change_label))
+    ranked = sorted(ranked, reverse=True)[:3]
+    if not ranked:
+        return ""
+
+    cards = []
+    for _severity, label, column, note, change_label in ranked:
+        cards.append(
+            "<div class='movement-card'>"
+            f"<div class='movement-label'>{html.escape(label)}</div>"
+            f"<div class='movement-value'>{html.escape(_format_amount_krw(prior.get(column)))} → {html.escape(_format_amount_krw(current.get(column)))}</div>"
+            f"<div class='movement-note'>전년 대비 {html.escape(change_label)}. {html.escape(note)}</div>"
+            "</div>"
+        )
+    return f"<div class='movement-grid'>{''.join(cards)}</div>"
+
+
+def plain_language_summary_html(row: pd.Series, raw_company_df: pd.DataFrame) -> str:
+    analysis_year = int(row["year"])
+    current_candidates = raw_company_df[
+        pd.to_numeric(raw_company_df["year"], errors="coerce") == analysis_year
+    ]
+    current = current_candidates.iloc[-1] if not current_candidates.empty else row
+    prior = prior_raw_row(raw_company_df, analysis_year)
+    drivers = top_driver_features(row, limit=4)
+    driver_names = [FEATURE_LABELS.get(feature, feature.upper()) for feature in drivers]
+    if prior is None:
+        body = (
+            f"{html.escape(str(row['company_name']))}은(는) {analysis_year}년 기준 "
+            f"{html.escape(', '.join(driver_names) if driver_names else '복합 지표')}가 주요 신호로 잡혔습니다. "
+            "전기 비교 데이터가 충분하지 않은 경우에는 전년 추세보다 peer 대비 위치와 공시 주석 설명을 우선 확인합니다."
+        )
+    else:
+        revenue_change, _ = _format_change(current.get("revenue"), prior.get("revenue"))
+        receivable_change, _ = _format_change(current.get("receivables"), prior.get("receivables"))
+        debt_change, _ = _format_change(current.get("total_liabilities"), prior.get("total_liabilities"))
+        body = (
+            f"{html.escape(str(row['company_name']))}은(는) {analysis_year}년에 매출이 전년 대비 {html.escape(revenue_change)}, "
+            f"매출채권이 {html.escape(receivable_change)}, 부채가 {html.escape(debt_change)} 변했습니다. "
+            f"쉽게 말해, {html.escape(', '.join(driver_names) if driver_names else '여러 지표')} 변화가 동시에 나타났기 때문에 "
+            "수익 인식, 회수가능성, 자산·부채 변동의 경제적 원인을 먼저 확인해야 합니다."
+        )
+    return (
+        "<div class='plain-summary'>"
+        "<div class='plain-summary-title'>쉽게 말하면</div>"
+        f"<div class='plain-summary-body'>{body}</div>"
+        "</div>"
+    )
+
+
+def audit_question_cards_html(row: pd.Series) -> str:
+    cards = []
+    for feature in top_driver_features(row, limit=3):
+        focus = AUDIT_FOCUS.get(feature)
+        if not focus:
+            continue
+        label = FEATURE_LABELS.get(feature, feature.upper())
+        value = _format_display_number(row.get(feature))
+        signal = feature_signal_label(feature, row)
+        basis = focus.get("basis", "ISA/IFRS")
+        isa_quote = focus.get("isa_quote", "관련 감사기준에 따라 중요한 변동과 공시 설명을 확인합니다.")
+        cards.append(
+            "<div class='question-card'>"
+            f"<div class='question-label'>{html.escape(focus.get('area', '공시 확인'))}</div>"
+            f"<div class='question-title'>{html.escape(focus.get('question', '해당 변동의 경제적 원인이 충분히 설명되는가?'))}</div>"
+            f"<div class='question-note'>{html.escape(label)} {html.escape(value)} · {html.escape(signal)}. {html.escape(focus.get('procedure', '공시 재무제표와 주석의 전년 대비 변동 설명을 확인합니다.'))}</div>"
+            f"<div class='question-basis'>{html.escape(basis)}<br>{html.escape(isa_quote)}</div>"
+            "</div>"
+        )
+    return f"<div class='question-grid'>{''.join(cards)}</div>" if cards else ""
 
 
 def driver_table(row: pd.Series) -> pd.DataFrame:
@@ -1443,8 +1719,11 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.markdown("#### 리스크 결론 요약")
-st.markdown(risk_readout_html(analysis_row), unsafe_allow_html=True)
+st.markdown("#### 한눈에 보는 분석")
+st.html(plain_language_summary_html(analysis_row, raw_company_df))
+st.html(movement_cards_html(analysis_row, raw_company_df))
+st.html(risk_readout_html(analysis_row))
+
 st.markdown("##### M-Score 기준선")
 st.plotly_chart(m_score_bullet_chart(analysis_row.get("m_score")), width="stretch")
 st.markdown(
@@ -1460,7 +1739,7 @@ if not drivers_df.empty:
         "값은 전년 대비 변화 또는 이익-현금흐름 괴리 비율이며, Peer z는 같은 Year/Industry 내 상대적 이례성을 뜻합니다.</div>",
         unsafe_allow_html=True,
     )
-    st.dataframe(drivers_df, width="stretch", hide_index=True)
+    show_table(drivers_df, width="stretch", hide_index=True)
 
 st.markdown("#### Risk 점수 해부")
 st.markdown(
@@ -1468,7 +1747,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 with st.expander("점수 산출 방식과 한계"):
-    st.dataframe(pd.DataFrame(RISK_LAYER_DEFINITIONS), width="stretch", hide_index=True)
+    show_table(pd.DataFrame(RISK_LAYER_DEFINITIONS), width="stretch", hide_index=True)
     st.markdown(
         """
         - **M-Score만 공식적 기준선을 가집니다.** 전통적 참고 기준은 `-2.22`입니다.
@@ -1527,7 +1806,7 @@ else:
             "peer_reason": "선정 근거",
         }
     )
-    st.dataframe(display_peers, width="stretch", hide_index=True)
+    show_table(display_peers, width="stretch", hide_index=True)
     st.markdown(
         f"<p class='small-note'>현재 Final Risk의 Peer Risk 점수는 Year/Industry 기준 robust z-score와 matched peer 기준 robust z-score를 50:50으로 반영합니다. 선택 회사의 matched peer group size는 {int(analysis_row.get('matched_peer_group_size', 0))}개입니다.</p>",
         unsafe_allow_html=True,
@@ -1572,7 +1851,7 @@ indicator_fig.update_layout(
 st.plotly_chart(style_chart(indicator_fig), width="stretch")
 
 st.markdown("##### 지표 설명")
-st.dataframe(pd.DataFrame(FEATURE_GUIDE_ROWS), width="stretch", hide_index=True)
+show_table(pd.DataFrame(FEATURE_GUIDE_ROWS), width="stretch", hide_index=True)
 st.markdown(
     "<p class='small-note'>위 기준은 감사 결론을 내리는 절대 임계값이 아니라 planning 단계의 참고 기준입니다. M-Score는 Beneish-style 지표를 종합한 값이며, 전통적으로 -2.22보다 높으면 주의 신호로 해석합니다.</p>",
     unsafe_allow_html=True,
@@ -1649,14 +1928,12 @@ calculation_df = calculation_df.rename(
         "m_score": "M-Score",
     }
 )
-st.dataframe(calculation_df, width="stretch", hide_index=True)
+show_table(calculation_df, width="stretch", hide_index=True)
 
-st.markdown("#### 공시 기반 확인 포인트")
-latest_steps = analysis_row["recommended_audit_steps"].splitlines()
-for step in latest_steps:
-    st.markdown(f"- {step}")
+st.markdown("#### ISA/IFRS 기반 확인 질문")
+st.html(audit_question_cards_html(analysis_row))
 st.markdown(
-    "<p class='small-note'>아래 항목은 원장·전표 확인 절차가 아니라, 공시 재무제표와 주석만으로 먼저 확인할 수 있는 질문입니다. 실제 감사에서는 이 중 설명이 부족한 항목을 내부자료 요청과 세부 감사절차로 확장합니다.</p>",
+    "<p class='small-note'>위 질문은 원장·전표 확인 절차가 아니라, 공시 재무제표와 주석만으로 먼저 확인할 수 있는 planning 질문입니다. 실제 감사에서는 설명이 부족한 항목을 내부자료 요청과 세부 감사절차로 확장합니다.</p>",
     unsafe_allow_html=True,
 )
 
@@ -1687,7 +1964,7 @@ if show_market_context:
 
     st.markdown("#### 동일 Industry/Year 참고표")
     top_display = add_explanations(top.sort_values("final_risk_score", ascending=False).copy())
-    st.dataframe(
+    show_table(
         top_display[
             [
                 "stock_code",
@@ -1829,7 +2106,7 @@ if show_model_diagnostics:
             coverage_by_year["companies"] / coverage_by_year["raw_companies"].replace(0, pd.NA)
         ).fillna(0)
         coverage_by_year["scoring_rate"] = (coverage_by_year["scoring_rate"] * 100).round(1)
-        st.dataframe(
+        show_table(
             coverage_by_year.rename(
                 columns={
                     "year": "Year",
@@ -1900,7 +2177,7 @@ if show_model_diagnostics:
         )
         st.plotly_chart(style_chart(missing_fig), width="stretch")
 
-        st.dataframe(
+        show_table(
             missing_summary[["account", "missing_rate", "available_rate"]]
             .sort_values("missing_rate", ascending=False)
             .rename(
@@ -2087,7 +2364,7 @@ if show_model_diagnostics:
         )
         split_summary["avg_final_risk"] = split_summary["avg_final_risk"].round(2)
         split_summary["p90_final_risk"] = split_summary["p90_final_risk"].round(2)
-        st.dataframe(
+        show_table(
             split_summary.rename(
                 columns={
                     "split": "Split",
@@ -2115,7 +2392,7 @@ if show_model_diagnostics:
 
         st.markdown("#### Validation Year 주요 관찰")
         st.markdown("##### 상위 10% 임계값 초과 회사")
-        st.dataframe(
+        show_table(
             validation_flagged.sort_values("final_risk_score", ascending=False)[
                 [
                     "stock_code",
@@ -2134,7 +2411,7 @@ if show_model_diagnostics:
         )
 
         st.markdown("##### 전년 대비 Risk 상승폭 상위 회사")
-        st.dataframe(
+        show_table(
             yoy[
                 [
                     "stock_code",
@@ -2176,7 +2453,7 @@ if show_model_diagnostics:
                 "아직 입력된 외부 이벤트 라벨이 없습니다. "
                 "`data/labels/external_events_template.csv`에 확인된 이벤트를 추가하면 이 영역에서 이벤트 포착률이 자동 계산됩니다."
             )
-            st.dataframe(
+            show_table(
                 pd.DataFrame(columns=EVENT_LABEL_COLUMNS),
                 width="stretch",
                 hide_index=True,
@@ -2219,7 +2496,7 @@ if show_model_diagnostics:
             event_fig.update_layout(showlegend=False, margin=dict(l=10, r=10, t=50, b=10))
             st.plotly_chart(style_chart(event_fig), width="stretch")
 
-            st.dataframe(
+            show_table(
                 captured_events.sort_values("final_risk_score", ascending=False)[
                     [
                         "stock_code",
